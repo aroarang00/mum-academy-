@@ -4194,42 +4194,50 @@ function saveRVRecord() {
     const score     = scoreRaw !== '' ? parseInt(scoreRaw) : undefined;
     const prevScore = getPrevScore(_rvSid);
 
+    console.log('saveRVRecord 시작:', {_rvDate, _rvSid, _rvAcad, score, comment});
+
     if (!_rvDate || !_rvSid) {
-      showToast('오류: 리뷰 정보가 없습니다');
+      showToast('오류: 리뷰 정보가 없습니다 (_rvDate:' + _rvDate + ', _rvSid:' + _rvSid + ')');
       return;
     }
 
     if (!rvDB[_rvDate]) rvDB[_rvDate] = {};
     rvDB[_rvDate][_rvSid] = {
-      score, total, prevScore,
-      tags: [...(_rvTags||[])],
-      comment,
-      imgData: _rvImgData||null,
-      imgName: _rvImgName||'',
-      ts: new Date().toISOString()
+      score:     score !== undefined ? score : null,
+      total:     total || 100,
+      prevScore: prevScore !== undefined ? prevScore : null,
+      tags:      [...(_rvTags||[])],
+      comment:   comment || '',
+      imgData:   _rvImgData || null,
+      imgName:   _rvImgName || '',
+      ts:        new Date().toISOString()
     };
 
     // localStorage 저장
     try { localStorage.setItem(RV_KEY, JSON.stringify(rvDB)); } catch(e) {}
 
-    // Firebase 저장 (imgData 제외)
+    // Firebase 저장 (imgData 제외, undefined → null)
     if (_fdb) {
+      const cleanObj = (obj) => JSON.parse(JSON.stringify(obj, (k, v) => v === undefined ? null : v));
       const rvForFB = {};
       Object.keys(rvDB).forEach(date => {
         rvForFB[date] = {};
         Object.keys(rvDB[date]).forEach(sid => {
           const r = {...rvDB[date][sid]};
           delete r.imgData;
-          rvForFB[date][sid] = r;
+          rvForFB[date][sid] = cleanObj(r);
         });
       });
-      _fdb.ref('rv').set(rvForFB).catch(e => console.warn('rv FB 오류:', e));
+      _fdb.ref('rv').set(rvForFB)
+        .then(() => console.log('✅ 리뷰 FB 저장 완료'))
+        .catch(e => { console.warn('rv FB 오류:', e); showToast('저장 중 오류: ' + e.message); });
     }
 
     closeModal('rvModal');
+    console.log('렌더링:', _rvAcad, 'rvDB:', JSON.stringify(rvDB).slice(0,100));
     renderRVStat(_rvAcad);
     renderRVGrid(_rvAcad);
-    showToast('✅ 리뷰 저장 완료!');
+    showToast('✅ 리뷰 저장 완료! (' + _rvDate + ')');
 
   } catch(err) {
     console.error('saveRVRecord 오류:', err);
