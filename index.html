@@ -1222,7 +1222,8 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   background:#FFFFFF;
   display:none;flex-direction:column;align-items:center;
   justify-content:center;padding:40px 28px;
-  overflow-y:auto;
+  overflow:hidden;
+  -webkit-overflow-scrolling:touch;
 }
 /* 배경 블롭 장식 */
 #loginScreen::before{
@@ -1332,7 +1333,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   padding:28px 22px;
   box-shadow:0 24px 60px rgba(26,26,26,.18);
   animation:popIn .25s cubic-bezier(.34,1.56,.64,1);
-}
+;position:relative}
 .lp-header{text-align:center;margin-bottom:22px}
 
 .lp-type-badge{
@@ -2041,16 +2042,9 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   <!-- 탑바 -->
   <header class="topbar">
     <div class="tb-left">
-      <div class="tb-logo-fixed" id="logoZone" style="display:flex;align-items:center;justify-content:center;padding:0 4px;flex-shrink:0">
-        <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" style="width:80px;height:27px">
-  <defs>
-    <style>@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@800&amp;display=swap');</style>
-  </defs>
-  <text x="0" y="30" font-family="Nunito,Arial Rounded MT Bold,sans-serif" font-size="32" font-weight="800" fill="#F5A623" letter-spacing="-1">mu</text>
-  <circle cx="67" cy="18" r="4.5" fill="#F5A623"/>
-  <circle cx="67" cy="27" r="3" fill="#C47D0E"/>
-  <text x="72" y="30" font-family="Nunito,Arial Rounded MT Bold,sans-serif" font-size="32" font-weight="800" fill="#F5A623" letter-spacing="-1">m</text>
-</svg></div>
+      <div class="tb-logo-fixed" id="logoZone" style="display:flex;align-items:center;justify-content:center;padding:0 6px;flex-shrink:0">
+        <span style="font-family:'Nunito',Georgia,serif;font-size:22px;font-weight:900;color:var(--blue);letter-spacing:-.05em;line-height:1">mu<span style="color:var(--gold);font-size:18px">:</span>m</span>
+      </div>
       <div class="tb-academy-name">
         <div class="tb-acad-main">뮤엠영어 · 폴리오국어논술</div>
         <div class="tb-acad-sub">대치캠퍼스</div>
@@ -2675,16 +2669,11 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 
   <!-- PARENT VIEW -->
   <div class="view" id="parentView">
-    <div id="pLogin" class="p-center" style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:50;overflow-y:auto;background:var(--bg)">
+    <div id="pLogin" class="p-center" style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:50;overflow-y:auto;background:var(--bg);-webkit-overflow-scrolling:touch">
       <div class="p-login-wrap">
         <div class="p-logo-area">
           <div>
-            <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" style="width:100px;height:33px">
-              <text x="0" y="30" font-family="Nunito,Arial Rounded MT Bold,sans-serif" font-size="32" font-weight="800" fill="#1A72B8" letter-spacing="-1">mu</text>
-              <circle cx="67" cy="18" r="4.5" fill="#F5A623"/>
-              <circle cx="67" cy="27" r="3" fill="#C47D0E"/>
-              <text x="72" y="30" font-family="Nunito,Arial Rounded MT Bold,sans-serif" font-size="32" font-weight="800" fill="#1A72B8" letter-spacing="-1">m</text>
-            </svg>
+            <span style="font-family:'Nunito',Georgia,serif;font-size:42px;font-weight:900;color:var(--blue);letter-spacing:-.05em;line-height:1">mu<span style="color:var(--gold);font-size:34px">:</span>m</span>
             <div class="p-logo-academy">English · Folio 국어논술</div>
           </div>
           <div class="p-rule"></div>
@@ -2729,6 +2718,17 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
     <div id="pDash" style="display:none;position:fixed;top:60px;left:0;right:0;bottom:0;z-index:50;overflow-y:auto;background:var(--bg)">
       <div class="p-dash">
         <div class="p-dash-top">
+          <!-- 메시지 & 알림 버튼 -->
+          <div style="padding:16px 20px;border-top:1px solid var(--bd);display:flex;flex-direction:column;gap:8px">
+            <button class="p-msg-btn" onclick="openPMsgModal()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              선생님께 메시지 보내기
+            </button>
+            <button class="p-msg-btn" onclick="requestPushPermission()" id="pPushBtn" style="border-color:var(--blue);color:var(--blue)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <span id="pPushBtnTxt">등하원 알림 받기</span>
+            </button>
+          </div>
           <button class="p-logout" onclick="pLogout()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -4051,7 +4051,9 @@ function updateHWStarUI(n) {
     const el = document.getElementById('hwMs'+i);
     if (!el) continue;
     el.className = 'hw-modal-star' + (i <= n ? ' on star-pop' : '');
-    // CSS on 클래스로만 색상 제어
+    // SVG 전체를 교체하는 방식으로 색상 강제 적용
+    const filled = i <= n;
+    el.innerHTML = `<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="${filled ? '#F5A623' : 'none'}" stroke="${filled ? '#F5A623' : '#CCC'}" stroke-width="1.5"/>`;
   }
   const lbl = document.getElementById('hwStarLbl');
   if (lbl) lbl.textContent = n > 0
@@ -4888,6 +4890,8 @@ async function lpConfirm() {
       // 탑바 모드 버튼 표시
       const msw2 = document.getElementById('modeSw');
       if (msw2) msw2.style.display = 'flex';
+      const msgWrap2 = document.getElementById('msgBtnWrap');
+      if (msgWrap2) msgWrap2.style.display = 'none';
       // 학부모 화면 활성화
       _isAdmin = false;
       document.getElementById('adminView').classList.remove('active');
