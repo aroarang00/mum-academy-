@@ -2,7 +2,7 @@
   "name": "뮤엠 학부모",
   "short_name": "뮤엠 학부모",
   "description": "뮤엠 학원 학부모 페이지 — 자녀의 출석, 과제, 수업 리뷰 확인",
-  "start_url": "/p",
+  "start_url": "/#p",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",

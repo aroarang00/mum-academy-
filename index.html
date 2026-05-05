@@ -180,20 +180,20 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 }
 .seg-btn .l1{font-size:11px;font-weight:800;line-height:1.2;display:block}
 .seg-btn .l2{font-size:9px;font-weight:600;opacity:.7;display:block;margin-top:1px}
-/* 영어 — 옐로우 */
+/* 영어 — 옐로우 (활성화 시 흰 글자 강제) */
 .seg-btn.eng.on{
   background:linear-gradient(135deg,#8B5800,#C47D0E);
-  color:#fff;
+  color:#fff !important;
   box-shadow:0 3px 12px rgba(139,88,0,.35);
 }
-.seg-btn.eng.on .l1,.seg-btn.eng.on .l2{color:#fff !important}
-/* 국어 — 블루 */
+.seg-btn.eng.on .l1,.seg-btn.eng.on .l2{color:#fff !important;opacity:1 !important}
+/* 국어 — 블루 (활성화 시 흰 글자 강제) */
 .seg-btn.kor.on{
   background:linear-gradient(135deg,#0A5A9C,#1A72B8);
-  color:#fff;
+  color:#fff !important;
   box-shadow:0 3px 12px rgba(26,114,184,.35);
 }
-.seg-btn.kor.on .l1,.seg-btn.kor.on .l2{color:#fff}
+.seg-btn.kor.on .l1,.seg-btn.kor.on .l2{color:#fff !important;opacity:1 !important}
 .seg-btn:not(.on):hover{background:rgba(26,26,26,.06)}
 
 /* 내비게이션 */
@@ -999,8 +999,8 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .mac-btn .l1{font-size:12px;font-weight:800;color:var(--t2)}
 .mac-btn .l2{font-size:9px;font-weight:500;color:var(--t4)}
 .mac-btn.on{background:var(--blue);border-color:var(--blue)}
-#macEng.on{background:linear-gradient(135deg,var(--mum-yellow-dk),var(--mum-yellow));border-color:var(--mum-yellow)}
-.mac-btn.on .l1,.mac-btn.on .l2{color:#fff}
+#macEng.on{background:linear-gradient(135deg,#8B5800,#C47D0E);border-color:#C47D0E}
+.mac-btn.on .l1,.mac-btn.on .l2{color:#fff !important;opacity:1 !important}
 
 /* 모바일용 여백 (하단 내비 공간) */
 @media(max-width:680px){
@@ -1146,13 +1146,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   opacity:.4}
 .hw-modal-star.on{opacity:1;
   filter:drop-shadow(0 2px 4px rgba(255,160,0,.5)) drop-shadow(0 0 1px rgba(180,90,0,.4))}
-.hw-modal-star path{fill:#D8D8D8;stroke:#A8A8A8;stroke-width:.6}
-.hw-modal-star#hwMs1.on path{fill:url(#hwSg1)}
-.hw-modal-star#hwMs2.on path{fill:url(#hwSg2)}
-.hw-modal-star#hwMs3.on path{fill:url(#hwSg3)}
-.hw-modal-star#hwMs4.on path{fill:url(#hwSg4)}
-.hw-modal-star#hwMs5.on path{fill:url(#hwSg5)}
-.hw-modal-star.on path{stroke:#B8730A;stroke-width:.6}
+/* path 색상은 JS의 setAttribute로 직접 제어 (CSS fill 강제 제거) */
 .hw-modal-star:hover{transform:scale(1.18)}
 .hw-modal-star.on:hover{filter:drop-shadow(0 3px 6px rgba(255,160,0,.7)) drop-shadow(0 0 2px rgba(180,90,0,.5))}
 @keyframes starPop{0%{transform:scale(0) rotate(-10deg);opacity:0}60%{transform:scale(1.2) rotate(4deg)}100%{transform:scale(1) rotate(0);opacity:1}}
@@ -2216,19 +2210,19 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
         <div class="stat-grid">
           <div class="stat-card"><div class="stat-acc sa-br"></div>
             <div class="stat-top"><div class="stat-ico si-br"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div></div>
-            <div class="stat-num" id="stTotal">5<span class="stat-unit">명</span></div>
+            <div class="stat-num" id="stTotal">—<span class="stat-unit">명</span></div>
             <div class="stat-lbl">전체 학생</div></div>
           <div class="stat-card"><div class="stat-acc sa-g"></div>
             <div class="stat-top"><div class="stat-ico si-g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg></div></div>
-            <div class="stat-num" id="stEng">5<span class="stat-unit">명</span></div>
+            <div class="stat-num" id="stEng">—<span class="stat-unit">명</span></div>
             <div class="stat-lbl">영어 수강생</div></div>
           <div class="stat-card"><div class="stat-acc sa-s"></div>
             <div class="stat-top"><div class="stat-ico si-s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></div></div>
-            <div class="stat-num" id="stKor">4<span class="stat-unit">명</span></div>
+            <div class="stat-num" id="stKor">—<span class="stat-unit">명</span></div>
             <div class="stat-lbl">국어 수강생</div></div>
           <div class="stat-card"><div class="stat-acc sa-a"></div>
             <div class="stat-top"><div class="stat-ico si-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></div></div>
-            <div class="stat-num" id="stUnpaid">0<span class="stat-unit">명</span></div>
+            <div class="stat-num" id="stUnpaid">—<span class="stat-unit">명</span></div>
             <div class="stat-lbl">미납 학생</div>
             <div class="stat-sub" id="stUnpaidSub" style="font-size:10.5px;color:var(--am);font-weight:600;margin-top:3px"></div>
           </div>
@@ -2690,11 +2684,11 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
       <div class="f-block">
         <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--gold)"></span>칭찬 스티커</div>
         <div class="hw-modal-stars" id="hwModalStars">
-          <svg class="hw-modal-star" id="hwMs1" onclick="pickHWStar(1)" viewBox="0 0 24 24"><defs><linearGradient id="hwSg1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#FFE082"/><stop offset="35%" stop-color="#FFB300"/><stop offset="100%" stop-color="#E68A00"/></linearGradient></defs><path id="hwMsP1" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-          <svg class="hw-modal-star" id="hwMs2" onclick="pickHWStar(2)" viewBox="0 0 24 24"><defs><linearGradient id="hwSg2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#FFE082"/><stop offset="35%" stop-color="#FFB300"/><stop offset="100%" stop-color="#E68A00"/></linearGradient></defs><path id="hwMsP2" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-          <svg class="hw-modal-star" id="hwMs3" onclick="pickHWStar(3)" viewBox="0 0 24 24"><defs><linearGradient id="hwSg3" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#FFE082"/><stop offset="35%" stop-color="#FFB300"/><stop offset="100%" stop-color="#E68A00"/></linearGradient></defs><path id="hwMsP3" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-          <svg class="hw-modal-star" id="hwMs4" onclick="pickHWStar(4)" viewBox="0 0 24 24"><defs><linearGradient id="hwSg4" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#FFE082"/><stop offset="35%" stop-color="#FFB300"/><stop offset="100%" stop-color="#E68A00"/></linearGradient></defs><path id="hwMsP4" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-          <svg class="hw-modal-star" id="hwMs5" onclick="pickHWStar(5)" viewBox="0 0 24 24"><defs><linearGradient id="hwSg5" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#FFE082"/><stop offset="35%" stop-color="#FFB300"/><stop offset="100%" stop-color="#E68A00"/></linearGradient></defs><path id="hwMsP5" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+          <svg class="hw-modal-star" id="hwMs1" onclick="pickHWStar(1)" viewBox="0 0 24 24"><path id="hwMsP1" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#D8D8D8" stroke="#A8A8A8" stroke-width="0.6"></path></svg>
+          <svg class="hw-modal-star" id="hwMs2" onclick="pickHWStar(2)" viewBox="0 0 24 24"><path id="hwMsP2" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#D8D8D8" stroke="#A8A8A8" stroke-width="0.6"></path></svg>
+          <svg class="hw-modal-star" id="hwMs3" onclick="pickHWStar(3)" viewBox="0 0 24 24"><path id="hwMsP3" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#D8D8D8" stroke="#A8A8A8" stroke-width="0.6"></path></svg>
+          <svg class="hw-modal-star" id="hwMs4" onclick="pickHWStar(4)" viewBox="0 0 24 24"><path id="hwMsP4" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#D8D8D8" stroke="#A8A8A8" stroke-width="0.6"></path></svg>
+          <svg class="hw-modal-star" id="hwMs5" onclick="pickHWStar(5)" viewBox="0 0 24 24"><path id="hwMsP5" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#D8D8D8" stroke="#A8A8A8" stroke-width="0.6"></path></svg>
         </div>
         <div style="text-align:center;font-size:11.5px;color:var(--t4);margin-top:4px" id="hwStarLbl">스티커 개수를 선택하세요</div>
       </div>
@@ -3154,6 +3148,9 @@ function saveSlogan() {
 /* 학원 전환 */
 function switchAcad(a) {
   curAcad = a;
+  // 모든 학원 관련 변수 동기화 (학생/과제/리뷰가 한꺼번에 같은 학원 반영)
+  if (typeof _hwAcad !== 'undefined') _hwAcad = a;
+  if (typeof _rvAcad !== 'undefined') _rvAcad = a;
   document.getElementById('sEng').classList.toggle('on', a === 'eng');
   document.getElementById('sKor').classList.toggle('on', a === 'kor');
   document.getElementById('engGrp').style.display = a === 'eng' ? '' : 'none';
@@ -3179,8 +3176,21 @@ function switchAcad(a) {
   ey.textContent = a === 'eng' ? 'mu:m English 대치캠퍼스' : '폴리오국어논술 대치캠퍼스';
   document.getElementById('pgTitle').textContent = a === 'eng' ? '영어반 학생 명단' : '국어반 학생 명단';
   document.getElementById('tbLbl').textContent = a === 'eng' ? '뮤엠영어 대치캠퍼스' : '뮤엠폴리오 대치캠퍼스';
-  goSec('students', document.getElementById('nl-students'));
+  // 현재 보고 있는 화면을 유지하면서 학원만 전환
+  // 학생 명단 화면이면 학생 명단 새로 그리기
+  // 과제/리뷰 화면이면 그 화면 새로 그리기
   renderStudents();
+  // 과제 화면이 활성화돼 있으면 새로 그리기
+  try {
+    if (typeof renderHW === 'function') renderHW(a);
+  } catch(e) {}
+  try {
+    if (typeof renderRV === 'function') renderRV(a);
+  } catch(e) {}
+  // 출석부도 새로 그리기
+  try {
+    if (typeof renderAtt === 'function') renderAtt();
+  } catch(e) {}
 }
 
 /* 섹션 전환 */
@@ -4759,7 +4769,7 @@ function pLogout() {
     const mnav = document.getElementById('mobileNav');
     if (mnav) mnav.style.removeProperty('display');
     const mac = document.getElementById('mobileAcadBar');
-    if (mac) mac.style.display = 'flex';
+    if (mac) mac.style.removeProperty('display');
   }
 }
 
@@ -5131,7 +5141,7 @@ async function lpConfirm() {
       // 관리자 화면 활성화
       document.getElementById('adminView').classList.add('active');
       const macBar = document.getElementById('mobileAcadBar');
-      if (macBar) macBar.style.display = 'flex';
+      if (macBar) macBar.style.removeProperty('display');
       // 관리자 화면에서 하단 내비 보이기
       const mnavA = document.getElementById('mobileNav');
       if (mnavA) mnavA.style.removeProperty('display');
