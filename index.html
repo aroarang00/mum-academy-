@@ -1068,8 +1068,8 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .hw-lv-btn.sel-none{border-color:#E0C0C0;background:var(--rd-lt);color:var(--rd)}
 .hw-modal-stars{display:flex;gap:9px;justify-content:center;padding:5px 0}
 .hw-modal-star{width:34px;height:34px;cursor:pointer;transition:transform .15s;
-  filter:grayscale(1);opacity:.3}
-.hw-modal-star.on{filter:grayscale(0);opacity:1}
+  opacity:.3}
+.hw-modal-star.on{opacity:1}
 .hw-modal-star.on path{fill:#F5A623;stroke:none}
 .hw-modal-star:hover{transform:scale(1.18)}
 @keyframes starPop{0%{transform:scale(0) rotate(-10deg);opacity:0}60%{transform:scale(1.2) rotate(4deg)}100%{transform:scale(1) rotate(0);opacity:1}}
@@ -2014,6 +2014,11 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
         <span class="sb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg></span>
         출석부
       </div>
+      <div class="sb-item s-nav" id="nl-msg" onclick="toggleMsgAlert()" style="position:relative">
+        <span class="sb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></span>
+        학부모 메시지
+        <span class="msg-badge" id="msgBadgeSidebar" style="display:none;position:absolute;top:8px;right:12px">0</span>
+      </div>
     </div>
     <div class="sb-grp" id="engGrp">
       <div class="sb-grp-lbl" style="color:#C47D0E;font-weight:900">● mu:m english</div>
@@ -2076,12 +2081,6 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
       </div>
     </div>
     <div class="tb-right">
-      <div style="position:relative;display:none" id="msgBtnWrap">
-        <button onclick="toggleMsgAlert()" style="background:none;border:none;cursor:pointer;padding:6px;border-radius:10px;display:flex;align-items:center;justify-content:center" title="학부모 메시지">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--t2)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        </button>
-        <span class="msg-badge" id="msgBadge" style="display:none">0</span>
-      </div>
       <div class="tb-date" id="tbDate">2026. 05. 04 (월)</div>
       <div class="mode-sw" id="modeSw">
         <button class="ms-btn on" id="msAdmin" onclick="switchMode(&#39;admin&#39;)">
@@ -2323,9 +2322,10 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
       <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
       <span>리뷰</span>
     </button>
-    <button class="mn-btn" id="mnKiosk" onclick="openKiosk()">
-      <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-      <span>키오스크</span>
+    <button class="mn-btn" id="mnMsg" onclick="toggleMsgAlert()" style="position:relative">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>메시지</span>
+      <span class="msg-badge" id="msgBadge" style="display:none">0</span>
     </button>
   </div>
 </div>
@@ -2987,6 +2987,16 @@ function init() {
   syncCurrBlocks();
   /* Firebase에서 최신 데이터 로드 후 갱신 */
   _loadFirebase();
+
+  /* 키오스크 전용 URL(/kiosk) 자동 진입 */
+  const path = window.location.pathname;
+  const hash = window.location.hash;
+  if (path.endsWith('/kiosk') || hash === '#kiosk') {
+    setTimeout(() => {
+      if (ls) ls.style.display = 'none';
+      openKiosk();
+    }, 200);
+  }
 }
 
 async function _loadFirebase() {
@@ -3918,7 +3928,7 @@ function saveRV() {
 let _hwDate = todayISO(), _hwAcad = 'eng', _hwFilter = 'all';
 let _hwSid = null, _hwLevel = null, _hwStars = 0;
 let _rvDate = todayISO(), _rvAcad = 'eng', _rvFilter = 'all';
-let _rvSid = null, _rvTags = [], _rvImgData = null, _rvImgName = '';
+let _rvSid = null, _rvTags = [], _rvImgData = null, _rvImgName = '', _rvImages = [];
 
 /* 날짜 */
 function setHWToday() { _hwDate = todayISO(); syncHWPickers(); renderHW(_hwAcad); }
@@ -4235,7 +4245,7 @@ function buildRVCard(s, rec, acad) {
 /* 리뷰 모달 */
 function openRVModal(sid, acad, e) {
   if (e) e.stopPropagation();
-  _rvSid = sid; _rvAcad = acad; _rvTags = []; _rvImgData = null; _rvImgName = '';
+  _rvSid = sid; _rvAcad = acad; _rvTags = []; _rvImgData = null; _rvImgName = ''; _rvImages = [];
   const s   = db.students.find(x => x.id === sid); if (!s) return;
   const rec = (rvDB[_rvDate] || {})[sid] || {};
   const stage = acad === 'eng'
@@ -4250,21 +4260,23 @@ function openRVModal(sid, acad, e) {
   document.getElementById('rvCommentInp').oninput  = () =>
     document.getElementById('rvCharCnt').textContent = document.getElementById('rvCommentInp').value.length + '자';
   _rvTags = [...(rec.tags || [])];
-  _rvImgData = rec.imgData || null; _rvImgName = rec.imgName || '';
+  // 이미지 복원: 새 형식(images 배열) 우선, 없으면 옛 형식(imgData 단일) 호환
+  if (Array.isArray(rec.images) && rec.images.length) {
+    _rvImages = rec.images.map(img => ({ data: img.data, name: img.name || '' }));
+  } else if (rec.imgData) {
+    _rvImages = [{ data: rec.imgData, name: rec.imgName || '' }];
+  } else {
+    _rvImages = [];
+  }
+  _rvImgData = _rvImages[0]?.data || null;
+  _rvImgName = _rvImages[0]?.name || '';
   document.getElementById('rvPrevInp').value = getPrevScore(sid) !== undefined ? getPrevScore(sid) : '';
   // 태그 버튼 상태
   document.querySelectorAll('.rv-tag-btn').forEach(btn =>
     btn.classList.toggle('tag-on', _rvTags.includes(btn.textContent.trim()))
   );
-  // 이미지 미리보기
-  const preview = document.getElementById('rvFilePreview');
-  if (_rvImgData) {
-    preview.style.display = 'block';
-    preview.innerHTML = `<img src="${_rvImgData}" style="width:100%;max-height:130px;object-fit:contain;border-radius:9px;border:1px solid var(--bd);">
-      <div style="font-size:10.5px;color:var(--t4);margin-top:3px;text-align:center">${_rvImgName} <button onclick="clearRVImg()" style="border:none;background:none;color:var(--rd);cursor:pointer;font-size:10.5px;font-family:inherit">삭제</button></div>`;
-  } else {
-    preview.style.display = 'none'; preview.innerHTML = '';
-  }
+  // 이미지 미리보기 (새 시스템)
+  renderRVImgPreview();
   document.getElementById('rvFileInp').value = '';
   openModal('rvModal');
 }
@@ -4273,26 +4285,12 @@ function toggleRVTag(btn, tag) {
   const idx = _rvTags.indexOf(tag);
   if (idx >= 0) _rvTags.splice(idx, 1); else _rvTags.push(tag);
 }
-function handleRVFile(e) {
-  const file = e.target.files[0]; if (!file) return;
-  _rvImgName = file.name;
-  const r = new FileReader();
-  r.onload = ev => {
-    _rvImgData = ev.target.result;
-    const preview = document.getElementById('rvFilePreview');
-    preview.style.display = 'block';
-    preview.innerHTML = file.type.startsWith('image/')
-      ? `<img src="${_rvImgData}" style="width:100%;max-height:130px;object-fit:contain;border-radius:9px;border:1px solid var(--bd);">
-         <div style="font-size:10.5px;color:var(--t4);margin-top:3px;text-align:center">${_rvImgName} <button onclick="clearRVImg()" style="border:none;background:none;color:var(--rd);cursor:pointer;font-size:10.5px;font-family:inherit">삭제</button></div>`
-      : `<div style="padding:10px 13px;background:var(--bg);border-radius:9px;font-size:12.5px;font-weight:600;color:var(--t2)">${_rvImgName} <button onclick="clearRVImg()" style="border:none;background:none;color:var(--rd);cursor:pointer;margin-left:7px;font-size:10.5px;font-family:inherit">삭제</button></div>`;
-  };
-  r.readAsDataURL(file);
-}
 function clearRVImg() {
+  _rvImages = [];
   _rvImgData = null; _rvImgName = '';
-  const p = document.getElementById('rvFilePreview');
-  p.style.display = 'none'; p.innerHTML = '';
-  document.getElementById('rvFileInp').value = '';
+  renderRVImgPreview();
+  const inp = document.getElementById('rvFileInp');
+  if (inp) inp.value = '';
 }
 function saveRVRecord() {
   try {
@@ -4316,15 +4314,16 @@ function saveRVRecord() {
       prevScore: prevScore !== undefined ? prevScore : null,
       tags:      [...(_rvTags||[])],
       comment:   comment || '',
-      imgData:   _rvImgData || null,
-      imgName:   _rvImgName || '',
+      images:    Array.isArray(_rvImages) ? _rvImages.map(img => ({ data: img.data, name: img.name || '' })) : [],
+      imgData:   _rvImages?.[0]?.data || null,
+      imgName:   _rvImages?.[0]?.name || '',
       ts:        new Date().toISOString()
     };
 
     // localStorage 저장
     try { localStorage.setItem(RV_KEY, JSON.stringify(rvDB)); } catch(e) {}
 
-    // Firebase 저장 (imgData 제외, undefined → null)
+    // Firebase 저장 (이미지 데이터 제외, undefined → null)
     if (_fdb) {
       const cleanObj = (obj) => JSON.parse(JSON.stringify(obj, (k, v) => v === undefined ? null : v));
       const rvForFB = {};
@@ -4333,6 +4332,7 @@ function saveRVRecord() {
         Object.keys(rvDB[date]).forEach(sid => {
           const r = {...rvDB[date][sid]};
           delete r.imgData;
+          delete r.images;
           rvForFB[date][sid] = cleanObj(r);
         });
       });
@@ -4354,12 +4354,27 @@ function saveRVRecord() {
 }
 function viewRVImg(sid, e) {
   if (e) e.stopPropagation();
-  const rec = (rvDB[_rvDate] || {})[sid]; if (!rec?.imgData) return;
+  const rec = (rvDB[_rvDate] || {})[sid]; if (!rec) return;
+  // 새 형식(images 배열) 우선, 없으면 옛 형식(imgData)
+  let imgs = [];
+  if (Array.isArray(rec.images) && rec.images.length) {
+    imgs = rec.images.map(img => img.data);
+  } else if (rec.imgData) {
+    imgs = [rec.imgData];
+  }
+  if (!imgs.length) return;
   const w = window.open('', '_blank', 'width=860,height=680');
-  w.document.write(`<html><body style="margin:0;background:#111;display:flex;align-items:center;justify-content:center;min-height:100vh"><img src="${rec.imgData}" style="max-width:100%;max-height:100vh;object-fit:contain">
-<!-- ── 모바일 학원 전환 바 ── -->
-
-
+  const imgsHtml = imgs.map(d => `<img src="${d}" style="max-width:100%;max-height:90vh;object-fit:contain;margin:8px;border-radius:8px">`).join('');
+  w.document.write(`<html><body style="margin:0;background:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:12px">${imgsHtml}</body></html>`);
+  w.document.close();
+}
+/* ───────────────────────────────────────
+   ※ 아래의 모달들은 메인 페이지에서 사용하는 HTML 요소들입니다.
+   원본 파일 구조상 이 위치(스크립트 안)에 들어가 있었으나,
+   실제로는 페이지 로드 시 DOM에 삽입되어 있어야 동작합니다.
+   삭제하지 말고 이 자리에 그대로 유지하세요.
+─────────────────────────────────────── */
+const _rvModalsHtmlPlaceholder = `
 <!-- 학부모→관리자 메시지 모달 -->
 <div class="p-msg-modal" id="pMsgModal">
   <div class="p-msg-box">
@@ -4388,9 +4403,17 @@ function viewRVImg(sid, e) {
     <button onclick="closeMsgAlert()" style="flex:1;padding:8px;border-radius:10px;border:none;background:var(--blue);color:#fff;font-size:12px;cursor:pointer;font-family:inherit;font-weight:700">닫기</button>
   </div>
 </div>
+`;
+// 페이지에 모달이 없으면 자동 삽입
+(function ensureRVModals() {
+  if (typeof document === 'undefined') return;
+  if (!document.getElementById('pMsgModal') || !document.getElementById('msgAlertPopup')) {
+    const div = document.createElement('div');
+    div.innerHTML = _rvModalsHtmlPlaceholder;
+    document.body.appendChild(div);
+  }
+})();
 
-</body></html>`);
-}
 function sendRVReport(sid, acad, e) {
   if (e) e.stopPropagation();
   const s   = db.students.find(x => x.id === sid); if (!s) return;
@@ -4441,6 +4464,15 @@ function switchMode(m) {
   document.getElementById('adminSubnav').style.display = m === 'admin' ? '' : 'none';
   document.getElementById('msAdmin').classList.toggle('on',  m === 'admin');
   document.getElementById('msParent').classList.toggle('on', m === 'parent');
+  // 학부모 모드일 때 모바일 하단 탭바 숨김
+  const mnav = document.getElementById('mobileNav');
+  if (mnav) {
+    if (m === 'parent') {
+      mnav.style.setProperty('display','none','important');
+    } else {
+      mnav.style.removeProperty('display');
+    }
+  }
   if (m === 'parent') initParentLogin();
 }
 
@@ -4915,8 +4947,6 @@ async function lpConfirm() {
       // 탑바 모드 버튼 표시
       const msw2 = document.getElementById('modeSw');
       if (msw2) msw2.style.display = 'flex';
-      const msgWrap2 = document.getElementById('msgBtnWrap');
-      if (msgWrap2) msgWrap2.style.display = 'none';
       // 학부모 화면 활성화
       _isAdmin = false;
       document.getElementById('adminView').classList.remove('active');
@@ -5139,8 +5169,21 @@ async function requestPushPermission() {
 
 /* ── 학부모→관리자 메시지 ── */
 function openPMsgModal() {
-  const s = _pStudent;
-  if (!s) return;
+  let s = _pStudent;
+  // _pStudent가 비어있으면 화면에 표시된 자녀 이름으로 db에서 다시 찾기 시도
+  if (!s) {
+    const childNameEl = document.getElementById('pChildName');
+    if (childNameEl && db.students) {
+      const childName = childNameEl.textContent.replace(' 학생', '').trim();
+      s = db.students.find(x => x.name === childName);
+      if (s) _pStudent = s;
+    }
+  }
+  // 그래도 없으면 사용자에게 알림 (조용히 실패하지 않음)
+  if (!s) {
+    showToast('정보를 다시 불러오는 중입니다. 잠시 후 다시 시도해주세요.');
+    return;
+  }
   const sub = document.getElementById('pMsgSub');
   if (sub) sub.textContent = `${s.name} 학생 학부모님 → 선생님`;
   document.getElementById('pMsgText').value = '';
@@ -5335,9 +5378,6 @@ let _msgPopupOpen = false;
 
 function initMsgWatch() {
   if (!_fdb) return;
-  // 메시지 버튼 표시 (관리자만)
-  const msgWrap = document.getElementById('msgBtnWrap');
-  if (msgWrap) msgWrap.style.display = 'inline-flex';
   _fdb.ref('messages').on('value', snap => {
     _msgData = snap.val() || {};
     updateMsgBadge();
@@ -5346,13 +5386,18 @@ function initMsgWatch() {
 
 function updateMsgBadge() {
   const unread = Object.values(_msgData).filter(m => !m.read).length;
+  // 모바일 하단 탭바 배지
   const badge = document.getElementById('msgBadge');
-  const wrap = document.getElementById('msgBtnWrap');
   if (badge) {
     badge.textContent = unread;
     badge.style.display = unread > 0 ? 'flex' : 'none';
   }
-  if (wrap) wrap.style.display = 'inline-flex';
+  // PC 사이드바 배지
+  const badgeSb = document.getElementById('msgBadgeSidebar');
+  if (badgeSb) {
+    badgeSb.textContent = unread;
+    badgeSb.style.display = unread > 0 ? 'flex' : 'none';
+  }
   // 새 메시지 있으면 자동 팝업
   if (unread > 0 && !_msgPopupOpen) {
     setTimeout(() => openMsgAlert(), 1500);
