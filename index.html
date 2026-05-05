@@ -18,7 +18,39 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
 <link rel="apple-touch-icon" href="/icon-512.png">
-<link rel="manifest" href="/manifest.json">
+
+<!-- ══ PWA 매니페스트 — URL에 따라 즉시 결정 (head에서 동기 실행) ══ -->
+<script>
+(function() {
+  try {
+    var path = window.location.pathname;
+    var hash = window.location.hash;
+    var isParent = (path.endsWith('/p') || hash === '#p');
+    var isKiosk = (path.endsWith('/kiosk') || hash === '#kiosk');
+    var manifestPath = '/manifest.json'; // 기본: 관리자
+    if (isParent) manifestPath = '/manifest-parent.json';
+    else if (isKiosk) manifestPath = '/manifest-kiosk.json';
+    // 매니페스트 link 태그를 동적으로 생성해서 head에 추가
+    var mLink = document.createElement('link');
+    mLink.rel = 'manifest';
+    mLink.href = manifestPath;
+    document.head.appendChild(mLink);
+    // 모바일 웹앱 타이틀도 동기화
+    var titles = { '/manifest.json':'뮤엠 관리', '/manifest-parent.json':'뮤엠 학부모', '/manifest-kiosk.json':'뮤엠 출석' };
+    var tMeta = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+    if (tMeta) tMeta.setAttribute('content', titles[manifestPath] || '뮤엠 학원');
+    // body에 모드 클래스 미리 표시 (탭바 숨김 등 CSS 즉시 적용용)
+    // body 태그가 아직 안 만들어졌을 수 있으므로 DOMContentLoaded에 한 번 더
+    function applyBodyClass() {
+      if (!document.body) return;
+      if (isParent) document.body.classList.add('parent-mode');
+      if (isKiosk) document.body.classList.add('kiosk-mode');
+    }
+    applyBodyClass();
+    document.addEventListener('DOMContentLoaded', applyBodyClass);
+  } catch(e) { console.warn('manifest swap error:', e); }
+})();
+</script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800;900&display=swap" rel="stylesheet">
@@ -973,6 +1005,17 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 /* 모바일용 여백 (하단 내비 공간) */
 @media(max-width:680px){
   .mobile-nav{display:block}
+  /* 학부모 페이지 활성화 시 모바일 탭바 + 학원 전환바 강제 숨김 */
+  body.parent-mode .mobile-nav,
+  body.parent-mode #mobileNav,
+  body.parent-mode .mobile-acad-bar,
+  body.parent-mode #mobileAcadBar{
+    display:none !important;
+    visibility:hidden !important;
+    height:0 !important;
+    overflow:hidden !important;
+    pointer-events:none !important;
+  }
   .mobile-acad-bar{display:flex}
   .page{padding:16px 14px 100px}
   .topbar{padding:0 14px}
@@ -1410,7 +1453,8 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   opacity:0;transition:opacity .2s;font-weight:600;
 }
 .lp-error.show{opacity:1}
-.lp-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:0}
+.lp-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:0;
+  touch-action:manipulation;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 .lp-key{
   height:58px;border-radius:13px;border:none;
   background:var(--sand);cursor:pointer;
@@ -1418,6 +1462,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   font-family:inherit;transition:all .13s;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;gap:1px;
+  touch-action:manipulation;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;
 }
 .lp-key:hover{background:var(--bdm);transform:scale(1.03)}
 .lp-key:active{transform:scale(.92);background:var(--blue-lt)}
@@ -2106,7 +2151,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 <!-- ══ CONTENT ══ -->
 <div class="content">
 
-<div class="mobile-acad-bar" id="mobileAcadBar" style="display:none!important;height:0;overflow:hidden;padding:0;border:none">
+<div class="mobile-acad-bar" id="mobileAcadBar">
   <button class="mac-btn on" id="macEng" onclick="switchAcad('eng')">
     <span class="l1">mu:m english</span>
     <span class="l2">영어반</span>
@@ -3017,17 +3062,7 @@ function showToast(msg, dur=2600) {
    INIT
 ═══════════════════════════════════ */
 function init() {
-  // ── PWA: URL에 따라 매니페스트 동적 변경 ──
-  // /p (또는 #p) → 학부모 앱, /kiosk (또는 #kiosk) → 키오스크 앱, 그 외 → 관리자 앱
-  try {
-    const path = window.location.pathname;
-    const hash = window.location.hash;
-    let manifestPath = '/manifest.json'; // 기본: 관리자
-    if (path.endsWith('/p') || hash === '#p') manifestPath = '/manifest-parent.json';
-    else if (path.endsWith('/kiosk') || hash === '#kiosk') manifestPath = '/manifest-kiosk.json';
-    const mLink = document.querySelector('link[rel="manifest"]');
-    if (mLink) mLink.setAttribute('href', manifestPath);
-  } catch(e) { console.warn('manifest swap error:', e); }
+  // PWA 매니페스트는 head에서 이미 처리됨 (URL에 따라 즉시 결정)
 
   // 시작 시 로그인 화면 표시
   // loginScreen은 HTML에서 display:none으로 시작, JS에서 표시
@@ -3191,7 +3226,11 @@ function updateStats() {
 ═══════════════════════════════════ */
 function renderStudents() {
   const q = (document.getElementById('srchInp').value || '').trim().toLowerCase();
-  let list = db.students.filter(s => curAcad === 'eng' ? s.eng : s.kor);
+  // 영어/국어 둘 다 받지 않는 학생도 양쪽 탭에 표시 (영/국 미배정 학생 누락 방지)
+  let list = db.students.filter(s => {
+    if (curAcad === 'eng') return s.eng || (!s.eng && !s.kor);
+    return s.kor || (!s.eng && !s.kor);
+  });
   if (curFilter === '유치부') list = list.filter(s => s.grade.startsWith('유치'));
   else if (curFilter === '초등')  list = list.filter(s => s.grade.startsWith('초'));
   else if (curFilter === '중등')  list = list.filter(s => s.grade.startsWith('중'));
@@ -4049,7 +4088,8 @@ function renderHW(acad) {
 }
 function renderHWStat(acad) {
   const day = hwDB[_hwDate] || {};
-  const list = db.students.filter(s => acad === 'eng' ? s.eng : s.kor);
+  // 영어/국어 둘 다 미배정 학생도 양쪽에 표시
+  const list = db.students.filter(s => acad === 'eng' ? (s.eng || (!s.eng && !s.kor)) : (s.kor || (!s.eng && !s.kor)));
   let done=0, none=0, hi=0;
   list.forEach(s => {
     const r = day[s.id];
@@ -4067,7 +4107,8 @@ function renderHWStat(acad) {
 function renderHWGrid(acad) {
   const day = hwDB[_hwDate] || {};
   const attDay = attDB[_hwDate] || {};
-  let list = db.students.filter(s => acad === 'eng' ? s.eng : s.kor);
+  // 영어/국어 둘 다 미배정 학생도 양쪽에 표시
+  let list = db.students.filter(s => acad === 'eng' ? (s.eng || (!s.eng && !s.kor)) : (s.kor || (!s.eng && !s.kor)));
   // 출석한 학생만 보기 (등원했고 결석 아닌 경우) — 오늘 날짜에만 적용
   if (_hwShowOnlyAttended && _hwDate === todayISO()) {
     list = list.filter(s => {
@@ -4176,10 +4217,21 @@ function updateHWStarUI(n) {
     const el = document.getElementById('hwMs'+i);
     if (!el) continue;
     el.className = 'hw-modal-star' + (i <= n ? ' on star-pop' : '');
-    // SVG 전체 교체 — 그라디언트 정의(<defs>)도 같이 다시 그려서 색이 유지되게 함
     const filled = i <= n;
-    const gradId = 'hwSg' + i;
-    el.innerHTML = `<defs><linearGradient id="${gradId}" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#FFE082"/><stop offset="35%" stop-color="#FFB300"/><stop offset="100%" stop-color="#E68A00"/></linearGradient></defs><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="${filled ? `url(#${gradId})` : '#D8D8D8'}" stroke="${filled ? '#B8730A' : '#A8A8A8'}" stroke-width="${filled ? '0.6' : '0.6'}"/>`;
+    // path 요소만 찾아서 fill/stroke 속성 직접 변경 — DOM 교체보다 안정적
+    const path = el.querySelector('path');
+    if (path) {
+      if (filled) {
+        // 진한 노랑→주황 그라디언트 효과 (단색 + 그림자로 입체감 표현)
+        path.setAttribute('fill', '#FFA000');
+        path.setAttribute('stroke', '#C77F00');
+        path.setAttribute('stroke-width', '0.5');
+      } else {
+        path.setAttribute('fill', '#D8D8D8');
+        path.setAttribute('stroke', '#A8A8A8');
+        path.setAttribute('stroke-width', '0.6');
+      }
+    }
   }
   const lbl = document.getElementById('hwStarLbl');
   if (lbl) lbl.textContent = n > 0
@@ -4243,7 +4295,8 @@ function renderRV(acad) {
 }
 function renderRVStat(acad) {
   const day  = rvDB[_rvDate] || {};
-  const list = db.students.filter(s => acad === 'eng' ? s.eng : s.kor);
+  // 영어/국어 둘 다 미배정 학생도 양쪽에 표시
+  const list = db.students.filter(s => acad === 'eng' ? (s.eng || (!s.eng && !s.kor)) : (s.kor || (!s.eng && !s.kor)));
   let done=0, total=0, cnt=0;
   list.forEach(s => {
     const r = day[s.id];
@@ -4261,7 +4314,8 @@ function renderRVStat(acad) {
 }
 function renderRVGrid(acad) {
   const day  = rvDB[_rvDate] || {};
-  let list   = db.students.filter(s => acad === 'eng' ? s.eng : s.kor);
+  // 영어/국어 둘 다 미배정 학생도 양쪽에 표시
+  let list   = db.students.filter(s => acad === 'eng' ? (s.eng || (!s.eng && !s.kor)) : (s.kor || (!s.eng && !s.kor)));
   if (_rvFilter === 'done') list = list.filter(s =>  (day[s.id]?.comment || day[s.id]?.score !== undefined));
   if (_rvFilter === 'none') list = list.filter(s => !(day[s.id]?.comment || day[s.id]?.score !== undefined));
   const grid = document.getElementById(acad === 'eng' ? 'rvGridE' : 'rvGridK');
@@ -4493,7 +4547,10 @@ function viewRVImg(sid, e) {
   if (!imgs.length) return;
   const w = window.open('', '_blank', 'width=860,height=680');
   const imgsHtml = imgs.map(d => `<img src="${d}" style="max-width:100%;max-height:90vh;object-fit:contain;margin:8px;border-radius:8px">`).join('');
-  w.document.write(`<html><body style="margin:0;background:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:12px">${imgsHtml}</body></html>`);
+  w.document.write(`<html><head><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=3.0"><title>사진 보기</title></head><body style="margin:0;background:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:12px">
+    <button onclick="window.close()" style="position:fixed;top:16px;right:16px;width:48px;height:48px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);color:#111;font-size:24px;font-weight:bold;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:9999;display:flex;align-items:center;justify-content:center;line-height:1">✕</button>
+    ${imgsHtml}
+  </body></html>`);
   w.document.close();
 }
 /* ───────────────────────────────────────
@@ -4592,7 +4649,9 @@ function switchMode(m) {
   document.getElementById('adminSubnav').style.display = m === 'admin' ? '' : 'none';
   document.getElementById('msAdmin').classList.toggle('on',  m === 'admin');
   document.getElementById('msParent').classList.toggle('on', m === 'parent');
-  // 학부모 모드일 때 모바일 하단 탭바 숨김
+  // body에 parent-mode 클래스 토글 (CSS로 탭바 숨김 처리)
+  document.body.classList.toggle('parent-mode', m === 'parent');
+  // 학부모 모드일 때 모바일 하단 탭바 숨김 (JS도 같이)
   const mnav = document.getElementById('mobileNav');
   if (mnav) {
     if (m === 'parent') {
@@ -4667,7 +4726,21 @@ async function pkOk() {
   _pStudent = match;
   document.getElementById('pLogin').style.display = 'none';
   document.getElementById('pDash').style.display  = 'block';
+  // 학부모 모드: 모바일 하단 탭바 강제 숨김 (반복 호출하여 보장)
+  const hideMNav = () => {
+    const mnav = document.getElementById('mobileNav');
+    if (mnav) {
+      mnav.style.setProperty('display','none','important');
+      mnav.style.setProperty('visibility','hidden','important');
+    }
+    document.body.classList.add('parent-mode');
+  };
+  hideMNav();
+  setTimeout(hideMNav, 100);
+  setTimeout(hideMNav, 500);
   renderParentDash(match);
+  // 알림 권한 상태 동기화
+  setTimeout(syncPushBtnState, 200);
 }
 
 function pLogout() {
@@ -4934,7 +5007,10 @@ function togglePFB(key, type, btn) {
 function openParentRvImg(dataUrl) {
   const w = window.open('', '_blank', 'width=860,height=680');
   if (!w) return;
-  w.document.write(`<html><head><title>수업 리뷰 사진</title></head><body style="margin:0;background:#111;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:12px"><img src="${dataUrl}" style="max-width:100%;max-height:95vh;object-fit:contain;border-radius:8px"></body></html>`);
+  w.document.write(`<html><head><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=3.0"><title>수업 리뷰 사진</title></head><body style="margin:0;background:#111;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:12px">
+    <button onclick="window.close()" style="position:fixed;top:16px;right:16px;width:48px;height:48px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);color:#111;font-size:24px;font-weight:bold;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:9999;display:flex;align-items:center;justify-content:center;line-height:1">✕</button>
+    <img src="${dataUrl}" style="max-width:100%;max-height:95vh;object-fit:contain;border-radius:8px">
+  </body></html>`);
   w.document.close();
 }
 
@@ -5096,7 +5172,9 @@ async function lpConfirm() {
       if (macBar2) macBar2.style.display = 'none';
       // 학부모 화면에서 하단 내비 숨기기
       const mnav = document.getElementById('mobileNav');
-      if (mnav) mnav.style.display = 'none';
+      if (mnav) mnav.style.setProperty('display', 'none', 'important');
+      // body 클래스 추가
+      document.body.classList.add('parent-mode');
       // 탑바 모드 버튼 표시
       const msw2 = document.getElementById('modeSw');
       if (msw2) msw2.style.display = 'flex';
@@ -5116,6 +5194,8 @@ async function lpConfirm() {
       document.getElementById('pLogin').style.display = 'none';
       document.getElementById('pDash').style.display = 'block';
       renderParentDash(match);
+      // 알림 권한 상태 동기화
+      setTimeout(syncPushBtnState, 200);
     } else {
       lpShowError('일치하는 번호가 없습니다');
     }
@@ -5310,13 +5390,40 @@ async function requestPushPermission() {
     showToast('이 브라우저는 알림을 지원하지 않아요');
     return;
   }
+  // 이미 허용된 상태면 안내만 표시
+  if (Notification.permission === 'granted') {
+    showToast('✅ 알림이 이미 설정되어 있어요');
+    const btnTxt = document.getElementById('pPushBtnTxt');
+    if (btnTxt) btnTxt.textContent = '✅ 알림 설정 완료';
+    const btnEl = document.getElementById('pPushBtn');
+    if (btnEl) btnEl.classList.add('done');
+    return;
+  }
   const perm = await Notification.requestPermission();
   const btn = document.getElementById('pPushBtnTxt');
   if (perm === 'granted') {
     showToast('✅ 알림이 설정됐어요! 등하원 시 알림을 받을 수 있어요');
     if (btn) btn.textContent = '✅ 알림 설정 완료';
+    const btnEl = document.getElementById('pPushBtn');
+    if (btnEl) btnEl.classList.add('done');
+    // 알림 설정 완료 정보를 localStorage에 저장 (브라우저 권한과 동기화)
+    try { localStorage.setItem('mum_push_granted', '1'); } catch(e) {}
   } else {
     showToast('알림 권한이 거부됐어요. 브라우저 설정에서 허용해주세요');
+  }
+}
+
+/* 페이지 로드 시 알림 권한 상태를 확인하고 버튼 텍스트 업데이트 */
+function syncPushBtnState() {
+  if (!('Notification' in window)) return;
+  const btnTxt = document.getElementById('pPushBtnTxt');
+  const btnEl = document.getElementById('pPushBtn');
+  if (Notification.permission === 'granted') {
+    if (btnTxt) btnTxt.textContent = '✅ 알림 설정 완료';
+    if (btnEl) btnEl.classList.add('done');
+  } else {
+    if (btnTxt) btnTxt.textContent = '알림 설정';
+    if (btnEl) btnEl.classList.remove('done');
   }
 }
 
