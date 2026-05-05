@@ -1,0 +1,26 @@
+{
+  "name": "뮤엠 출석 키오스크",
+  "short_name": "뮤엠 출석",
+  "description": "학원 등하원 출석체크 키오스크",
+  "start_url": "/kiosk",
+  "scope": "/",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#3D2B1F",
+  "theme_color": "#1A72B8",
+  "lang": "ko-KR",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
