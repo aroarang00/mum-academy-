@@ -1005,6 +1005,22 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 
 /* 과제 카드 그리드 */
 .hw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(206px,1fr));gap:13px}
+/* 출석만 보기 토글 버튼 */
+.hw-toggle-att{
+  padding:6px 12px;border-radius:8px;border:1.5px solid var(--bd);
+  background:var(--sf);color:var(--t3);font-size:12px;font-weight:600;
+  cursor:pointer;font-family:inherit;transition:all .18s;
+  display:inline-flex;align-items:center;gap:4px;white-space:nowrap;
+}
+.hw-toggle-att:hover{border-color:var(--blue-md);color:var(--blue-dk)}
+.hw-toggle-att.on{
+  background:var(--blue);border-color:var(--blue);color:#fff;
+  box-shadow:0 2px 6px rgba(26,114,184,.25);
+}
+.hw-toggle-att.on:hover{background:var(--blue-dk);border-color:var(--blue-dk)}
+@media(max-width:680px){
+  .hw-toggle-att{font-size:11px;padding:5px 10px}
+}
 
 /* 과제 카드 — 상태별 배경/테두리 */
 .hw-card{
@@ -1067,11 +1083,14 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .hw-lv-btn.sel-low {border-color:#F0D8A8;background:var(--am-lt);color:var(--am)}
 .hw-lv-btn.sel-none{border-color:#E0C0C0;background:var(--rd-lt);color:var(--rd)}
 .hw-modal-stars{display:flex;gap:9px;justify-content:center;padding:5px 0}
-.hw-modal-star{width:34px;height:34px;cursor:pointer;transition:transform .15s;
-  opacity:.3}
-.hw-modal-star.on{opacity:1}
-.hw-modal-star.on path{fill:#F5A623;stroke:none}
+.hw-modal-star{width:34px;height:34px;cursor:pointer;transition:transform .15s,filter .2s;
+  opacity:.35}
+.hw-modal-star.on{opacity:1;
+  filter:drop-shadow(0 2px 3px rgba(245,166,35,.45)) drop-shadow(0 0 1px rgba(180,110,0,.3))}
+.hw-modal-star path{fill:#D8D8D8;stroke:#B8B8B8;stroke-width:.6}
+.hw-modal-star.on path{fill:url(#hwStarGrad);stroke:#C77F00;stroke-width:.5}
 .hw-modal-star:hover{transform:scale(1.18)}
+.hw-modal-star.on:hover{filter:drop-shadow(0 3px 5px rgba(245,166,35,.6)) drop-shadow(0 0 1px rgba(180,110,0,.4))}
 @keyframes starPop{0%{transform:scale(0) rotate(-10deg);opacity:0}60%{transform:scale(1.2) rotate(4deg)}100%{transform:scale(1) rotate(0);opacity:1}}
 .star-pop{animation:starPop .28s cubic-bezier(.34,1.56,.64,1) both}
 
@@ -1110,6 +1129,14 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   margin-bottom:9px;cursor:pointer;transition:opacity .18s}
 .rv-thumb-img:hover{opacity:.82}
 .rv-card-btns{display:flex;gap:5px}
+/* 학부모 반응 카운트 */
+.rv-react-row{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 9px;padding:7px 9px;
+  background:linear-gradient(135deg,#FFF8E1,#FFF3E0);border-radius:10px;border:1px solid #FFE0B2}
+.rv-react-pill{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;
+  background:#fff;border-radius:14px;border:1px solid #FFE0B2;
+  font-size:10px;font-weight:600;color:#8B5A00}
+.rv-react-emo{font-size:11px}
+.rv-react-lbl{letter-spacing:.01em}
 .rv-btn-write{flex:1;padding:7px 0;border-radius:10px;font-size:10.5px;font-weight:700;
   cursor:pointer;border:1.5px solid var(--bd);background:var(--bg);color:var(--t3);
   transition:all .18s;font-family:inherit;
@@ -2238,10 +2265,13 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
           </div>
         </div>
         <div class="hw-stat-strip" id="hwStatE"></div>
-        <div class="att-frow" id="hwFilterE">
-          <div class="afc on" onclick="setHWF(&#39;all&#39;,&#39;eng&#39;,this)">전체</div>
-          <div class="afc" onclick="setHWF(&#39;done&#39;,&#39;eng&#39;,this)">완료</div>
-          <div class="afc" onclick="setHWF(&#39;none&#39;,&#39;eng&#39;,this)">미체크</div>
+        <div class="att-frow" id="hwFilterE" style="justify-content:space-between">
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div class="afc on" onclick="setHWF(&#39;all&#39;,&#39;eng&#39;,this)">전체</div>
+            <div class="afc" onclick="setHWF(&#39;done&#39;,&#39;eng&#39;,this)">완료</div>
+            <div class="afc" onclick="setHWF(&#39;none&#39;,&#39;eng&#39;,this)">미체크</div>
+          </div>
+          <button class="hw-toggle-att on" id="hwToggleAttE" onclick="toggleHWAttendedOnly('eng')">✓ 출석만 보기</button>
         </div>
         <div class="hw-grid" id="hwGridE"></div>
       </div>
@@ -2255,10 +2285,13 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
           </div>
         </div>
         <div class="hw-stat-strip" id="hwStatK"></div>
-        <div class="att-frow" id="hwFilterK">
-          <div class="afc on" onclick="setHWF(&#39;all&#39;,&#39;kor&#39;,this)">전체</div>
-          <div class="afc" onclick="setHWF(&#39;done&#39;,&#39;kor&#39;,this)">완료</div>
-          <div class="afc" onclick="setHWF(&#39;none&#39;,&#39;kor&#39;,this)">미체크</div>
+        <div class="att-frow" id="hwFilterK" style="justify-content:space-between">
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div class="afc on" onclick="setHWF(&#39;all&#39;,&#39;kor&#39;,this)">전체</div>
+            <div class="afc" onclick="setHWF(&#39;done&#39;,&#39;kor&#39;,this)">완료</div>
+            <div class="afc" onclick="setHWF(&#39;none&#39;,&#39;kor&#39;,this)">미체크</div>
+          </div>
+          <button class="hw-toggle-att on" id="hwToggleAttK" onclick="toggleHWAttendedOnly('kor')">✓ 출석만 보기</button>
         </div>
         <div class="hw-grid" id="hwGridK"></div>
       </div>
@@ -2590,6 +2623,16 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
       </div>
       <div class="f-block">
         <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--gold)"></span>칭찬 스티커</div>
+        <!-- 별 그라디언트 정의 (한 번만 정의하면 모든 별에 적용됨) -->
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+          <defs>
+            <linearGradient id="hwStarGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#FFD54F"/>
+              <stop offset="40%" stop-color="#FFA000"/>
+              <stop offset="100%" stop-color="#E68A00"/>
+            </linearGradient>
+          </defs>
+        </svg>
         <div class="hw-modal-stars" id="hwModalStars">
           <svg class="hw-modal-star" id="hwMs1" onclick="pickHWStar(1)" viewBox="0 0 24 24"><path id="hwMsP1" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
           <svg class="hw-modal-star" id="hwMs2" onclick="pickHWStar(2)" viewBox="0 0 24 24"><path id="hwMsP2" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
@@ -3002,13 +3045,14 @@ function init() {
 async function _loadFirebase() {
   try {
     showToast('서버 데이터 동기화 중...', 3000);
-    const [fbDbVal, fbAttVal, fbHwVal, fbRvVal] = await Promise.all([
-      fbGet('db'), fbGet('att'), fbGet('hw'), fbGet('rv')
+    const [fbDbVal, fbAttVal, fbHwVal, fbRvVal, fbReactVal] = await Promise.all([
+      fbGet('db'), fbGet('att'), fbGet('hw'), fbGet('rv'), fbGet('parentReactions')
     ]);
     if (fbDbVal)  { db    = fbDbVal;  try { localStorage.setItem(DB_KEY,  JSON.stringify(db));    } catch(e) {} }
     if (fbAttVal) { attDB = fbAttVal; try { localStorage.setItem(ATT_KEY, JSON.stringify(attDB)); } catch(e) {} }
     if (fbHwVal)  hwDB = fbHwVal;
     if (fbRvVal)  rvDB = fbRvVal;
+    if (fbReactVal) { fbDB = fbReactVal; saveFB(); }
     updateStats(); renderStudents();
     const attSec = document.getElementById('attendance');
     if (attSec && attSec.classList.contains('active')) renderAtt();
@@ -3022,6 +3066,7 @@ async function _loadFirebase() {
   fbWatch('att', val => { if (!val) return; attDB = val; try { localStorage.setItem(ATT_KEY, JSON.stringify(attDB)); } catch(e) {} const s=document.getElementById('attendance'); if(s&&s.classList.contains('active')) renderAtt(); });
   fbWatch('hw',  val => { if (val) hwDB = val; });
   fbWatch('rv',  val => { if (val) rvDB = val; });
+  fbWatch('parentReactions', val => { if (val) { fbDB = val; saveFB(); /* 리뷰 화면 갱신 */ try { renderRVGrid(_rvAcad); } catch(e) {} } });
 }
 
 function handleLogo(e) {
@@ -3925,7 +3970,7 @@ function saveRV() {
 }
 
 /* 상태 */
-let _hwDate = todayISO(), _hwAcad = 'eng', _hwFilter = 'all';
+let _hwDate = todayISO(), _hwAcad = 'eng', _hwFilter = 'all', _hwShowOnlyAttended = true;
 let _hwSid = null, _hwLevel = null, _hwStars = 0;
 let _rvDate = todayISO(), _rvAcad = 'eng', _rvFilter = 'all';
 let _rvSid = null, _rvTags = [], _rvImgData = null, _rvImgName = '', _rvImages = [];
@@ -3947,6 +3992,20 @@ function setHWF(f, acad, el) {
   _hwFilter = f;
   el.closest('.att-frow').querySelectorAll('.afc').forEach(c => c.classList.remove('on'));
   el.classList.add('on');
+  renderHWGrid(acad);
+}
+
+/* 출석한 학생만 보기 / 전체 보기 토글 */
+function toggleHWAttendedOnly(acad) {
+  _hwShowOnlyAttended = !_hwShowOnlyAttended;
+  // 두 학원(영어/국어) 토글 버튼 모두 갱신
+  ['hwToggleAttE','hwToggleAttK'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) {
+      btn.classList.toggle('on', _hwShowOnlyAttended);
+      btn.textContent = _hwShowOnlyAttended ? '✓ 출석만 보기' : '전체 보기';
+    }
+  });
   renderHWGrid(acad);
 }
 
@@ -3976,13 +4035,24 @@ function renderHWStat(acad) {
 }
 function renderHWGrid(acad) {
   const day = hwDB[_hwDate] || {};
+  const attDay = attDB[_hwDate] || {};
   let list = db.students.filter(s => acad === 'eng' ? s.eng : s.kor);
+  // 출석한 학생만 보기 (등원했고 결석 아닌 경우) — 오늘 날짜에만 적용
+  if (_hwShowOnlyAttended && _hwDate === todayISO()) {
+    list = list.filter(s => {
+      const a = attDay[s.id];
+      return a && a.inTime && !a.absent;
+    });
+  }
   if (_hwFilter === 'done') list = list.filter(s =>  day[s.id]?.comp);
   if (_hwFilter === 'none') list = list.filter(s => !day[s.id]?.comp);
   const grid = document.getElementById(acad === 'eng' ? 'hwGridE' : 'hwGridK');
   if (!grid) return;
   if (!list.length) {
-    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><div class="empty-title">표시할 학생이 없습니다</div></div>';
+    const msg = (_hwShowOnlyAttended && _hwDate === todayISO())
+      ? '오늘 출석한 학생이 없습니다<br><span style="font-size:11px;color:var(--t4)">"전체 보기" 버튼을 눌러 모든 학생을 확인하세요</span>'
+      : '표시할 학생이 없습니다';
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><div class="empty-title">${msg}</div></div>`;
     return;
   }
   grid.innerHTML = list.map(s => buildHWCard(s, day[s.id], acad)).join('');
@@ -4218,7 +4288,25 @@ function buildRVCard(s, rec, acad) {
   }
   const tagsHtml    = (rec?.tags || []).map(t => `<span class="rv-card-tag">${t}</span>`).join('');
   const commentHtml = rec?.comment ? `<div class="rv-card-comment">${rec.comment}</div>` : '';
-  const thumbHtml   = rec?.imgData ? `<img class="rv-thumb-img" src="${rec.imgData}" alt="${rec.imgName||''}" onclick="viewRVImg('${s.id}',event)">` : '';
+  // 썸네일 — 새 형식(images 배열) 우선, 없으면 옛 형식(imgData)
+  let thumbSrc = '';
+  if (Array.isArray(rec?.images) && rec.images.length) thumbSrc = rec.images[0].data;
+  else if (rec?.imgData) thumbSrc = rec.imgData;
+  const thumbHtml = thumbSrc ? `<img class="rv-thumb-img" src="${thumbSrc}" onclick="viewRVImg('${s.id}',event)">` : '';
+  // 학부모 반응 카운트 (이번 리뷰에 대해)
+  let reactHtml = '';
+  if (done) {
+    const fbKey = _rvDate + '_' + s.id;
+    const reactions = fbDB[fbKey] || {};
+    const cnt = { like: reactions.like ? 1 : 0, thanks: reactions.thanks ? 1 : 0, great: reactions.great ? 1 : 0 };
+    if (cnt.like || cnt.thanks || cnt.great) {
+      reactHtml = `<div class="rv-react-row">
+        ${cnt.like ? '<span class="rv-react-pill"><span class="rv-react-emo">👍</span><span class="rv-react-lbl">좋아요</span></span>' : ''}
+        ${cnt.thanks ? '<span class="rv-react-pill"><span class="rv-react-emo">❤️</span><span class="rv-react-lbl">감사해요</span></span>' : ''}
+        ${cnt.great ? '<span class="rv-react-pill"><span class="rv-react-emo">😊</span><span class="rv-react-lbl">최고예요</span></span>' : ''}
+      </div>`;
+    }
+  }
   const kakaoBtn    = done
     ? `<button class="rv-btn-kakao" onclick="sendRVReport(${s.id},'${acad}',event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>카톡</button>` : '';
   return `
@@ -4231,6 +4319,7 @@ function buildRVCard(s, rec, acad) {
     ${thumbHtml}
     ${tagsHtml ? `<div class="rv-card-tags">${tagsHtml}</div>` : ''}
     ${commentHtml}
+    ${reactHtml}
     <div class="rv-card-btns">
       <button class="rv-btn-write" onclick="openRVModal(${s.id},'${acad}',event)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">${done ? '<polyline points="20 6 9 17 4 12"/>' : '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>'}</svg>
@@ -4612,19 +4701,29 @@ function renderParentDash(s) {
          </div>`
       : `<div class="p-rv-date" style="margin-bottom:9px">${parseInt(mo)}월 ${parseInt(dd)}일</div>`;
     const tagsHtml = (r.tags||[]).map(t=>`<span class="p-rv-tag">${t}</span>`).join('');
-    // 이미지 (localStorage에서 가져오기)
+    // 이미지 (localStorage에서 가져오기) — 새 형식(images 배열) 우선, 없으면 옛 형식(imgData)
     const storedRV = JSON.parse(localStorage.getItem('rvDB')||'{}');
     const localRec = (storedRV[r.date]||{})[s.id] || {};
-    const imgHtml = localRec.imgData
-      ? `<div style="margin-top:8px;overflow-x:auto;display:flex;gap:6px">
-           <img src="${localRec.imgData}" style="max-height:160px;border-radius:10px;border:1px solid var(--bd)" onclick="this.style.maxHeight=this.style.maxHeight==='none'?'160px':'none'">
+    let imgList = [];
+    if (Array.isArray(localRec.images) && localRec.images.length) {
+      imgList = localRec.images.map(img => img.data);
+    } else if (Array.isArray(r.images) && r.images.length) {
+      imgList = r.images.map(img => img.data);
+    } else if (localRec.imgData) {
+      imgList = [localRec.imgData];
+    } else if (r.imgData) {
+      imgList = [r.imgData];
+    }
+    const imgHtml = imgList.length
+      ? `<div style="margin-top:10px;display:flex;gap:6px;overflow-x:auto;padding-bottom:4px">
+           ${imgList.map(d => `<img src="${d}" style="height:140px;width:auto;border-radius:10px;border:1px solid var(--bd);cursor:pointer;flex-shrink:0;object-fit:cover" onclick="openParentRvImg('${d.replace(/'/g,"\\'")}')">`).join('')}
          </div>` : '';
     const fbBtns = [
       {k:'like',lbl:'좋아요',ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>'},
       {k:'thanks',lbl:'감사해요',ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>'},
       {k:'great',lbl:'최고예요',ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>'},
     ].map(rx=>`<button class="p-fb${fb[rx.k]?' on':''}" onclick="togglePFB('${fbKey}','${rx.k}',this)">${rx.ico} ${rx.lbl}</button>`).join('');
-    return `<div class="p-rv-card">${scoreHtml}${tagsHtml?`<div class="p-rv-tags">${tagsHtml}</div>`:''}${r.comment?`<div class="p-rv-comment">${r.comment}</div>`:''}<div class="p-fb-row">${fbBtns}</div></div>`;
+    return `<div class="p-rv-card">${scoreHtml}${tagsHtml?`<div class="p-rv-tags">${tagsHtml}</div>`:''}${r.comment?`<div class="p-rv-comment">${r.comment}</div>`:''}${imgHtml}<div class="p-fb-row">${fbBtns}</div></div>`;
   }).join('') : '<div class="p-empty">아직 작성된 수업 리뷰가 없습니다.</div>';
 
   // 커리큘럼 — 영어/국어 탭
@@ -4783,6 +4882,19 @@ function togglePFB(key, type, btn) {
   if (fbDB[key][type]) { delete fbDB[key][type]; btn.classList.remove('on'); }
   else { fbDB[key][type] = true; btn.classList.add('on'); }
   saveFB();
+  // Firebase에도 저장 (관리자가 볼 수 있도록)
+  if (_fdb) {
+    _fdb.ref('parentReactions/' + key).set(fbDB[key] || {})
+      .catch(e => console.warn('reaction FB error:', e));
+  }
+}
+
+/* 학부모 페이지 — 리뷰 이미지 큰 화면으로 보기 */
+function openParentRvImg(dataUrl) {
+  const w = window.open('', '_blank', 'width=860,height=680');
+  if (!w) return;
+  w.document.write(`<html><head><title>수업 리뷰 사진</title></head><body style="margin:0;background:#111;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:12px"><img src="${dataUrl}" style="max-width:100%;max-height:95vh;object-fit:contain;border-radius:8px"></body></html>`);
+  w.document.close();
 }
 
 
