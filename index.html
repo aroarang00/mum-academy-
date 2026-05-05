@@ -2592,49 +2592,49 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
             <tbody id="schedTableBody">
               <tr data-day="월">
                 <td><label class="day-chip-row"><input type="checkbox" class="sDayChk" value="월"><span class="day-pill">월</span></label></td>
-                <td><input type="time" class="sTimeInp" id="sTime월" placeholder="16:00"></td>
+                <td><input type="time" class="sTimeInp" id="sTime월" placeholder="16:00" step="1800" oninput="autoCheckDay('월')"></td>
                 <td><input type="number" class="sMinInp" id="sMin월" placeholder="60" min="10" max="300" step="10"></td>
                 <td class="sEndTd" id="sEnd월">—</td>
                 <td style="text-align:center"><input type="checkbox" id="sCon월" title="영어-국어 연속 수업" style="width:14px;height:14px;accent-color:var(--blue)"></td>
               </tr>
               <tr data-day="화">
                 <td><label class="day-chip-row"><input type="checkbox" class="sDayChk" value="화"><span class="day-pill">화</span></label></td>
-                <td><input type="time" class="sTimeInp" id="sTime화" placeholder="16:00"></td>
+                <td><input type="time" class="sTimeInp" id="sTime화" placeholder="16:00" step="1800" oninput="autoCheckDay('화')"></td>
                 <td><input type="number" class="sMinInp" id="sMin화" placeholder="60" min="10" max="300" step="10"></td>
                 <td class="sEndTd" id="sEnd화">—</td>
                 <td style="text-align:center"><input type="checkbox" id="sCon화" title="영어-국어 연속 수업" style="width:14px;height:14px;accent-color:var(--blue)"></td>
               </tr>
               <tr data-day="수">
                 <td><label class="day-chip-row"><input type="checkbox" class="sDayChk" value="수"><span class="day-pill">수</span></label></td>
-                <td><input type="time" class="sTimeInp" id="sTime수" placeholder="16:00"></td>
+                <td><input type="time" class="sTimeInp" id="sTime수" placeholder="16:00" step="1800" oninput="autoCheckDay('수')"></td>
                 <td><input type="number" class="sMinInp" id="sMin수" placeholder="60" min="10" max="300" step="10"></td>
                 <td class="sEndTd" id="sEnd수">—</td>
                 <td style="text-align:center"><input type="checkbox" id="sCon수" title="영어-국어 연속 수업" style="width:14px;height:14px;accent-color:var(--blue)"></td>
               </tr>
               <tr data-day="목">
                 <td><label class="day-chip-row"><input type="checkbox" class="sDayChk" value="목"><span class="day-pill">목</span></label></td>
-                <td><input type="time" class="sTimeInp" id="sTime목" placeholder="16:00"></td>
+                <td><input type="time" class="sTimeInp" id="sTime목" placeholder="16:00" step="1800" oninput="autoCheckDay('목')"></td>
                 <td><input type="number" class="sMinInp" id="sMin목" placeholder="60" min="10" max="300" step="10"></td>
                 <td class="sEndTd" id="sEnd목">—</td>
                 <td style="text-align:center"><input type="checkbox" id="sCon목" title="영어-국어 연속 수업" style="width:14px;height:14px;accent-color:var(--blue)"></td>
               </tr>
               <tr data-day="금">
                 <td><label class="day-chip-row"><input type="checkbox" class="sDayChk" value="금"><span class="day-pill">금</span></label></td>
-                <td><input type="time" class="sTimeInp" id="sTime금" placeholder="16:00"></td>
+                <td><input type="time" class="sTimeInp" id="sTime금" placeholder="16:00" step="1800" oninput="autoCheckDay('금')"></td>
                 <td><input type="number" class="sMinInp" id="sMin금" placeholder="60" min="10" max="300" step="10"></td>
                 <td class="sEndTd" id="sEnd금">—</td>
                 <td style="text-align:center"><input type="checkbox" id="sCon금" title="영어-국어 연속 수업" style="width:14px;height:14px;accent-color:var(--blue)"></td>
               </tr>
               <tr data-day="토">
                 <td><label class="day-chip-row"><input type="checkbox" class="sDayChk" value="토"><span class="day-pill" style="background:rgba(99,102,241,.15);color:#4338CA">토</span></label></td>
-                <td><input type="time" class="sTimeInp" id="sTime토" placeholder="14:00"></td>
+                <td><input type="time" class="sTimeInp" id="sTime토" placeholder="14:00" step="1800" oninput="autoCheckDay('토')"></td>
                 <td><input type="number" class="sMinInp" id="sMin토" placeholder="60" min="10" max="300" step="10"></td>
                 <td class="sEndTd" id="sEnd토">—</td>
                 <td style="text-align:center"><input type="checkbox" id="sCon토" title="영어-국어 연속 수업" style="width:14px;height:14px;accent-color:var(--blue)"></td>
               </tr>
               <tr data-day="일">
                 <td><label class="day-chip-row"><input type="checkbox" class="sDayChk" value="일"><span class="day-pill" style="background:rgba(239,68,68,.1);color:#DC2626">일</span></label></td>
-                <td><input type="time" class="sTimeInp" id="sTime일" placeholder="14:00"></td>
+                <td><input type="time" class="sTimeInp" id="sTime일" placeholder="14:00" step="1800" oninput="autoCheckDay('일')"></td>
                 <td><input type="number" class="sMinInp" id="sMin일" placeholder="60" min="10" max="300" step="10"></td>
                 <td class="sEndTd" id="sEnd일">—</td>
                 <td style="text-align:center"><input type="checkbox" id="sCon일" title="영어-국어 연속 수업" style="width:14px;height:14px;accent-color:var(--blue)"></td>
@@ -3179,6 +3179,7 @@ function switchAcad(a) {
   // 현재 보고 있는 화면을 유지하면서 학원만 전환
   // 학생 명단 화면이면 학생 명단 새로 그리기
   // 과제/리뷰 화면이면 그 화면 새로 그리기
+  updateStats();
   renderStudents();
   // 과제 화면이 활성화돼 있으면 새로 그리기
   try {
@@ -3480,9 +3481,11 @@ function saveStudent() {
   const schedule = {};
   ['월','화','수','목','금','토','일'].forEach(day => {
     const chk  = document.querySelector(`.sDayChk[value="${day}"]`);
-    const time = document.getElementById(`sTime${day}`)?.value || '';
+    let time   = document.getElementById(`sTime${day}`)?.value || '';
     const min  = parseInt(document.getElementById(`sMin${day}`)?.value) || 60;
     const con  = document.getElementById(`sCon${day}`)?.checked || false;
+    // 시간이 있으면 30분 단위로 반올림 (16:35 → 16:30, 16:50 → 17:00 등)
+    if (time) time = roundTo30Min(time);
     if (chk && chk.checked && time) {
       schedule[day] = { time, min, con };
     }
@@ -5140,6 +5143,9 @@ async function lpConfirm() {
       document.getElementById('loginScreen').style.display = 'none';
       // 관리자 화면 활성화
       document.getElementById('adminView').classList.add('active');
+      // 관리자 화면 진입 시 통계 + 학생 명단 강제 새로고침
+      try { updateStats(); } catch(e) {}
+      try { renderStudents(); } catch(e) {}
       const macBar = document.getElementById('mobileAcadBar');
       if (macBar) macBar.style.removeProperty('display');
       // 관리자 화면에서 하단 내비 보이기
@@ -5355,6 +5361,10 @@ function initSchedTable() {
       if (tInp && tInp.value && chk && !chk.checked) {
         chk.checked = true;
       }
+      // 시간 비우면 자동 체크 해제
+      if (tInp && !tInp.value && chk && chk.checked) {
+        chk.checked = false;
+      }
       if (tInp && mInp && endEl && tInp.value) {
         endEl.textContent = calcEndTime(tInp.value, parseInt(mInp.value)||60);
       } else if (endEl) {
@@ -5366,6 +5376,31 @@ function initSchedTable() {
     if (mInp) mInp.addEventListener('change', update);
     if (chk) chk.addEventListener('change', update);
   });
+}
+
+/* 시간 입력 시 자동으로 같은 행 요일 체크 (oninput으로 호출됨) */
+function autoCheckDay(day) {
+  const tInp = document.getElementById(`sTime${day}`);
+  const chk = document.querySelector(`.sDayChk[value="${day}"]`);
+  if (!tInp || !chk) return;
+  if (tInp.value) {
+    chk.checked = true;
+  } else {
+    chk.checked = false;
+  }
+}
+
+/* 시간을 30분 단위로 반올림 (예: "16:35" → "16:30", "16:48" → "16:30", "16:50" → "17:00") */
+function roundTo30Min(timeStr) {
+  if (!timeStr || !timeStr.includes(':')) return timeStr;
+  const [h, m] = timeStr.split(':').map(Number);
+  if (isNaN(h) || isNaN(m)) return timeStr;
+  // 0~14분 → :00, 15~44분 → :30, 45~59분 → 다음 시각 :00
+  let newH = h, newM = 0;
+  if (m < 15) { newM = 0; }
+  else if (m < 45) { newM = 30; }
+  else { newH = (h + 1) % 24; newM = 0; }
+  return String(newH).padStart(2,'0') + ':' + String(newM).padStart(2,'0');
 }
 
 
