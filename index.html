@@ -3121,8 +3121,14 @@ async function _loadFirebase() {
     showToast('오프라인 모드로 실행 중', 2000);
     console.warn('Firebase load error:', e);
   }
-  /* 실시간 감지 */
-  fbWatch('db',  val => { if (!val) return; db    = val; try { localStorage.setItem(DB_KEY,  JSON.stringify(db));    } catch(e) {} updateStats(); renderStudents(); });
+  /* 실시간 감지 — 데이터 변경 시 항상 통계/화면 갱신 */
+  fbWatch('db',  val => {
+    if (!val) return;
+    db = val;
+    try { localStorage.setItem(DB_KEY, JSON.stringify(db)); } catch(e) {}
+    try { updateStats(); } catch(e) {}
+    try { renderStudents(); } catch(e) {}
+  });
   fbWatch('att', val => { if (!val) return; attDB = val; try { localStorage.setItem(ATT_KEY, JSON.stringify(attDB)); } catch(e) {} const s=document.getElementById('attendance'); if(s&&s.classList.contains('active')) renderAtt(); });
   fbWatch('hw',  val => { if (val) hwDB = val; });
   fbWatch('rv',  val => { if (val) rvDB = val; });
@@ -5146,6 +5152,9 @@ async function lpConfirm() {
       // 관리자 화면 진입 시 통계 + 학생 명단 강제 새로고침
       try { updateStats(); } catch(e) {}
       try { renderStudents(); } catch(e) {}
+      // Firebase 동기화 후 한 번 더 갱신 (데이터 늦게 올 때 대비)
+      setTimeout(() => { try { updateStats(); renderStudents(); } catch(e) {} }, 500);
+      setTimeout(() => { try { updateStats(); renderStudents(); } catch(e) {} }, 2000);
       const macBar = document.getElementById('mobileAcadBar');
       if (macBar) macBar.style.removeProperty('display');
       // 관리자 화면에서 하단 내비 보이기
