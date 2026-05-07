@@ -1308,7 +1308,8 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .p-tab-content.on{display:flex}
 
 /* 이달의 한마디 */
-.p-notice-card{background:linear-gradient(135deg,var(--blue),#2A8FD4);border-radius:16px;padding:16px 18px;color:#fff}
+/* 공지사항 — 주황/골드 */
+.p-notice-card{background:linear-gradient(135deg,#C47D0E,#F5A623);border-radius:16px;padding:16px 18px;color:#fff}
 .p-notice-label{font-size:10px;font-weight:700;letter-spacing:.1em;opacity:.7;margin-bottom:6px}
 .p-notice-title{font-size:14px;font-weight:800;margin-bottom:6px}
 .p-notice-body{font-size:13px;line-height:1.7;opacity:.9;white-space:pre-wrap}
@@ -1968,13 +1969,14 @@ canvas#pGrowthChart{width:100%!important}
   background:#fff;border-radius:20px;
   box-shadow:0 8px 32px rgba(26,26,26,.18);
   z-index:1000;display:none;
-  border:1.5px solid rgba(26,114,184,.15);
+  border:1.5px solid rgba(245,166,35,.25);
   overflow:hidden;
 }
 .msg-alert-popup.show{display:block;animation:slideUp .3s ease}
 @keyframes slideUp{from{transform:translateX(-50%) translateY(20px);opacity:0} to{transform:translateX(-50%) translateY(0);opacity:1}}
 .msg-alert-hd{
-  background:linear-gradient(135deg,var(--blue-dk),var(--blue));
+  /* 메시지 팝업 헤더 — 골드 계열로 공지(파란색)와 구분 */
+  background:linear-gradient(135deg,#C47D0E,#F5A623);
   padding:14px 18px;display:flex;align-items:center;justify-content:space-between;
 }
 .msg-alert-title{font-size:13px;font-weight:700;color:#fff}
@@ -1984,11 +1986,12 @@ canvas#pGrowthChart{width:100%!important}
 .msg-alert-list{max-height:300px;overflow-y:auto;padding:8px}
 .msg-alert-item{
   padding:12px 14px;border-radius:12px;margin-bottom:6px;
-  background:var(--sf);border:1px solid var(--bd);cursor:pointer;
+  /* 미읽음 = 연한 크림색, 구분 명확 */
+  background:#FFFBF0;border:1px solid #F5A62330;cursor:pointer;
   transition:background .15s;
 }
-.msg-alert-item:hover{background:var(--blue-lt)}
-.msg-alert-item.read{opacity:.6}
+.msg-alert-item:hover{background:#FFF3CC}
+.msg-alert-item.read{opacity:.55;background:var(--sf);border-color:var(--bd)}
 .msg-alert-sender{font-size:12px;font-weight:700;color:var(--t1)}
 .msg-alert-text{font-size:11px;color:var(--t3);margin-top:3px;line-height:1.4}
 .msg-alert-time{font-size:10px;color:var(--t5);margin-top:4px}
@@ -2404,7 +2407,7 @@ canvas#pGrowthChart{width:100%!important}
       <div class="sec" id="hw">
         <div class="pg-top">
           <div>
-            <div class="pg-title">과제 체크보드</div>
+            <div class="pg-title" id="hwPgTitle">과제 체크보드</div>
             <div class="pg-desc">이행도·스티커를 기록하고 학부모 리포트 전송</div>
           </div>
           <div style="display:flex;gap:8px;align-items:center;">
@@ -2412,17 +2415,6 @@ canvas#pGrowthChart{width:100%!important}
             <input type="date" class="date-inp-sm" id="hwDatePicker" onchange="onHWDate()">
           </div>
         </div>
-
-        <!-- 영어/국어 탭 -->
-        <div style="display:flex;gap:0;margin-bottom:16px;background:var(--sf);border-radius:12px;padding:4px;border:1px solid var(--bd)">
-          <button id="hwTabEng" onclick="switchHWTab('eng')" style="flex:1;padding:8px;border-radius:9px;border:none;background:var(--blue);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s">
-            🔵 영어 과제
-          </button>
-          <button id="hwTabKor" onclick="switchHWTab('kor')" style="flex:1;padding:8px;border-radius:9px;border:none;background:transparent;color:var(--t3);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s">
-            📖 국어 과제
-          </button>
-        </div>
-
         <div class="hw-stat-strip" id="hwStatStrip"></div>
         <div class="att-frow" style="justify-content:space-between">
           <div id="hwFilterBtns" style="display:flex;gap:8px;flex-wrap:wrap">
@@ -2440,7 +2432,7 @@ canvas#pGrowthChart{width:100%!important}
       <div class="sec" id="rv">
         <div class="pg-top">
           <div>
-            <div class="pg-title">수업 리뷰</div>
+            <div class="pg-title" id="rvPgTitle">수업 리뷰</div>
             <div class="pg-desc">점수·피드백·테스트지를 기록하고 학부모 리포트 전송</div>
           </div>
           <div style="display:flex;gap:8px;align-items:center;">
@@ -2448,17 +2440,6 @@ canvas#pGrowthChart{width:100%!important}
             <input type="date" class="date-inp-sm" id="rvDatePicker" onchange="onRVDate()">
           </div>
         </div>
-
-        <!-- 영어/국어 탭 -->
-        <div style="display:flex;gap:0;margin-bottom:16px;background:var(--sf);border-radius:12px;padding:4px;border:1px solid var(--bd)">
-          <button id="rvTabEng" onclick="switchRVTab('eng')" style="flex:1;padding:8px;border-radius:9px;border:none;background:var(--blue);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s">
-            🔵 영어 리뷰
-          </button>
-          <button id="rvTabKor" onclick="switchRVTab('kor')" style="flex:1;padding:8px;border-radius:9px;border:none;background:transparent;color:var(--t3);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s">
-            📖 국어 리뷰
-          </button>
-        </div>
-
         <div class="rv-stat-strip" id="rvStatStrip"></div>
         <div class="att-frow">
           <div class="afc on" onclick="setRVFilter('all',this)">전체</div>
@@ -2750,8 +2731,22 @@ canvas#pGrowthChart{width:100%!important}
 <!-- ══ 과제 체크 모달 ══ -->
 <div class="m-bg" id="hwModal">
   <div class="m-box" style="max-width:480px">
-    <div class="m-hd"><div><div class="m-title" id="hwMTitle">과제 체크</div><div class="m-sub" id="hwMSub"></div></div><button class="m-x" onclick="closeModal(&#39;hwModal&#39;)">×</button></div>
+    <div class="m-hd"><div><div class="m-title" id="hwMTitle">과제 체크</div><div class="m-sub" id="hwMSub"></div></div><button class="m-x" onclick="closeModal('hwModal')">×</button></div>
     <div class="m-body">
+      <!-- 영어/국어 선택 (둘 다 수강하는 학생에게만 표시) -->
+      <div class="f-block" id="hwAcadSelector" style="display:none">
+        <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--blue)"></span>수업 과목 선택</div>
+        <div style="display:flex;gap:8px">
+          <button id="hwModalTabEng" onclick="switchHWModalTab('eng')"
+            style="flex:1;padding:9px;border-radius:10px;border:2px solid var(--mum-yellow);background:var(--mum-yellow);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s">
+            영어
+          </button>
+          <button id="hwModalTabKor" onclick="switchHWModalTab('kor')"
+            style="flex:1;padding:9px;border-radius:10px;border:2px solid var(--bd);background:var(--sf);color:var(--t3);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s">
+            국어
+          </button>
+        </div>
+      </div>
       <div class="f-block">
         <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--sage)"></span>과제 이행도</div>
         <div class="hw-lv-btns">
@@ -2784,8 +2779,22 @@ canvas#pGrowthChart{width:100%!important}
 <!-- ══ 수업 리뷰 모달 ══ -->
 <div class="m-bg" id="rvModal">
   <div class="m-box" style="max-width:540px">
-    <div class="m-hd"><div><div class="m-title" id="rvMTitle">수업 리뷰</div><div class="m-sub" id="rvMSub"></div></div><button class="m-x" onclick="closeModal(&#39;rvModal&#39;)">×</button></div>
+    <div class="m-hd"><div><div class="m-title" id="rvMTitle">수업 리뷰</div><div class="m-sub" id="rvMSub"></div></div><button class="m-x" onclick="closeModal('rvModal')">×</button></div>
     <div class="m-body">
+      <!-- 영어/국어 선택 (둘 다 수강하는 학생에게만 표시) -->
+      <div class="f-block" id="rvAcadSelector" style="display:none">
+        <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--blue)"></span>수업 과목 선택</div>
+        <div style="display:flex;gap:8px">
+          <button id="rvModalTabEng" onclick="switchRVModalTab('eng')"
+            style="flex:1;padding:9px;border-radius:10px;border:2px solid var(--mum-yellow);background:var(--mum-yellow);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s">
+            영어
+          </button>
+          <button id="rvModalTabKor" onclick="switchRVModalTab('kor')"
+            style="flex:1;padding:9px;border-radius:10px;border:2px solid var(--bd);background:var(--sf);color:var(--t3);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s">
+            국어
+          </button>
+        </div>
+      </div>
       <div class="f-block">
         <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--br)"></span>테스트 점수</div>
         <div class="f-row">
@@ -3296,15 +3305,20 @@ function switchAcad(a) {
   // 현재 보고 있는 화면만 새로 그리기
   updateStats();
   renderStudents();
+  // 과제/리뷰 페이지 제목도 학원에 맞게 변경
+  const hwTitle = document.getElementById('hwPgTitle');
+  if (hwTitle) hwTitle.textContent = a === 'eng' ? '영어 과제 체크보드' : '국어 과제 체크보드';
+  const rvTitle = document.getElementById('rvPgTitle');
+  if (rvTitle) rvTitle.textContent = a === 'eng' ? '영어 수업 리뷰' : '국어 수업 리뷰';
   // 과제 화면 활성화 상태면 재렌더링
   const hwSec = document.getElementById('hw');
   if (hwSec && hwSec.classList.contains('active')) {
-    try { switchHWTab(a); } catch(e) {}
+    try { renderHW(a); } catch(e) {}
   }
   // 리뷰 화면 활성화 상태면 재렌더링
   const rvSec = document.getElementById('rv');
   if (rvSec && rvSec.classList.contains('active')) {
-    try { switchRVTab(a); } catch(e) {}
+    try { renderRV(a); } catch(e) {}
   }
   // 출석부 활성화 상태면 재렌더링
   const attSec = document.getElementById('attendance');
@@ -4188,22 +4202,90 @@ let _hwSid = null, _hwLevel = null, _hwStars = 0;
 let _rvDate = todayISO(), _rvAcad = 'eng', _rvFilter = 'all';
 let _rvSid = null, _rvTags = [], _rvImgData = null, _rvImgName = '', _rvImages = [];
 
-/* ─── 과제 탭 전환 ─── */
-function switchHWTab(acad) {
+/* 과제 모달 내 영어/국어 탭 전환 */
+function switchHWModalTab(acad) {
   _hwAcad = acad;
   const isEng = acad === 'eng';
-  const tabE = document.getElementById('hwTabEng');
-  const tabK = document.getElementById('hwTabKor');
+  const tabE = document.getElementById('hwModalTabEng');
+  const tabK = document.getElementById('hwModalTabKor');
+  // 영어 = 골드, 국어 = 파란색
   if (tabE) {
-    tabE.style.background = isEng ? 'var(--blue)' : 'transparent';
+    tabE.style.background = isEng ? 'var(--mum-yellow)' : 'var(--sf)';
+    tabE.style.borderColor = isEng ? 'var(--mum-yellow)' : 'var(--bd)';
     tabE.style.color = isEng ? '#fff' : 'var(--t3)';
   }
   if (tabK) {
-    tabK.style.background = !isEng ? 'var(--br3)' : 'transparent';
+    tabK.style.background = !isEng ? 'var(--blue)' : 'var(--sf)';
+    tabK.style.borderColor = !isEng ? 'var(--blue)' : 'var(--bd)';
     tabK.style.color = !isEng ? '#fff' : 'var(--t3)';
   }
-  renderHW(acad);
+  // 해당 학생의 선택한 과목 데이터 불러오기
+  const s = db.students.find(x => x.id === _hwSid); if (!s) return;
+  const dayRec = (hwDB[_hwDate] || {})[_hwSid] || {};
+  const rec = dayRec[acad] ?? (dayRec.comp !== undefined && !dayRec.eng && !dayRec.kor ? dayRec : {});
+  const books = acad === 'eng'
+    ? [s.eLv, s.eSub, s.eSpec ? '특강: '+s.eSpec : ''].filter(Boolean)
+    : [s.kLv, s.kSub, s.kSpec ? '특강: '+s.kSpec : ''].filter(Boolean);
+  const acadLabel = acad === 'eng' ? '영어' : '국어';
+  document.getElementById('hwMSub').textContent = acadLabel + ' · ' + (books.join(' · ') || '교재 정보 없음');
+  document.getElementById('hwNoteInp').value = rec.note || '';
+  _hwLevel = rec.level || null;
+  _hwStars = rec.stars || 0;
+  ['Hi','Md','Lo','No'].forEach((l,i) => {
+    const key = ['high','mid','low','none'][i];
+    const btn = document.getElementById('hwLv'+l);
+    if (btn) btn.className = 'hw-lv-btn' + (_hwLevel === key ? ' sel-'+key : '');
+  });
+  updateHWStarUI(_hwStars);
 }
+
+/* 리뷰 모달 내 영어/국어 탭 전환 */
+function switchRVModalTab(acad) {
+  _rvAcad = acad;
+  const isEng = acad === 'eng';
+  const tabE = document.getElementById('rvModalTabEng');
+  const tabK = document.getElementById('rvModalTabKor');
+  if (tabE) {
+    tabE.style.background = isEng ? 'var(--mum-yellow)' : 'var(--sf)';
+    tabE.style.borderColor = isEng ? 'var(--mum-yellow)' : 'var(--bd)';
+    tabE.style.color = isEng ? '#fff' : 'var(--t3)';
+  }
+  if (tabK) {
+    tabK.style.background = !isEng ? 'var(--blue)' : 'var(--sf)';
+    tabK.style.borderColor = !isEng ? 'var(--blue)' : 'var(--bd)';
+    tabK.style.color = !isEng ? '#fff' : 'var(--t3)';
+  }
+  // 해당 과목 데이터 불러오기
+  const s = db.students.find(x => x.id === _rvSid); if (!s) return;
+  const dayRec = (rvDB[_rvDate] || {})[_rvSid] || {};
+  const rec = dayRec[acad] ?? (dayRec.eng === undefined ? dayRec : {});
+  const stage = acad === 'eng'
+    ? [s.eLv, s.eSub, s.eSpec ? '특강: '+s.eSpec : ''].filter(Boolean).join(' · ')
+    : [s.kLv, s.kSub, s.kSpec ? '특강: '+s.kSpec : ''].filter(Boolean).join(' · ');
+  const acadLabel = acad === 'eng' ? '영어' : '국어';
+  document.getElementById('rvMSub').textContent = acadLabel + ' · ' + (stage || '교재 정보 없음');
+  document.getElementById('rvScoreInp').value = rec.score !== undefined && rec.score !== null ? rec.score : '';
+  document.getElementById('rvTotalInp').value = rec.total || 100;
+  document.getElementById('rvCommentInp').value = rec.comment || '';
+  document.getElementById('rvCharCnt').textContent = (rec.comment || '').length + ' / 500자';
+  _rvTags = [...(rec.tags || [])];
+  if (Array.isArray(rec.images) && rec.images.length) {
+    _rvImages = rec.images.map(img => ({ data: img.data, name: img.name || '' }));
+  } else if (rec.imgData) {
+    _rvImages = [{ data: rec.imgData, name: rec.imgName || '' }];
+  } else { _rvImages = []; }
+  _rvImgData = _rvImages[0]?.data || null;
+  _rvImgName = _rvImages[0]?.name || '';
+  document.getElementById('rvPrevInp').value = getPrevScore(_rvSid, acad) !== undefined ? getPrevScore(_rvSid, acad) : '';
+  document.querySelectorAll('.rv-tag-btn').forEach(btn =>
+    btn.classList.toggle('tag-on', _rvTags.includes(btn.textContent.trim()))
+  );
+  renderRVImgPreview();
+}
+
+/* 과제 탭 전환 (불필요해진 switchHWTab은 내부용으로만 사용) */
+function switchHWTab(acad) { _hwAcad = acad; renderHW(acad); }
+function switchRVTab(acad) { _rvAcad = acad; renderRV(acad); }
 
 /* 날짜 */
 function setHWToday() { _hwDate = todayISO(); syncHWPickers(); renderHW(_hwAcad); }
@@ -4283,8 +4365,8 @@ function renderHWGrid(acad) {
     grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="empty-title">${msg}</div></div>`;
     return;
   }
-  // 카드 왼쪽 색상 — 영어: 파란색, 국어: 브라운
-  const cardAccent = acad === 'eng' ? 'var(--blue)' : 'var(--br3)';
+  // 카드 왼쪽 색상 — 영어: 골드, 국어: 파란색
+  const cardAccent = acad === 'eng' ? 'var(--mum-yellow)' : 'var(--blue)';
   grid.innerHTML = list.map(s => buildHWCard(s, getRec(s.id), acad, cardAccent)).join('');
 }
 
@@ -4318,7 +4400,7 @@ function buildHWCard(s, rec, acad, accent) {
   const reportBtn = done
     ? `<button class="hw-btn-report" onclick="sendHWReport(${s.id},'${acad}',event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>카톡</button>` : '';
   // 카드 왼쪽 색상 바 — 영어: 파란색, 국어: 브라운
-  const barColor = acad === 'eng' ? 'var(--blue)' : 'var(--br3)';
+  const barColor = acad === 'eng' ? 'var(--mum-yellow)' : 'var(--blue)';
   return `
 <div class="hw-card ${cardCls}" id="hwCard_${s.id}">
   <div class="hw-card-bar" style="background:${barColor}"></div>
@@ -4343,14 +4425,25 @@ function buildHWCard(s, rec, acad, accent) {
 function openHWModal(sid, acad, e) {
   if (e) e.stopPropagation();
   _hwSid = sid; _hwAcad = acad; _hwLevel = null; _hwStars = 0;
-  const s   = db.students.find(x => x.id === sid); if (!s) return;
-  // 새 구조로 rec 가져오기 (구버전 호환)
+  const s = db.students.find(x => x.id === sid); if (!s) return;
+  // 영어/국어 둘 다 수강하는 학생이면 선택기 표시
+  const hasBoth = s.eng && s.kor;
+  const selector = document.getElementById('hwAcadSelector');
+  if (selector) selector.style.display = hasBoth ? 'block' : 'none';
+  document.getElementById('hwMTitle').textContent = s.name + ' 학생 과제 체크';
+  // 선택기 버튼 상태 초기화
+  if (hasBoth) {
+    switchHWModalTab(acad);
+    openModal('hwModal');
+    return;
+  }
+  // 하나만 수강 시 직접 처리
   const dayRec = (hwDB[_hwDate] || {})[sid] || {};
-  const rec = dayRec[acad] ?? (dayRec.eng === undefined ? dayRec : {});
+  const rec = dayRec[acad] ?? (dayRec.comp !== undefined && !dayRec.eng && !dayRec.kor ? dayRec : {});
   const books = acad === 'eng'
     ? [s.eLv, s.eSub, s.eSpec ? '특강: '+s.eSpec : ''].filter(Boolean)
     : [s.kLv, s.kSub, s.kSpec ? '특강: '+s.kSpec : ''].filter(Boolean);
-  const acadLabel = acad === 'eng' ? '🔵 영어' : '📖 국어';
+  const acadLabel = acad === 'eng' ? '영어' : '국어';
   document.getElementById('hwMTitle').textContent = s.name + ' 학생 과제 체크';
   document.getElementById('hwMSub').textContent   = acadLabel + ' · ' + (books.join(' · ') || '교재 정보 없음');
   document.getElementById('hwNoteInp').value      = rec.note || '';
@@ -4443,21 +4536,7 @@ function sendHWReport(sid, acad, e) {
 ═══════════════════════════════════ */
 
 /* 리뷰 탭 전환 */
-function switchRVTab(acad) {
-  _rvAcad = acad;
-  const isEng = acad === 'eng';
-  const tabE = document.getElementById('rvTabEng');
-  const tabK = document.getElementById('rvTabKor');
-  if (tabE) {
-    tabE.style.background = isEng ? 'var(--blue)' : 'transparent';
-    tabE.style.color = isEng ? '#fff' : 'var(--t3)';
-  }
-  if (tabK) {
-    tabK.style.background = !isEng ? 'var(--br3)' : 'transparent';
-    tabK.style.color = !isEng ? '#fff' : 'var(--t3)';
-  }
-  renderRV(acad);
-}
+function switchRVTab(acad) { _rvAcad = acad; renderRV(acad); }
 
 function setRVToday() { _rvDate = todayISO(); syncRVPickers(); renderRV(_rvAcad); }
 function onRVDate() {
@@ -4557,7 +4636,7 @@ function buildRVCard(s, rec, acad) {
     ? [s.eLv, s.eSub].filter(Boolean).join(' · ')
     : [s.kLv, s.kSub].filter(Boolean).join(' · ');
   // 카드 색상 — 영어: 파란색, 국어: 브라운
-  const barColor = acad === 'eng' ? 'var(--blue)' : 'var(--br3)';
+  const barColor = acad === 'eng' ? 'var(--mum-yellow)' : 'var(--blue)';
   const acadLabel = acad === 'eng' ? '🔵 영어 리뷰' : '📖 국어 리뷰';
   let scoreHtml = '';
   if (done && rec?.score !== undefined) {
@@ -4627,14 +4706,24 @@ function openRVModal(sid, acad, e) {
   if (e) e.stopPropagation();
   _rvSid = sid; _rvAcad = acad; _rvTags = []; _rvImgData = null; _rvImgName = ''; _rvImages = [];
   const s = db.students.find(x => x.id === sid); if (!s) return;
+  // 영어/국어 둘 다 수강하는 학생이면 선택기 표시
+  const hasBoth = s.eng && s.kor;
+  const selector = document.getElementById('rvAcadSelector');
+  if (selector) selector.style.display = hasBoth ? 'block' : 'none';
+  document.getElementById('rvMTitle').textContent = s.name + ' 학생 수업 리뷰';
+  if (hasBoth) {
+    switchRVModalTab(acad);
+    document.getElementById('rvFileInp').value = '';
+    openModal('rvModal');
+    return;
+  }
+  // 하나만 수강
   const dayRec = (rvDB[_rvDate] || {})[sid] || {};
-  // acad별 rec 가져오기 (새 구조 우선, 구버전 호환)
   const rec = dayRec[acad] ?? (dayRec.eng === undefined ? dayRec : {});
   const stage = acad === 'eng'
     ? [s.eLv, s.eSub, s.eSpec ? '특강: '+s.eSpec : ''].filter(Boolean).join(' · ')
     : [s.kLv, s.kSub, s.kSpec ? '특강: '+s.kSpec : ''].filter(Boolean).join(' · ');
-  const acadLabel = acad === 'eng' ? '🔵 영어 리뷰' : '📖 국어 리뷰';
-  document.getElementById('rvMTitle').textContent  = s.name + ' 학생 수업 리뷰';
+  const acadLabel = acad === 'eng' ? '영어' : '국어';
   document.getElementById('rvMSub').textContent    = acadLabel + ' · ' + (stage || '교재 정보 없음');
   document.getElementById('rvScoreInp').value      = rec.score !== undefined && rec.score !== null ? rec.score : '';
   document.getElementById('rvTotalInp').value      = rec.total || 100;
@@ -4651,9 +4740,7 @@ function openRVModal(sid, acad, e) {
     _rvImages = rec.images.map(img => ({ data: img.data, name: img.name || '' }));
   } else if (rec.imgData) {
     _rvImages = [{ data: rec.imgData, name: rec.imgName || '' }];
-  } else {
-    _rvImages = [];
-  }
+  } else { _rvImages = []; }
   _rvImgData = _rvImages[0]?.data || null;
   _rvImgName = _rvImages[0]?.name || '';
   document.getElementById('rvPrevInp').value = getPrevScore(sid, acad) !== undefined ? getPrevScore(sid, acad) : '';
@@ -5186,7 +5273,7 @@ function renderPTabReview(s, rvDays, thisMonth) {
     const acad = r.acad || 'eng';
     const fbKey = r.date + '_' + s.id + '_' + acad;
     const fb = fbDB[fbKey] || {};
-    const acadColor = acad === 'eng' ? 'var(--blue)' : 'var(--br3)';
+    const acadColor = acad === 'eng' ? 'var(--mum-yellow)' : 'var(--blue)';
     const acadLabel = acad === 'eng' ? '🔵 영어 리뷰' : '📖 국어 리뷰';
     const scoreHtml = r.score !== undefined && r.score !== null
       ? `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">
@@ -6224,21 +6311,24 @@ function toggleNoticePopup(e) {
 function openNoticePopup() {
   const popup = document.getElementById('noticePopup');
   if (!popup) return;
-  document.getElementById('noticeTitleInp').value = '';
-  document.getElementById('noticeBodyInp').value = '';
-  // 현재 공지 불러오기
+  const cur = document.getElementById('noticePopupCurrent');
+  if (cur) cur.innerHTML = '<div style="font-size:11px;color:var(--t4)">불러오는 중...</div>';
+  // 현재 공지 불러오기 + 입력창에도 채우기
   if (_fdb) {
     _fdb.ref('notice').once('value', snap => {
       _noticeData = snap.val();
-      const cur = document.getElementById('noticePopupCurrent');
-      if (_noticeData && _noticeData.title && cur) {
-        cur.innerHTML = `<div style="background:var(--blue-lt);border-radius:10px;padding:10px 12px;margin-bottom:4px">
-          <div style="font-size:11px;font-weight:700;color:var(--t4);margin-bottom:4px">현재 공지</div>
-          <div style="font-size:13px;font-weight:700;color:var(--t1)">${_noticeData.title}</div>
-          <div style="font-size:12px;color:var(--t3);margin-top:3px;white-space:pre-wrap">${_noticeData.body||''}</div>
+      if (_noticeData && _noticeData.title) {
+        // 인풋에 현재 공지 내용 채우기 (바로 수정 가능)
+        document.getElementById('noticeTitleInp').value = _noticeData.title;
+        document.getElementById('noticeBodyInp').value = _noticeData.body || '';
+        if (cur) cur.innerHTML = `<div style="background:rgba(26,114,184,.08);border-radius:10px;padding:8px 12px;margin-bottom:8px;border-left:3px solid var(--blue)">
+          <div style="font-size:10px;font-weight:700;color:var(--blue);margin-bottom:2px">현재 공지 (수정 후 저장하면 변경됩니다)</div>
+          <div style="font-size:12px;color:var(--t2)">${_noticeData.title}</div>
         </div>`;
-      } else if (cur) {
-        cur.innerHTML = '<div style="font-size:12px;color:var(--t4);margin-bottom:4px">현재 등록된 공지가 없습니다</div>';
+      } else {
+        document.getElementById('noticeTitleInp').value = '';
+        document.getElementById('noticeBodyInp').value = '';
+        if (cur) cur.innerHTML = '<div style="font-size:11px;color:var(--t4);margin-bottom:8px">현재 등록된 공지가 없습니다</div>';
       }
     });
   }
