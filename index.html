@@ -563,6 +563,9 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .ac-btn.b-out:hover,.ac-btn.b-out.active{background:var(--br3);color:#fff;border-color:var(--br3)}
 .ac-btn.b-abs{border-color:#F0C4C4;color:var(--rd);background:var(--rd-lt)}
 .ac-btn.b-abs:hover,.ac-btn.b-abs.active{background:var(--rd);color:#fff;border-color:var(--rd)}
+.ac-btn.b-cancel{border-color:#E0E0E0;color:var(--t3);background:var(--sf);font-size:10px}
+.ac-btn.b-cancel:hover{background:var(--t3);color:#fff;border-color:var(--t3)}
+.ac-btn.disabled{opacity:0.35;cursor:not-allowed;pointer-events:none}
 /* 관리자 표시 */
 .att-admin-bar{font-size:9px;font-weight:700;color:var(--gold);
   text-align:center;margin-top:5px;letter-spacing:.04em;opacity:.7}
@@ -1296,6 +1299,53 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .p-curr-foot{display:flex;align-items:center;justify-content:space-between}
 .p-curr-book{font-size:11px;color:var(--t4);font-weight:400}.p-curr-pct{font-size:12px;font-weight:700;color:var(--t3)}
 .p-empty{padding:36px 0;text-align:center;font-size:13px;color:var(--t4);line-height:2;font-weight:400}
+
+/* 학부모 페이지 2탭 구조 */
+.p-tab-bar{display:flex;background:var(--sf);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:10}
+.p-tab-btn{flex:1;padding:13px 8px;border:none;background:transparent;font-size:13px;font-weight:700;color:var(--t4);cursor:pointer;font-family:inherit;border-bottom:2.5px solid transparent;transition:all .2s}
+.p-tab-btn.on{color:var(--blue);border-bottom-color:var(--blue)}
+.p-tab-content{display:none;padding:16px 16px 80px;flex-direction:column;gap:12px}
+.p-tab-content.on{display:flex}
+
+/* 이달의 한마디 */
+.p-notice-card{background:linear-gradient(135deg,var(--blue),#2A8FD4);border-radius:16px;padding:16px 18px;color:#fff}
+.p-notice-label{font-size:10px;font-weight:700;letter-spacing:.1em;opacity:.7;margin-bottom:6px}
+.p-notice-title{font-size:14px;font-weight:800;margin-bottom:6px}
+.p-notice-body{font-size:13px;line-height:1.7;opacity:.9;white-space:pre-wrap}
+
+/* 이달의 한마디 (선생님 개인 메시지) */
+.p-word-card{background:linear-gradient(135deg,#B3956A,#C8A050);border-radius:16px;padding:16px 18px;color:#fff}
+.p-word-label{font-size:10px;font-weight:700;letter-spacing:.1em;opacity:.7;margin-bottom:6px}
+.p-word-text{font-size:14px;font-weight:600;line-height:1.7;white-space:pre-wrap}
+
+/* 출석률 */
+.p-att-rate-wrap{margin-top:13px;padding-top:13px;border-top:1px solid var(--bd)}
+.p-att-rate-lbl{font-size:11px;font-weight:700;color:var(--t4);margin-bottom:8px;letter-spacing:.05em}
+.p-att-rate-bar{height:8px;background:rgba(26,26,26,.08);border-radius:20px;overflow:hidden;margin-bottom:6px}
+.p-att-rate-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--blue),#2A8FD4);transition:width 1s ease}
+.p-att-rate-txt{font-size:11px;color:var(--t3);display:flex;justify-content:space-between}
+
+/* 과제 이행도 뱃지 */
+.p-hw-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.p-hw-S{background:#E8F5E9;color:#2E7D32}
+.p-hw-M{background:#E3F2FD;color:#1565C0}
+.p-hw-L{background:#FFF8E1;color:#F57F17}
+.p-hw-X{background:#FFEBEE;color:#C62828}
+
+/* 성장 그래프 */
+.p-graph-wrap{background:var(--sf);border-radius:16px;padding:16px 18px;border:1px solid var(--bd)}
+.p-graph-title{font-size:13px;font-weight:800;color:var(--t1);margin-bottom:4px}
+.p-graph-sub{font-size:11px;color:var(--t4);margin-bottom:14px}
+.p-graph-comment{font-size:12px;font-weight:700;color:var(--blue);margin-top:12px;text-align:center}
+canvas#pGrowthChart{width:100%!important}
+
+/* 메시지 확인 이력 */
+.p-msg-history{background:var(--sf);border-radius:16px;padding:16px 18px;border:1px solid var(--bd)}
+.p-msg-history-item{padding:10px 0;border-bottom:1px solid var(--bd)}
+.p-msg-history-item:last-child{border-bottom:none}
+.p-msg-history-txt{font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:4px}
+.p-msg-history-meta{font-size:10px;color:var(--t4)}
+.p-msg-history-read{font-size:10px;color:var(--blue);font-weight:700;margin-top:3px}
 
 
 
@@ -2138,6 +2188,10 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.7 11.5a19.79 19.79 0 0 1-3-8.57A2 2 0 0 1 3.66 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
         02-555-0904
       </div>
+      <button onclick="openNoticeModal()" style="margin-top:10px;width:100%;padding:8px;border-radius:10px;border:1px solid var(--bd);background:var(--sf);font-size:11px;font-weight:700;color:var(--t2);cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:5px">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-5"/><path d="M17 3a2.828 2.828 0 1 1 4 4L12 17l-4 1 1-4z"/></svg>
+        공지사항 관리
+      </button>
     </div>
   </div>
 </aside>
@@ -2399,11 +2453,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 <!-- ── 모바일 하단 내비 ── -->
 <div class="mobile-nav" id="mobileNav">
   <div class="mobile-nav-inner">
-    <button class="mn-btn on" id="mnStudents" onclick="mobileGoSec('students',this)">
-      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      <span>학생</span>
-    </button>
-    <button class="mn-btn" id="mnAttendance" onclick="mobileGoSec('attendance',this)">
+    <button class="mn-btn on" id="mnAttendance" onclick="mobileGoSec('attendance',this)">
       <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
       <span>출석부</span>
     </button>
@@ -2649,6 +2699,13 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
           </div>
         </div>
         <div class="f-col"><label>메모</label><textarea id="fNote" placeholder="학습 특성, 알레르기, 기타 전달사항"></textarea></div>
+        <div class="f-col" style="margin-top:10px">
+          <label style="display:flex;align-items:center;gap:5px">
+            ✍️ 이달의 한마디
+            <span style="font-size:10px;color:var(--t4);font-weight:400">(학부모 페이지에 표시됩니다)</span>
+          </label>
+          <textarea id="fTeacherWord" placeholder="예) 이번 달 어휘력이 눈에 띄게 늘었어요!" style="min-height:56px"></textarea>
+        </div>
       </div>
     </div>
     <div class="m-foot">
@@ -2840,7 +2897,9 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
       <button onclick="closePImgModal()" style="position:fixed;top:16px;right:16px;width:48px;height:48px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);color:#111;font-size:24px;font-weight:bold;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:10000;display:flex;align-items:center;justify-content:center;line-height:1">✕</button>
       <img id="pImgModalImg" src="" onclick="event.stopPropagation()" style="max-width:100%;max-height:90vh;object-fit:contain;border-radius:8px">
     </div>
+
       <div class="p-dash">
+        <!-- 헤더 -->
         <div class="p-dash-top">
           <button class="p-logout" onclick="pLogout()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -2853,7 +2912,23 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
           <div class="p-dash-name" id="pChildName"></div>
           <div class="p-dash-sub" id="pDate"></div>
         </div>
-        <div class="p-dash-body" id="pDashBody"></div>
+
+        <!-- 2탭 바 -->
+        <div class="p-tab-bar">
+          <button class="p-tab-btn on" id="pTabToday" onclick="switchPTab('today')">오늘</button>
+          <button class="p-tab-btn" id="pTabReview" onclick="switchPTab('review')">리뷰 &amp; 성장</button>
+        </div>
+
+        <!-- 오늘 탭 -->
+        <div class="p-tab-content on" id="pTabContentToday">
+          <div id="pTodayBody"></div>
+        </div>
+
+        <!-- 리뷰&성장 탭 -->
+        <div class="p-tab-content" id="pTabContentReview">
+          <div id="pReviewBody"></div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -3138,7 +3213,14 @@ async function _loadFirebase() {
   fbWatch('att', val => { if (!val) return; attDB = val; try { localStorage.setItem(ATT_KEY, JSON.stringify(attDB)); } catch(e) {} const s=document.getElementById('attendance'); if(s&&s.classList.contains('active')) renderAtt(); });
   fbWatch('hw',  val => { if (val) hwDB = val; });
   fbWatch('rv',  val => { if (val) rvDB = val; });
-  fbWatch('parentReactions', val => { if (val) { fbDB = val; saveFB(); /* 리뷰 화면 갱신 */ try { renderRVGrid(_rvAcad); } catch(e) {} } });
+  fbWatch('parentReactions', val => {
+    if (val) {
+      fbDB = val;
+      saveFB();
+      // 현재 보고 있는 학원 기준으로 리뷰 화면 갱신
+      try { renderRVGrid(_rvAcad || curAcad); } catch(e) {}
+    }
+  });
 }
 
 function handleLogo(e) {
@@ -3410,6 +3492,7 @@ function openEditModal(id) {
   document.getElementById('fST').value     = s.sT || '';
   document.getElementById('fEnr').value    = s.enr || todayISO();
   document.getElementById('fNote').value   = s.note || '';
+  document.getElementById('fTeacherWord') && (document.getElementById('fTeacherWord').value = s.teacherWord || '');
   // 수강료 블록 표시 여부
   const engFeeEl = document.getElementById('fBlockEngFee');
   const korFeeEl = document.getElementById('fBlockKorFee');
@@ -3515,6 +3598,7 @@ function saveStudent() {
     cls:'',
     enr:document.getElementById('fEnr').value,
     note:document.getElementById('fNote').value.trim(),
+    teacherWord:document.getElementById('fTeacherWord')?.value.trim() || '',
     schedule,
     tuitionEng:{
       monthly: parseInt(document.getElementById('fEngMonthly')?.value) || 0,
@@ -3673,9 +3757,10 @@ function buildAttCard(s, rec) {
     <div class="att-card-meta">${sg}${s.cls ? ' · ' + s.cls : ''}${tags ? ' · ' + tags : ''}</div>
     <div class="att-card-times">${timeBadges}</div>
     <div class="att-card-btns">
-      <button class="ac-btn b-in${hasIn ? ' active' : ''}" onclick="adminMark(${s.id},'in',event)">등원</button>
-      <button class="ac-btn b-out${hasOut ? ' active' : ''}" onclick="adminMark(${s.id},'out',event)">하원</button>
+      <button class="ac-btn b-in${hasIn ? ' active' : ''}${isAbs ? ' disabled' : ''}" onclick="adminMark(${s.id},'in',event)" ${isAbs ? 'disabled' : ''}>등원</button>
+      <button class="ac-btn b-out${hasOut ? ' active' : ''}${!hasIn || isAbs ? ' disabled' : ''}" onclick="adminMark(${s.id},'out',event)" ${!hasIn || isAbs ? 'disabled' : ''}>하원</button>
       <button class="ac-btn b-abs${isAbs ? ' active' : ''}" onclick="adminMark(${s.id},'abs',event)">결석</button>
+      ${hasIn && !hasOut && !isAbs ? `<button class="ac-btn b-cancel" onclick="adminMark(${s.id},'cancel',event)" title="등원 취소">↩ 취소</button>` : ''}
     </div>
     <div class="att-admin-bar">관리자 — 제한 없음</div>
   </div>
@@ -3698,6 +3783,11 @@ function adminMark(sid, type, e) {
   } else if (type === 'abs') {
     if (rec.absent) { rec.absent = false; }
     else { rec.absent = true; rec.inTime = ''; rec.outTime = ''; }
+  } else if (type === 'cancel') {
+    // 등원 취소 — 등원 시간 지우기
+    if (confirm('등원을 취소할까요?')) {
+      rec.inTime = ''; rec.outTime = '';
+    } else return;
   }
   saveAtt();
   renderAttList();
@@ -4610,6 +4700,7 @@ const _rvModalsHtmlPlaceholder = `
   </div>
   <div style="padding:10px 14px;border-top:1px solid var(--bd);display:flex;gap:8px">
     <button onclick="markAllMsgRead()" style="flex:1;padding:8px;border-radius:10px;border:1px solid var(--bd);background:var(--sf);font-size:12px;cursor:pointer;font-family:inherit">모두 읽음</button>
+    <button onclick="deleteReadMsgs()" style="flex:1;padding:8px;border-radius:10px;border:1px solid var(--rd-lt);background:var(--rd-lt);color:var(--rd);font-size:12px;cursor:pointer;font-family:inherit;font-weight:600">읽은것 삭제</button>
     <button onclick="closeMsgAlert()" style="flex:1;padding:8px;border-radius:10px;border:none;background:var(--blue);color:#fff;font-size:12px;cursor:pointer;font-family:inherit;font-weight:700">닫기</button>
   </div>
 </div>
@@ -4790,213 +4881,142 @@ function pLogout() {
 
 function renderParentDash(s) {
   const now = new Date(), days = ['일','월','화','수','목','금','토'];
-  const h = now.getHours();
-  const greet = '글을 읽는 눈을 뜨고, 세상을 담는 문장을 쓰다';
-  const greetEn = 'Opening Eyes to Read, Writing Sentences to Hold the World.';
   const el = id => document.getElementById(id);
-  el('pGreet').textContent    = greet;
-  el('pGreetEn') && (el('pGreetEn').textContent = greetEn);
+  el('pGreet').textContent = '글을 읽는 눈을 뜨고, 세상을 담는 문장을 쓰다';
+  el('pGreetEn') && (el('pGreetEn').textContent = 'Opening Eyes to Read, Writing Sentences to Hold the World.');
   el('pChildName').textContent = s.name + ' 학생';
-  el('pDate').textContent     = `${now.getFullYear()}년 ${now.getMonth()+1}월 ${now.getDate()}일 (${days[now.getDay()]})`;
+  el('pDate').textContent = `${now.getFullYear()}년 ${now.getMonth()+1}월 ${now.getDate()}일 (${days[now.getDay()]})`;
 
-  const today  = todayISO();
+  const today = todayISO();
+  const thisMonth = today.slice(0, 7);
   const attRec = (attDB[today] || {})[s.id] || {};
-  const hwRec  = (hwDB  ? (hwDB[today]  || {})[s.id] : null) || {};
+  const hwRec  = (hwDB ? (hwDB[today] || {})[s.id] : null) || {};
   const rvDays = rvDB ? Object.keys(rvDB).sort().reverse() : [];
 
+  // ── 오늘 탭 렌더링 ──
+  renderPTabToday(s, attRec, hwRec, today, thisMonth);
+  // ── 리뷰&성장 탭 렌더링 ──
+  renderPTabReview(s, rvDays, thisMonth);
+}
+
+/* 탭 전환 */
+function switchPTab(tab) {
+  document.getElementById('pTabToday').classList.toggle('on', tab === 'today');
+  document.getElementById('pTabReview').classList.toggle('on', tab === 'review');
+  document.getElementById('pTabContentToday').classList.toggle('on', tab === 'today');
+  document.getElementById('pTabContentReview').classList.toggle('on', tab === 'review');
+  if (tab === 'review') renderPGrowthChart();
+}
+
+/* ── 오늘 탭 ── */
+function renderPTabToday(s, attRec, hwRec, today, thisMonth) {
   // 등하원 상태
   let stMain = '아직 등원 전이에요', bCls = 'p-bn', bTxt = '미등원';
   let bIco = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
-  if (attRec.absent) { stMain = '오늘 결석입니다'; bCls = 'p-ba'; bTxt = '결석'; }
+  if (attRec.absent)       { stMain = '오늘 결석입니다'; bCls = 'p-ba'; bTxt = '결석'; }
   else if (attRec.outTime) { stMain = '하원했어요'; bCls = 'p-bo'; bTxt = '하원 완료'; bIco = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>'; }
-  else if (attRec.inTime) { stMain = '열심히 공부 중이에요'; bCls = 'p-bi'; bTxt = '학습 중'; }
+  else if (attRec.inTime)  { stMain = '열심히 공부 중이에요'; bCls = 'p-bi'; bTxt = '학습 중'; }
 
-  // 스티커
-  const stars = hwRec.stars || 0;
-  const starSVG = Array.from({length:5},(_,i) =>
-    `<svg class="p-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" ${i<stars?'fill="#F5A623" stroke="none"':'fill="none" stroke="var(--bdm)" stroke-width="1.5"'}/></svg>`
-  ).join('');
-
-  // 당월 리뷰 전체
-  const thisMonth = todayISO().slice(0, 7); // YYYY-MM
-  const reviews = [];
-  if (rvDB) {
-    for (const d of rvDays) {
-      if (!d.startsWith(thisMonth)) continue; // 이번 달만
-      const r = rvDB[d]?.[s.id];
-      if (r && (r.comment || r.score !== undefined)) { reviews.push({date:d,...r}); }
-      // 당월 전체 표시 (건수 제한 없음)
-    }
-  }
-  const rvCards = reviews.length ? reviews.map(r => {
-    const [,mo,dd] = r.date.split('-');
-    const fbKey = r.date + '_' + s.id, fb = fbDB[fbKey] || {};
-    const scoreHtml = r.score !== undefined
-      ? `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">
-           <div class="p-rv-date">${parseInt(mo)}월 ${parseInt(dd)}일</div>
-           <span class="p-rv-score-pill"><span class="p-rv-score-big">${r.score}</span><span class="p-rv-score-of">/ ${r.total||100}</span></span>
-         </div>`
-      : `<div class="p-rv-date" style="margin-bottom:9px">${parseInt(mo)}월 ${parseInt(dd)}일</div>`;
-    const tagsHtml = (r.tags||[]).map(t=>`<span class="p-rv-tag">${t}</span>`).join('');
-    // 이미지 — Firebase 데이터(r) 우선, 없으면 localStorage(올바른 키 사용)
-    const RV_KEY_LS = 'muem_rv_v1';
-    const storedRV = JSON.parse(localStorage.getItem(RV_KEY_LS)||'{}');
-    const localRec = (storedRV[r.date]||{})[s.id] || {};
-    let firstImg = '';
-    if (Array.isArray(r.images) && r.images.length && r.images[0].data) {
-      firstImg = r.images[0].data;
-    } else if (Array.isArray(localRec.images) && localRec.images.length) {
-      firstImg = localRec.images[0].data;
-    } else if (r.imgData) {
-      firstImg = r.imgData;
-    } else if (localRec.imgData) {
-      firstImg = localRec.imgData;
-    }
-    const imgHtml = firstImg
-      ? `<div style="margin-top:10px">
-           <img src="${firstImg}" style="width:100%;max-height:240px;object-fit:contain;border-radius:10px;border:1px solid var(--bd);cursor:pointer;background:#FAFAFA" onclick="openParentRvImg(this.src)">
-           <div style="text-align:center;font-size:10.5px;color:var(--t4);margin-top:4px">사진을 클릭하면 크게 볼 수 있습니다</div>
-         </div>` : '';
-    const fbBtns = [
-      {k:'like',lbl:'좋아요',ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>'},
-      {k:'thanks',lbl:'감사해요',ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>'},
-      {k:'great',lbl:'최고예요',ico:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>'},
-    ].map(rx=>`<button class="p-fb${fb[rx.k]?' on':''}" onclick="togglePFB('${fbKey}','${rx.k}',this)">${rx.ico} ${rx.lbl}</button>`).join('');
-    return `<div class="p-rv-card">${scoreHtml}${tagsHtml?`<div class="p-rv-tags">${tagsHtml}</div>`:''}${r.comment?`<div class="p-rv-comment">${r.comment}</div>`:''}${imgHtml}<div class="p-fb-row">${fbBtns}</div></div>`;
-  }).join('') : '<div class="p-empty">아직 작성된 수업 리뷰가 없습니다.</div>';
-
-  // 커리큘럼 — 영어/국어 탭
-  const ENG=['White','Yellow','Pink','Green','Blue','Red','Black'];
-  const KOR=['독서한글','독서시작','원','삼각','사각A','사각B','오각A','오각B'];
-
-  const hasBoth = s.eng && s.kor && s.eLv && s.kLv;
-
-  // 영어 카드
-  // 영어 컬러 로드맵 설정
-  const ENG_COLORS = {
-    'White':  {col:'#9B9B9B', label:'화이트', sub:'파닉스 기초'},
-    'Yellow': {col:'#F5A623', label:'옐로우',  sub:'초급 리딩'},
-    'Pink':   {col:'#E91E8C', label:'핑크',    sub:'리딩 심화'},
-    'Green':  {col:'#4CAF50', label:'그린',    sub:'중급 독해'},
-    'Blue':   {col:'#1A72B8', label:'블루',    sub:'고급 독해'},
-    'Red':    {col:'#E53935', label:'레드',    sub:'심화 완성'},
-    'Black':  {col:'#212121', label:'블랙',    sub:'최고급'},
-  };
-  const ENG_ORDER = ['White','Yellow','Pink','Green','Blue','Red','Black'];
-
-  let engCard = '';
-  if (s.eng && s.eLv) {
-    const curIdx = ENG_ORDER.indexOf(s.eLv);
-    const curInfo = ENG_COLORS[s.eLv] || {col:'#F5A623', label:s.eLv, sub:''};
-    // 다음 단계까지 진행률 (과목 내 진행률 s.eProgress 또는 기본 50%)
-    const stepPct = s.eProgress || 50;
-    const nextLv = ENG_ORDER[curIdx+1];
-    const nextInfo = nextLv ? ENG_COLORS[nextLv] : null;
-
-    const stepsHtml = ENG_ORDER.map((lv, i) => {
-      const info = ENG_COLORS[lv];
-      const state = i < curIdx ? 'done' : i === curIdx ? 'current' : 'future';
-      const dotIcon = i < curIdx ? '✓' : i === curIdx ? '★' : '';
-      return `<div class="eng-step ${state}" style="--eng-col:${info.col}">
-        <div class="eng-step-line" style="${i < curIdx ? `background:${info.col}` : ''}"></div>
-        <div class="eng-step-dot" style="${state!=='future' ? `border-color:${info.col};background:${state==='done'||state==='current'?info.col:'#fff'}` : ''}">${dotIcon}</div>
-        <div class="eng-step-lbl" style="${state!=='future'?`color:${info.col}`:''}">${info.label}</div>
-      </div>`;
-    }).join('');
-
-    engCard = `<div class="p-curr-card">
-      <div class="p-curr-top">
-        <div class="p-curr-sub">영어 · mu:m English</div>
-        <span class="p-curr-pill pill-eng" style="background:${curInfo.col};color:#fff;border:none">${curInfo.label}</span>
+  // 과제 이행도 + 별점 (등원한 날만)
+  let hwHtml = '';
+  if (attRec.inTime || attRec.outTime) {
+    const stars = hwRec.stars || 0;
+    const starSVG = Array.from({length:5},(_,i) =>
+      `<svg class="p-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" ${i<stars?'fill="#F5A623" stroke="none"':'fill="none" stroke="var(--bdm)" stroke-width="1.5"'}/></svg>`
+    ).join('');
+    // 과제 이행도 뱃지
+    const hwGrade = hwRec.level; // 'high'=상, 'mid'=중, 'low'=하, 'none'=미제출
+    const hwGradeMap = {
+      high: {lbl:'상 · 완벽히', cls:'p-hw-S'},
+      mid:  {lbl:'중 · 대부분', cls:'p-hw-M'},
+      low:  {lbl:'하 · 일부만', cls:'p-hw-L'},
+      none: {lbl:'미제출', cls:'p-hw-X'}
+    };
+    const hwGradeInfo = hwGradeMap[hwGrade];
+    const hwBadge = hwGradeInfo ? `<span class="p-hw-badge ${hwGradeInfo.cls}">${hwGradeInfo.lbl}</span>` : '';
+    hwHtml = `<div class="p-sticker-row">
+      <div>
+        <div class="p-sticker-lbl">오늘 스티커</div>
+        <div class="p-stars" style="margin-top:5px">${starSVG}</div>
       </div>
-      <div class="eng-roadmap">
-        <div class="eng-roadmap-track">${stepsHtml}</div>
-        <div class="eng-prog-wrap">
-          <div class="eng-prog-label">
-            <span style="color:${curInfo.col};font-weight:700">${curInfo.label} 단계 ${curInfo.sub}</span>
-            <span>${nextInfo ? `다음: ${nextInfo.label}` : '🎉 최고 단계!'}</span>
-          </div>
-          <div class="eng-prog-track">
-            <div class="eng-prog-fill" style="width:${stepPct}%;background:${curInfo.col}"></div>
-          </div>
-          <div style="text-align:right;font-size:9px;color:var(--t4);margin-top:2px">${stepPct}%</div>
-        </div>
-      </div>
-      <div class="p-curr-foot"><div class="p-curr-book">${s.eSub||'영어 7단계 과정'}</div></div>
+      ${hwBadge ? `<div><div class="p-sticker-lbl">과제 이행도</div><div style="margin-top:5px">${hwBadge}</div></div>` : ''}
     </div>`;
   }
 
-  // 국어 카드
-  // 국어 지층 설정
-  const KOR_LAYERS = [
-    {lv:'독서한글',    sub:'한글 기초 독서'},
-    {lv:'독서시작',    sub:'독서 습관 형성'},
-    {lv:'원',          sub:'다독논술'},
-    {lv:'삼각',        sub:'다독논술 + 독서논술'},
-    {lv:'사각A',       sub:'교과논술 + 다독논술'},
-    {lv:'사각B',       sub:'교과논술 + 독서논술'},
-    {lv:'오각A',       sub:'글쓰기논술 + 다독논술'},
-    {lv:'오각B',       sub:'글쓰기논술 + 독서논술'},
-  ];
+  // 출석률 (이번 달)
+  const attDays = Object.keys(attDB).filter(d => d.startsWith(thisMonth));
+  const totalDays = attDays.length;
+  const presentDays = attDays.filter(d => {
+    const r = (attDB[d] || {})[s.id] || {};
+    return r.inTime && !r.absent;
+  }).length;
+  const attRate = totalDays > 0 ? Math.round(presentDays / totalDays * 100) : 0;
+  const attRateHtml = totalDays > 0 ? `
+    <div class="p-att-rate-wrap">
+      <div class="p-att-rate-lbl">이번 달 출석률</div>
+      <div class="p-att-rate-bar"><div class="p-att-rate-fill" style="width:${attRate}%"></div></div>
+      <div class="p-att-rate-txt"><span>${attRate}%</span><span>${presentDays}회 출석</span></div>
+    </div>` : '';
 
-  let korCard = '';
-  if (s.kor && s.kLv) {
-    const curKorIdx = KOR_LAYERS.findIndex(l => l.lv === s.kLv);
-    const isDeepening = s.kDeepening || false;
+  // 이달의 한마디 (학생별 — s.teacherWord)
+  const teacherWord = s.teacherWord;
+  const wordHtml = teacherWord ? `
+    <div class="p-word-card">
+      <div class="p-word-label">✍️ 선생님의 한마디</div>
+      <div class="p-word-text">${teacherWord}</div>
+    </div>` : '';
 
-    const layersHtml = KOR_LAYERS.map((layer, i) => {
-      const state = i < curKorIdx ? 'done' : i === curKorIdx ? (isDeepening ? 'deepening current' : 'current') : 'future';
-      const isDone = i < curKorIdx;
-      const isCur = i === curKorIdx;
-      return `<div class="kor-layer ${state}">
-        <div class="kor-layer-name">${layer.lv}</div>
-        <div class="kor-layer-sub">${layer.sub}</div>
-        ${isCur && isDeepening ? `<div class="kor-deepening-badge">✦ 내실을 다지는 중</div>` : ''}
-        ${isDone ? `<span class="kor-layer-check">✓</span>` : ''}
-        ${isCur && !isDeepening ? `<span class="kor-layer-check">▶</span>` : ''}
-      </div>`;
-    }).join('');
-
-    korCard = `<div class="p-curr-card">
-      <div class="p-curr-top">
-        <div class="p-curr-sub">국어 · 폴리오국어논술</div>
-        <span class="p-curr-pill pill-kor">${s.kLv}</span>
-      </div>
-      <div class="kor-layers">${layersHtml}</div>
-      <div class="p-curr-foot"><div class="p-curr-book">${s.kSub||'국어 8단계 과정'}</div></div>
-    </div>`;
+  // 공지사항
+  let noticeHtml = '';
+  if (_fdb) {
+    _fdb.ref('notice').once('value', snap => {
+      const notice = snap.val();
+      const noticeEl = document.getElementById('pNoticeWrap');
+      if (notice && notice.title && noticeEl) {
+        noticeEl.innerHTML = `<div class="p-notice-card">
+          <div class="p-notice-label">📢 공지사항</div>
+          <div class="p-notice-title">${notice.title}</div>
+          <div class="p-notice-body">${notice.body||''}</div>
+        </div>`;
+      }
+    });
   }
 
-  let currHtml = '';
-  if (hasBoth) {
-    // 탭 구조
-    currHtml = `
-    <div class="p-subj-tabs">
-      <button class="p-stab on" id="pstabE" onclick="pSwitchTab('eng')">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg> 영어
-      </button>
-      <button class="p-stab" id="pstabK" onclick="pSwitchTab('kor')">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> 국어
-      </button>
-    </div>
-    <div id="pCurrEng">${engCard}</div>
-    <div id="pCurrKor" style="display:none">${korCard}</div>`;
-  } else {
-    currHtml = engCard + korCard || '<div class="p-empty">교재 정보가 없습니다.</div>';
+  // 보낸 메시지 확인 이력
+  let myMsgsHtml = '';
+  if (_fdb) {
+    _fdb.ref('messages').orderByChild('pT').equalTo(s.pT).once('value', snap => {
+      const msgs = snap.val();
+      const msgEl = document.getElementById('pMyMsgList');
+      if (msgs && msgEl) {
+        const msgArr = Object.values(msgs).sort((a,b) => b.ts - a.ts).slice(0, 5);
+        msgEl.innerHTML = msgArr.map(m => {
+          const time = new Date(m.ts).toLocaleString('ko-KR', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
+          const readInfo = m.read ? `<div class="p-msg-history-read">✅ 확인했습니다${m.readAt ? ' · ' + m.readAt : ''}</div>` : '<div style="font-size:10px;color:var(--t4)">확인 전</div>';
+          return `<div class="p-msg-history-item">
+            <div class="p-msg-history-txt">${m.msg}</div>
+            <div class="p-msg-history-meta">${time}</div>
+            ${readInfo}
+          </div>`;
+        }).join('') || '<div style="font-size:12px;color:var(--t4);padding:10px 0">보낸 메시지가 없습니다</div>';
+      }
+    });
   }
 
-  el('pDashBody').innerHTML = `
+  document.getElementById('pTodayBody').innerHTML = `
     <!-- 액션 버튼 -->
     <div class="p-action-section">
-      <button class="p-action-btn p-action-msg" onclick="openPMsgModal()">
+      <button class="p-action-btn p-action-msg" onclick="openPMsgModal()" style="flex:2">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         선생님께 메시지
       </button>
-      <button class="p-action-btn p-action-bell" onclick="requestPushPermission()" id="pPushBtn">
+      <button class="p-action-btn p-action-bell" onclick="requestPushPermission()" id="pPushBtn" style="flex:1">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         <span id="pPushBtnTxt">알림 설정</span>
       </button>
     </div>
+
+    <!-- 오늘 등하원 -->
     <div class="p-sec-lbl">오늘 등하원</div>
     <div class="p-card">
       <div class="p-status-header">
@@ -5007,13 +5027,178 @@ function renderParentDash(s) {
         <div class="p-ti"><div class="p-ti-lbl">등원</div><div class="p-ti-val${attRec.inTime?'':' dim'}">${attRec.inTime||'- -'}</div></div>
         <div class="p-ti"><div class="p-ti-lbl">하원</div><div class="p-ti-val${attRec.outTime?'':' dim'}">${attRec.outTime||'- -'}</div></div>
       </div>
-      <div class="p-sticker-row"><div class="p-sticker-lbl">오늘 스티커</div><div class="p-stars">${starSVG}</div></div>
+      ${hwHtml}
+      ${attRateHtml}
     </div>
-    <div class="p-sec-lbl" style="margin-top:6px">이번 달 수업 리뷰</div>
-    ${reviews.length ? rvCards : '<div class="p-card"><div class="p-empty">작성된 리뷰가 없습니다.</div></div>'}
-    <div class="p-sec-lbl" style="margin-top:6px">현재 학습 단계</div>
-    ${currHtml}
+
+    <!-- 이달의 한마디 -->
+    ${wordHtml}
+
+    <!-- 공지사항 -->
+    <div id="pNoticeWrap"></div>
+
+    <!-- 보낸 메시지 확인 -->
+    <div class="p-sec-lbl" style="margin-top:6px">메시지 확인 내역</div>
+    <div class="p-msg-history"><div id="pMyMsgList"><div style="font-size:12px;color:var(--t4);padding:10px 0">불러오는 중...</div></div></div>
   `;
+
+  // 알림 버튼 상태 동기화
+  setTimeout(syncPushBtnState, 100);
+}
+
+/* ── 리뷰&성장 탭 ── */
+function renderPTabReview(s, rvDays, thisMonth) {
+  // 전체 리뷰 (모든 기간)
+  const allReviews = [];
+  if (rvDB) {
+    for (const d of rvDays) {
+      const r = rvDB[d]?.[s.id];
+      if (r && (r.comment || r.score !== undefined || r.tags?.length)) {
+        allReviews.push({date: d, ...r});
+      }
+    }
+  }
+
+  // 이번 달 리뷰
+  const thisMonthReviews = allReviews.filter(r => r.date.startsWith(thisMonth));
+
+  const rvCards = allReviews.length ? allReviews.map(r => {
+    const [,mo,dd] = r.date.split('-');
+    const fbKey = r.date + '_' + s.id, fb = fbDB[fbKey] || {};
+    const isThisMonth = r.date.startsWith(thisMonth);
+    const scoreHtml = r.score !== undefined
+      ? `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">
+           <div class="p-rv-date">${parseInt(mo)}월 ${parseInt(dd)}일${isThisMonth ? '' : ''}</div>
+           <span class="p-rv-score-pill"><span class="p-rv-score-big">${r.score}</span><span class="p-rv-score-of">/ ${r.total||100}</span></span>
+         </div>`
+      : `<div class="p-rv-date" style="margin-bottom:9px">${parseInt(mo)}월 ${parseInt(dd)}일</div>`;
+    const tagsHtml = (r.tags||[]).map(t=>`<span class="p-rv-tag">${t}</span>`).join('');
+    // 이미지
+    const RV_KEY_LS = 'muem_rv_v1';
+    const storedRV = JSON.parse(localStorage.getItem(RV_KEY_LS)||'{}');
+    const localRec = (storedRV[r.date]||{})[s.id] || {};
+    let firstImg = '';
+    if (Array.isArray(r.images) && r.images.length && r.images[0].data) { firstImg = r.images[0].data; }
+    else if (Array.isArray(localRec.images) && localRec.images.length) { firstImg = localRec.images[0].data; }
+    else if (r.imgData) { firstImg = r.imgData; }
+    const imgHtml = firstImg ? `<div style="margin-top:10px">
+      <img src="${firstImg}" style="width:100%;max-height:240px;object-fit:contain;border-radius:10px;border:1px solid var(--bd);cursor:pointer;background:#FAFAFA" onclick="openParentRvImg(this.src)">
+      <div style="text-align:center;font-size:10.5px;color:var(--t4);margin-top:4px">사진을 클릭하면 크게 볼 수 있습니다</div>
+    </div>` : '';
+    const fbBtns = [
+      {k:'like',lbl:'좋아요',ico:'👍'},
+      {k:'thanks',lbl:'감사해요',ico:'❤️'},
+      {k:'great',lbl:'최고예요',ico:'😊'},
+    ].map(rx=>`<button class="p-fb${fb[rx.k]?' on':''}" onclick="togglePFB('${fbKey}','${rx.k}',this)">${rx.ico} ${rx.lbl}</button>`).join('');
+    return `<div class="p-rv-card">${scoreHtml}${tagsHtml?`<div class="p-rv-tags">${tagsHtml}</div>`:''}${r.comment?`<div class="p-rv-comment">${r.comment}</div>`:''}${imgHtml}<div class="p-fb-row">${fbBtns}</div></div>`;
+  }).join('') : '<div class="p-empty">작성된 수업 리뷰가 없습니다.</div>';
+
+  // 성장 코멘트 자동 생성
+  let growthComment = '';
+  if (allReviews.length >= 2) {
+    const last = allReviews[0].score, prev = allReviews[1].score;
+    if (last !== undefined && prev !== undefined) {
+      const diff = last - prev;
+      if (diff > 0) growthComment = `📈 지난번보다 ${diff}점 올랐어요!`;
+      else if (diff < 0) growthComment = `💪 조금 더 노력하면 올라갈 수 있어요!`;
+      else growthComment = `✅ 꾸준하게 유지하고 있어요!`;
+    }
+  } else if (allReviews.length === 1) {
+    growthComment = '🌱 첫 번째 리뷰가 기록됐어요!';
+  }
+
+  document.getElementById('pReviewBody').innerHTML = `
+    <!-- 성장 그래프 -->
+    <div class="p-graph-wrap">
+      <div class="p-graph-title">📊 성장 그래프</div>
+      <div class="p-graph-sub">전체 수업 리뷰 점수 기록</div>
+      <canvas id="pGrowthChart" height="160"></canvas>
+      ${growthComment ? `<div class="p-graph-comment">${growthComment}</div>` : ''}
+    </div>
+
+    <!-- 수업 리뷰 목록 -->
+    <div class="p-sec-lbl">수업 리뷰 전체 기록</div>
+    ${rvCards}
+  `;
+
+  // 그래프 데이터 저장
+  window._pGrowthData = allReviews.filter(r => r.score !== undefined).map(r => ({
+    date: r.date.slice(5).replace('-', '/'),
+    score: r.score,
+    stars: r.stars || 0,
+  })).reverse();
+}
+
+/* 성장 그래프 렌더링 (Chart.js) */
+function renderPGrowthChart() {
+  const data = window._pGrowthData;
+  if (!data || data.length === 0) return;
+  const canvas = document.getElementById('pGrowthChart');
+  if (!canvas) return;
+
+  // Chart.js 동적 로드
+  if (!window.Chart) {
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js';
+    script.onload = () => drawPGrowthChart(canvas, data);
+    document.head.appendChild(script);
+  } else {
+    drawPGrowthChart(canvas, data);
+  }
+}
+
+function drawPGrowthChart(canvas, data) {
+  // 기존 차트 파괴
+  if (canvas._chart) canvas._chart.destroy();
+  const ctx = canvas.getContext('2d');
+  const gradient = ctx.createLinearGradient(0, 0, 0, 160);
+  gradient.addColorStop(0, 'rgba(26,114,184,0.3)');
+  gradient.addColorStop(1, 'rgba(26,114,184,0)');
+  canvas._chart = new window.Chart(canvas, {
+    type: 'line',
+    data: {
+      labels: data.map(d => d.date),
+      datasets: [{
+        label: '리뷰 점수',
+        data: data.map(d => d.score),
+        borderColor: '#1A72B8',
+        backgroundColor: gradient,
+        borderWidth: 2.5,
+        pointBackgroundColor: '#1A72B8',
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        fill: true,
+        tension: 0.3,
+      }, {
+        label: '별점 (×20)',
+        data: data.map(d => d.stars * 20),
+        borderColor: '#F5A623',
+        backgroundColor: 'transparent',
+        borderWidth: 2,
+        pointBackgroundColor: '#F5A623',
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        fill: false,
+        tension: 0.3,
+        borderDash: [4, 3],
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } },
+        tooltip: { mode: 'index', intersect: false }
+      },
+      scales: {
+        y: {
+          min: 0, max: 100,
+          ticks: { font: { size: 10 }, stepSize: 20 },
+          grid: { color: 'rgba(0,0,0,0.06)' }
+        },
+        x: { ticks: { font: { size: 10 } }, grid: { display: false } }
+      }
+    }
+  });
 }
 
 function togglePFB(key, type, btn) {
@@ -5703,32 +5888,63 @@ function removeRVImg(idx) {
 /* ── 관리자 메시지 알림 ── */
 let _msgData = {};
 let _msgPopupOpen = false;
+let _msgLastCount = 0; // 이전 메시지 수 (새 메시지 감지용)
+let _msgFirstLoad = true; // 최초 로드 여부
 
 function initMsgWatch() {
   if (!_fdb) return;
   _fdb.ref('messages').on('value', snap => {
+    const prev = _msgLastCount;
     _msgData = snap.val() || {};
+    const unread = Object.values(_msgData).filter(m => !m.read).length;
+    _msgLastCount = unread;
     updateMsgBadge();
+    // 새 메시지 팝업 — 최초 로드 제외, 새 메시지 왔을 때만
+    if (!_msgFirstLoad && unread > prev) {
+      const newMsgs = Object.values(_msgData).filter(m => !m.read);
+      const latest = newMsgs[newMsgs.length - 1];
+      if (latest) showNewMsgModal(latest);
+    }
+    _msgFirstLoad = false;
   });
+}
+
+/* 새 메시지 모달 팝업 (첫 메시지) */
+function showNewMsgModal(msg) {
+  // 이미 모달 열려있으면 토스트만
+  if (_msgPopupOpen) {
+    showToast(`💬 ${msg.from} 학부모님 새 메시지가 왔어요`);
+    return;
+  }
+  // 모달 팝업
+  const overlay = document.createElement('div');
+  overlay.id = 'newMsgOverlay';
+  overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px';
+  overlay.innerHTML = `
+    <div style="background:var(--bg);border-radius:20px;padding:24px;max-width:340px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)">
+      <div style="font-size:28px;text-align:center;margin-bottom:12px">💬</div>
+      <div style="font-size:16px;font-weight:800;color:var(--t1);text-align:center;margin-bottom:6px">${msg.from} 학부모님</div>
+      <div style="font-size:13px;color:var(--t3);text-align:center;margin-bottom:16px">새 메시지가 도착했어요</div>
+      <div style="background:var(--sand);border-radius:12px;padding:14px;font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:20px">${msg.msg}</div>
+      <div style="display:flex;gap:10px">
+        <button onclick="document.getElementById('newMsgOverlay').remove()" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--bd);background:var(--sf);font-size:14px;cursor:pointer;font-family:inherit;font-weight:600">닫기</button>
+        <button onclick="document.getElementById('newMsgOverlay').remove();toggleMsgAlert()" style="flex:1;padding:12px;border-radius:12px;border:none;background:var(--blue);color:#fff;font-size:14px;cursor:pointer;font-family:inherit;font-weight:700">확인하기</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
 }
 
 function updateMsgBadge() {
   const unread = Object.values(_msgData).filter(m => !m.read).length;
-  // 모바일 하단 탭바 배지
   const badge = document.getElementById('msgBadge');
   if (badge) {
     badge.textContent = unread;
     badge.style.display = unread > 0 ? 'flex' : 'none';
   }
-  // PC 사이드바 배지
   const badgeSb = document.getElementById('msgBadgeSidebar');
   if (badgeSb) {
     badgeSb.textContent = unread;
     badgeSb.style.display = unread > 0 ? 'flex' : 'none';
-  }
-  // 새 메시지 있으면 자동 팝업
-  if (unread > 0 && !_msgPopupOpen) {
-    setTimeout(() => openMsgAlert(), 1500);
   }
 }
 
@@ -5747,16 +5963,23 @@ function openMsgAlert() {
   const list  = document.getElementById('msgAlertList');
   if (!popup || !list) return;
 
-  const msgs = Object.entries(_msgData).sort((a,b) => b[0]-a[0]);
+  const msgs = Object.entries(_msgData).sort((a,b) => b[1].ts - a[1].ts);
   if (!msgs.length) {
     list.innerHTML = '<div class="msg-alert-empty">메시지가 없습니다</div>';
   } else {
     list.innerHTML = msgs.map(([key, m]) => {
       const time = new Date(m.ts).toLocaleString('ko-KR', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
-      return `<div class="msg-alert-item ${m.read?'read':''}" onclick="readMsg('${key}')">
-        <div class="msg-alert-sender">${m.from} 학부모 ${!m.read ? '🔴' : ''}</div>
-        <div class="msg-alert-text">${m.msg}</div>
-        <div class="msg-alert-time">${time} · ${m.pT||''}</div>
+      const readStyle = m.read ? 'opacity:.55' : '';
+      return `<div class="msg-alert-item ${m.read?'read':''}" style="${readStyle}">
+        <div style="display:flex;align-items:flex-start;gap:8px">
+          <div style="flex:1" onclick="readMsg('${key}')">
+            <div class="msg-alert-sender">${m.from} 학부모 ${!m.read ? '🔴' : '✅'}</div>
+            <div class="msg-alert-text">${m.msg}</div>
+            <div class="msg-alert-time">${time} · ${m.pT||''}</div>
+            ${m.read ? '<div style="font-size:10px;color:var(--blue);margin-top:3px">✅ 확인했습니다</div>' : '<div style="font-size:10px;color:var(--t4);margin-top:3px">탭하면 읽음 처리됩니다</div>'}
+          </div>
+          <button onclick="deleteSingleMsg('${key}')" style="padding:4px 8px;border-radius:8px;border:1px solid var(--rd-lt);background:var(--rd-lt);color:var(--rd);font-size:10px;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">삭제</button>
+        </div>
       </div>`;
     }).join('');
   }
@@ -5771,23 +5994,104 @@ function closeMsgAlert() {
   _msgPopupOpen = false;
 }
 
+/* 메시지 클릭 시 읽음 처리 + 학부모에게 확인 표시 */
 async function readMsg(key) {
-  if (!_fdb || !_msgData[key]) return;
+  if (!_fdb || !_msgData[key] || _msgData[key].read) return;
+  const now = new Date().toLocaleString('ko-KR', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
   _msgData[key].read = true;
-  await _fdb.ref(`messages/${key}/read`).set(true);
+  _msgData[key].readAt = now;
+  await _fdb.ref(`messages/${key}`).update({ read: true, readAt: now });
   updateMsgBadge();
-  openMsgAlert(); // 새로고침
+  openMsgAlert(); // 목록 새로고침
+}
+
+/* 개별 메시지 삭제 */
+async function deleteSingleMsg(key) {
+  if (!_fdb || !_msgData[key]) return;
+  delete _msgData[key];
+  await _fdb.ref(`messages/${key}`).remove();
+  updateMsgBadge();
+  openMsgAlert();
+  showToast('메시지를 삭제했어요');
+}
+
+/* 읽은 메시지 일괄 삭제 */
+async function deleteReadMsgs() {
+  if (!_fdb) return;
+  const readKeys = Object.keys(_msgData).filter(k => _msgData[k].read);
+  if (!readKeys.length) { showToast('삭제할 읽은 메시지가 없어요'); return; }
+  const updates = {};
+  readKeys.forEach(k => { updates[`messages/${k}`] = null; delete _msgData[k]; });
+  await _fdb.ref().update(updates);
+  updateMsgBadge();
+  openMsgAlert();
+  showToast(`읽은 메시지 ${readKeys.length}개를 삭제했어요`);
 }
 
 async function markAllMsgRead() {
   if (!_fdb) return;
+  const now = new Date().toLocaleString('ko-KR', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
   const updates = {};
-  Object.keys(_msgData).forEach(k => { updates[`messages/${k}/read`] = true; });
-  await _fdb.ref().update(updates);
-  Object.keys(_msgData).forEach(k => { _msgData[k].read = true; });
+  Object.keys(_msgData).forEach(k => {
+    if (!_msgData[k].read) {
+      updates[`messages/${k}/read`] = true;
+      updates[`messages/${k}/readAt`] = now;
+      _msgData[k].read = true;
+      _msgData[k].readAt = now;
+    }
+  });
+  if (Object.keys(updates).length) await _fdb.ref().update(updates);
   updateMsgBadge();
-  closeMsgAlert();
+  openMsgAlert();
   showToast('모두 읽음 처리됐어요');
+}
+
+/* ── 공지사항 관리 ── */
+let _noticeData = null;
+
+function openNoticeModal() {
+  // 현재 공지 불러오기
+  if (_fdb) {
+    _fdb.ref('notice').once('value', snap => {
+      _noticeData = snap.val();
+      const wrap = document.getElementById('noticeCurrentWrap');
+      if (_noticeData && _noticeData.title) {
+        document.getElementById('noticeCurrentTitle').textContent = _noticeData.title;
+        document.getElementById('noticeCurrentBody').textContent = _noticeData.body || '';
+        if (wrap) wrap.style.display = 'block';
+      } else {
+        if (wrap) wrap.style.display = 'none';
+      }
+    });
+  }
+  document.getElementById('noticeTitleInp').value = '';
+  document.getElementById('noticeBodyInp').value = '';
+  openModal('noticeModal');
+}
+
+async function saveNotice() {
+  const title = document.getElementById('noticeTitleInp').value.trim();
+  const body  = document.getElementById('noticeBodyInp').value.trim();
+  if (!title) { showToast('공지 제목을 입력해주세요'); return; }
+  if (!body)  { showToast('공지 내용을 입력해주세요'); return; }
+  try {
+    await _fdb.ref('notice').set({ title, body, ts: Date.now() });
+    showToast('✅ 공지사항이 저장됐어요');
+    closeModal('noticeModal');
+  } catch(e) {
+    showToast('저장 실패. 다시 시도해주세요.');
+  }
+}
+
+async function deleteNotice() {
+  if (!confirm('공지사항을 삭제할까요?')) return;
+  try {
+    await _fdb.ref('notice').remove();
+    showToast('공지사항을 삭제했어요');
+    closeModal('noticeModal');
+  } catch(e) {
+    showToast('삭제 실패. 다시 시도해주세요.');
+  }
 }
 
 /* 시작 */
@@ -5795,5 +6099,36 @@ init();
 
 </script>
 
+<!-- ══ 공지사항 관리 모달 ══ -->
+<div class="m-bg" id="noticeModal">
+  <div class="m-box" style="max-width:480px">
+    <div class="m-hd">
+      <div><div class="m-title">📢 공지사항 관리</div><div class="m-sub">학부모 페이지에 표시될 공지를 작성하세요</div></div>
+      <button class="m-x" onclick="closeModal('noticeModal')">×</button>
+    </div>
+    <div class="m-body">
+      <div class="f-block">
+        <div style="margin-bottom:12px">
+          <label style="font-size:12px;font-weight:700;color:var(--t3);display:block;margin-bottom:6px">공지 제목</label>
+          <input id="noticeTitleInp" placeholder="예) 5월 휴원 안내" style="width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid var(--bd);font-size:13px;font-family:inherit;background:var(--sf);color:var(--t1);box-sizing:border-box">
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:700;color:var(--t3);display:block;margin-bottom:6px">공지 내용</label>
+          <textarea id="noticeBodyInp" rows="5" placeholder="공지 내용을 입력하세요" style="width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid var(--bd);font-size:13px;font-family:inherit;resize:vertical;background:var(--sf);color:var(--t1);line-height:1.6;box-sizing:border-box"></textarea>
+        </div>
+        <div id="noticeCurrentWrap" style="margin-top:14px;padding:12px;background:var(--sand);border-radius:10px;display:none">
+          <div style="font-size:11px;font-weight:700;color:var(--t4);margin-bottom:6px">📋 현재 공지</div>
+          <div id="noticeCurrentTitle" style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:4px"></div>
+          <div id="noticeCurrentBody" style="font-size:12px;color:var(--t3);line-height:1.6;white-space:pre-wrap"></div>
+          <button onclick="deleteNotice()" style="margin-top:10px;padding:6px 12px;border-radius:8px;border:1px solid var(--rd-lt);background:var(--rd-lt);color:var(--rd);font-size:11px;cursor:pointer;font-family:inherit;font-weight:700">공지 삭제</button>
+        </div>
+      </div>
+    </div>
+    <div class="m-ft">
+      <button class="btn-cancel" onclick="closeModal('noticeModal')">취소</button>
+      <button class="btn-save" onclick="saveNotice()">✓ 저장</button>
+    </div>
+  </div>
+</div>
 
 </body></html>
