@@ -1019,7 +1019,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
     overflow:hidden !important;
     pointer-events:none !important;
   }
-  .mobile-acad-bar{display:flex}
+  .mobile-acad-bar{display:none}  /* 과제가 영어 전용이라 모바일에서 학원 탭 불필요 */
   .page{padding:16px 14px 100px}
   .topbar{padding:0 14px}
   .subnav{display:none}
@@ -2402,12 +2402,12 @@ canvas#pGrowthChart{width:100%!important}
         <div class="att-grid" id="attList"></div>
       </div>
 
-      <!-- ══ 과제 관리 ══ -->
-      <!-- ══ 과제 관리 ══ -->
+      <!-- ══ 과제 관리 (영어 전용) ══ -->
       <div class="sec" id="hw">
         <div class="pg-top">
           <div>
-            <div class="pg-title" id="hwPgTitle">과제 체크보드</div>
+            <div class="eyebrow ey-e">mu:m English</div>
+            <div class="pg-title">영어 과제 체크보드</div>
             <div class="pg-desc">이행도·스티커를 기록하고 학부모 리포트 전송</div>
           </div>
           <div style="display:flex;gap:8px;align-items:center;">
@@ -2428,11 +2428,10 @@ canvas#pGrowthChart{width:100%!important}
       </div>
 
       <!-- ══ 수업 리뷰 ══ -->
-      <!-- ══ 수업 리뷰 ══ -->
       <div class="sec" id="rv">
         <div class="pg-top">
           <div>
-            <div class="pg-title" id="rvPgTitle">수업 리뷰</div>
+            <div class="pg-title">수업 리뷰</div>
             <div class="pg-desc">점수·피드백·테스트지를 기록하고 학부모 리포트 전송</div>
           </div>
           <div style="display:flex;gap:8px;align-items:center;">
@@ -2440,11 +2439,22 @@ canvas#pGrowthChart{width:100%!important}
             <input type="date" class="date-inp-sm" id="rvDatePicker" onchange="onRVDate()">
           </div>
         </div>
+        <!-- 영어/국어 탭 -->
+        <div style="display:flex;gap:0;margin-bottom:14px;background:var(--sf);border-radius:12px;padding:4px;border:1px solid var(--bd)">
+          <button id="rvTabEng" onclick="switchRVTab('eng')"
+            style="flex:1;padding:9px;border-radius:9px;border:none;background:var(--mum-yellow);color:#fff;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;transition:all .2s">
+            영어 리뷰
+          </button>
+          <button id="rvTabKor" onclick="switchRVTab('kor')"
+            style="flex:1;padding:9px;border-radius:9px;border:none;background:transparent;color:var(--t4);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s">
+            국어 리뷰
+          </button>
+        </div>
         <div class="rv-stat-strip" id="rvStatStrip"></div>
         <div class="att-frow">
-          <div class="afc on" onclick="setRVFilter('all',this)">전체</div>
+          <div class="afc" onclick="setRVFilter('all',this)">전체</div>
           <div class="afc" onclick="setRVFilter('done',this)">완료</div>
-          <div class="afc" onclick="setRVFilter('none',this)">미작성</div>
+          <div class="afc on" onclick="setRVFilter('none',this)">미작성</div>
         </div>
         <div class="rv-grid" id="rvGrid"></div>
       </div>
@@ -2806,7 +2816,7 @@ canvas#pGrowthChart{width:100%!important}
       <div class="f-block">
         <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--pu)"></span>테스트지 첨부 (선택)</div>
         <label class="rv-upload-zone" id="rvUploadZone" style="cursor:pointer">
-          <input type="file" id="rvFileInp" accept="image/*,.pdf" style="display:none" onchange="handleRVImg(event)" multiple accept="image/*">
+          <input type="file" id="rvFileInp" accept="image/*,.pdf" style="display:none" onchange="handleRVImg(event)" multiple>
           <div id="rvUploadInner"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg><div style="font-size:12.5px;font-weight:600;color:var(--t3);margin-top:6px">클릭하여 파일 선택</div><div style="font-size:10.5px;color:var(--t4);margin-top:2px">이미지 또는 PDF</div></div>
         </label>
         <div id="rvImgPreview" style="display:none;margin-top:9px"></div>
@@ -3305,20 +3315,15 @@ function switchAcad(a) {
   // 현재 보고 있는 화면만 새로 그리기
   updateStats();
   renderStudents();
-  // 과제/리뷰 페이지 제목도 학원에 맞게 변경
-  const hwTitle = document.getElementById('hwPgTitle');
-  if (hwTitle) hwTitle.textContent = a === 'eng' ? '영어 과제 체크보드' : '국어 과제 체크보드';
-  const rvTitle = document.getElementById('rvPgTitle');
-  if (rvTitle) rvTitle.textContent = a === 'eng' ? '영어 수업 리뷰' : '국어 수업 리뷰';
-  // 과제 화면 활성화 상태면 재렌더링
+  // 과제는 영어 전용 — 학원 전환해도 항상 eng
   const hwSec = document.getElementById('hw');
   if (hwSec && hwSec.classList.contains('active')) {
-    try { renderHW(a); } catch(e) {}
+    try { renderHW('eng'); } catch(e) {}
   }
   // 리뷰 화면 활성화 상태면 재렌더링
   const rvSec = document.getElementById('rv');
   if (rvSec && rvSec.classList.contains('active')) {
-    try { renderRV(a); } catch(e) {}
+    try { switchRVTab(_rvAcad || 'eng'); } catch(e) {}
   }
   // 출석부 활성화 상태면 재렌더링
   const attSec = document.getElementById('attendance');
@@ -3340,7 +3345,9 @@ function goSec(id, navEl) {
   }
   if (id === 'rv') {
     document.getElementById('snt-rv')?.classList.add('on');
-    renderRV(_rvAcad);
+    // 처음 진입 시 영어 탭 + 미작성 기본값
+    _rvFilter = 'none';
+    switchRVTab(_rvAcad || 'eng');
   }
   // 구버전 호환 (eng-hw, kor-hw, eng-rv, kor-rv 요청 시 통합 섹션으로 리다이렉트)
   if (id === 'eng-hw') { goSec('hw', navEl); switchHWTab('eng'); return; }
@@ -4208,16 +4215,18 @@ function switchHWModalTab(acad) {
   const isEng = acad === 'eng';
   const tabE = document.getElementById('hwModalTabEng');
   const tabK = document.getElementById('hwModalTabKor');
-  // 영어 = 골드, 국어 = 파란색
+  // 영어 = 골드 배경 + 진한 글씨, 국어 = 파란색 배경 + 흰 글씨
   if (tabE) {
     tabE.style.background = isEng ? 'var(--mum-yellow)' : 'var(--sf)';
     tabE.style.borderColor = isEng ? 'var(--mum-yellow)' : 'var(--bd)';
-    tabE.style.color = isEng ? '#fff' : 'var(--t3)';
+    tabE.style.color = isEng ? '#1A1A1A' : 'var(--t3)';
+    tabE.style.fontWeight = isEng ? '800' : '700';
   }
   if (tabK) {
     tabK.style.background = !isEng ? 'var(--blue)' : 'var(--sf)';
     tabK.style.borderColor = !isEng ? 'var(--blue)' : 'var(--bd)';
     tabK.style.color = !isEng ? '#fff' : 'var(--t3)';
+    tabK.style.fontWeight = !isEng ? '800' : '700';
   }
   // 해당 학생의 선택한 과목 데이터 불러오기
   const s = db.students.find(x => x.id === _hwSid); if (!s) return;
@@ -4248,12 +4257,14 @@ function switchRVModalTab(acad) {
   if (tabE) {
     tabE.style.background = isEng ? 'var(--mum-yellow)' : 'var(--sf)';
     tabE.style.borderColor = isEng ? 'var(--mum-yellow)' : 'var(--bd)';
-    tabE.style.color = isEng ? '#fff' : 'var(--t3)';
+    tabE.style.color = isEng ? '#1A1A1A' : 'var(--t3)';
+    tabE.style.fontWeight = isEng ? '800' : '700';
   }
   if (tabK) {
     tabK.style.background = !isEng ? 'var(--blue)' : 'var(--sf)';
     tabK.style.borderColor = !isEng ? 'var(--blue)' : 'var(--bd)';
     tabK.style.color = !isEng ? '#fff' : 'var(--t3)';
+    tabK.style.fontWeight = !isEng ? '800' : '700';
   }
   // 해당 과목 데이터 불러오기
   const s = db.students.find(x => x.id === _rvSid); if (!s) return;
@@ -4337,9 +4348,8 @@ function renderHWStat(acad) {
   });
   const el = document.getElementById('hwStatStrip');
   if (!el) return;
-  const acLabel = acad === 'eng' ? '🔵 영어' : '📖 국어';
   el.innerHTML = `
-    <div class="hw-sc sc-tot"><div class="hw-sc-n">${list.length}</div><div class="hw-sc-l">${acLabel} 전체</div></div>
+    <div class="hw-sc sc-tot"><div class="hw-sc-n">${list.length}</div><div class="hw-sc-l">전체</div></div>
     <div class="hw-sc sc-done"><div class="hw-sc-n">${done}</div><div class="hw-sc-l">완료</div></div>
     <div class="hw-sc sc-none"><div class="hw-sc-n">${none}</div><div class="hw-sc-l">미체크</div></div>
     <div class="hw-sc sc-hi"><div class="hw-sc-n">${hi}</div><div class="hw-sc-l">이행 上</div></div>`;
@@ -4535,8 +4545,29 @@ function sendHWReport(sid, acad, e) {
    수업 리뷰 MODULE
 ═══════════════════════════════════ */
 
-/* 리뷰 탭 전환 */
-function switchRVTab(acad) { _rvAcad = acad; renderRV(acad); }
+/* 리뷰 탭 전환 — 영어=골드, 국어=파란색, 기본값 미작성 */
+function switchRVTab(acad) {
+  _rvAcad = acad;
+  _rvFilter = 'none'; // 기본값: 미작성
+  const isEng = acad === 'eng';
+  const tabE = document.getElementById('rvTabEng');
+  const tabK = document.getElementById('rvTabKor');
+  if (tabE) {
+    tabE.style.background = isEng ? 'var(--mum-yellow)' : 'transparent';
+    tabE.style.color = isEng ? '#fff' : 'var(--t4)';
+    tabE.style.fontWeight = isEng ? '800' : '700';
+  }
+  if (tabK) {
+    tabK.style.background = !isEng ? 'var(--blue)' : 'transparent';
+    tabK.style.color = !isEng ? '#fff' : 'var(--t4)';
+    tabK.style.fontWeight = !isEng ? '800' : '700';
+  }
+  // 필터 버튼 미작성으로 초기화
+  document.querySelectorAll('.att-frow .afc').forEach(c => c.classList.remove('on'));
+  const noneBtn = document.querySelector('.att-frow .afc:last-child');
+  if (noneBtn) noneBtn.classList.add('on');
+  renderRV(acad);
+}
 
 function setRVToday() { _rvDate = todayISO(); syncRVPickers(); renderRV(_rvAcad); }
 function onRVDate() {
@@ -4572,11 +4603,13 @@ function renderRVStat(acad) {
     if (r?.score !== undefined && r?.total) { total += r.score / r.total * 100; cnt++; }
   });
   const avg = cnt ? Math.round(total / cnt) : '—';
-  const acLabel = acad === 'eng' ? '🔵 영어' : '📖 국어';
+  // 영어=골드, 국어=파란색 라벨
+  const acLabel = acad === 'eng' ? '영어' : '국어';
+  const acColor = acad === 'eng' ? 'var(--mum-yellow)' : 'var(--blue)';
   const el = document.getElementById('rvStatStrip');
   if (!el) return;
   el.innerHTML = `
-    <div class="hw-sc sc-tot"><div class="hw-sc-n">${list.length}</div><div class="hw-sc-l">${acLabel} 전체</div></div>
+    <div class="hw-sc sc-tot"><div class="hw-sc-n" style="color:${acColor}">${list.length}</div><div class="hw-sc-l">${acLabel} 전체</div></div>
     <div class="hw-sc sc-done"><div class="hw-sc-n">${done}</div><div class="hw-sc-l">완료</div></div>
     <div class="hw-sc sc-none"><div class="hw-sc-n">${list.length - done}</div><div class="hw-sc-l">미작성</div></div>
     <div class="hw-sc sc-hi"><div class="hw-sc-n">${typeof avg === 'number' ? avg+'점' : avg}</div><div class="hw-sc-l">평균 점수</div></div>`;
@@ -4921,11 +4954,11 @@ function sendRVReport(sid, acad, e) {
 
 function goHWByAcad() {
   goSec('hw', document.getElementById('snt-hw'));
-  switchHWTab(curAcad);
+  // 과제는 영어 전용
+  renderHW('eng');
 }
 function goRVByAcad() {
   goSec('rv', document.getElementById('snt-rv'));
-  switchRVTab(curAcad);
 }
 
 /* ═══════════════════════════════════
@@ -5048,8 +5081,7 @@ function pLogout() {
     // 일반 모드: 메인 로그인으로
     const mnav = document.getElementById('mobileNav');
     if (mnav) mnav.style.removeProperty('display');
-    const mac = document.getElementById('mobileAcadBar');
-    if (mac) mac.style.removeProperty('display');
+    // mobileAcadBar는 CSS로 제어 (모바일에서 숨김)
   }
 }
 
@@ -5572,8 +5604,6 @@ async function lpConfirm() {
       // Firebase 동기화 후 한 번 더 갱신 (데이터 늦게 올 때 대비)
       setTimeout(() => { try { updateStats(); renderStudents(); } catch(e) {} }, 500);
       setTimeout(() => { try { updateStats(); renderStudents(); } catch(e) {} }, 2000);
-      const macBar = document.getElementById('mobileAcadBar');
-      if (macBar) macBar.style.removeProperty('display');
       // 관리자 화면에서 하단 내비 보이기
       const mnavA = document.getElementById('mobileNav');
       if (mnavA) mnavA.style.removeProperty('display');
