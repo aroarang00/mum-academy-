@@ -2250,15 +2250,38 @@ canvas#pGrowthChart{width:100%!important}
       <!-- 학생 명단 -->
       <div class="sec active" id="students">
         <div class="pg-top">
-          <div>
-            <div class="eyebrow ey-e" id="pgEy">mu:m English 대치캠퍼스</div>
-            <div class="pg-title" id="pgTitle">영어반 학생 명단</div>
-            <div class="pg-desc">카드 클릭 시 상세 정보 확인</div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div>
+              <div class="eyebrow ey-e" id="pgEy">mu:m English 대치캠퍼스</div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <div class="pg-title" id="pgTitle">영어반 학생 명단</div>
+                <!-- PC 전용 공지 아이콘 버튼 -->
+                <button id="noticeIconBtn" onclick="toggleNoticePopup(event)" title="공지사항 관리"
+                  style="display:none;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--bd);background:var(--sf);cursor:pointer;font-size:14px;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0">
+                  📢
+                </button>
+              </div>
+              <div class="pg-desc">카드 클릭 시 상세 정보 확인</div>
+            </div>
           </div>
           <button class="btn btn-br" onclick="openAddModal()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             학생 추가
           </button>
+        </div>
+
+        <!-- 공지사항 팝업 드롭다운 (PC 전용) -->
+        <div id="noticePopup" style="display:none;position:absolute;top:auto;left:20px;z-index:200;background:var(--bg);border:1.5px solid var(--bd);border-radius:16px;padding:20px;width:360px;box-shadow:0 8px 32px rgba(0,0,0,0.12)">
+          <div style="font-size:14px;font-weight:800;color:var(--t1);margin-bottom:4px">📢 공지사항 관리</div>
+          <div style="font-size:11px;color:var(--t4);margin-bottom:14px">학부모 페이지에 표시될 공지입니다</div>
+          <div id="noticePopupCurrent" style="margin-bottom:14px"></div>
+          <input id="noticeTitleInp" placeholder="공지 제목" style="width:100%;padding:9px 12px;border-radius:10px;border:1.5px solid var(--bd);font-size:13px;font-family:inherit;background:var(--sf);color:var(--t1);box-sizing:border-box;margin-bottom:8px">
+          <textarea id="noticeBodyInp" rows="3" placeholder="공지 내용" style="width:100%;padding:9px 12px;border-radius:10px;border:1.5px solid var(--bd);font-size:13px;font-family:inherit;resize:vertical;background:var(--sf);color:var(--t1);line-height:1.6;box-sizing:border-box;margin-bottom:12px"></textarea>
+          <div style="display:flex;gap:8px">
+            <button onclick="saveNotice()" style="flex:1;padding:9px;border-radius:10px;border:none;background:var(--blue);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">저장</button>
+            <button onclick="deleteNotice()" style="padding:9px 14px;border-radius:10px;border:1px solid var(--rd-lt);background:var(--rd-lt);color:var(--rd);font-size:13px;cursor:pointer;font-family:inherit;font-weight:600">삭제</button>
+            <button onclick="closeNoticePopup()" style="padding:9px 14px;border-radius:10px;border:1px solid var(--bd);background:var(--sf);font-size:13px;cursor:pointer;font-family:inherit">닫기</button>
+          </div>
         </div>
 
         <div class="stat-grid">
@@ -2894,8 +2917,8 @@ canvas#pGrowthChart{width:100%!important}
 
     <!-- 학부모 사진 확대 모달 -->
     <div id="pImgModal" onclick="closePImgModal()" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;padding:16px">
-      <button onclick="closePImgModal()" style="position:fixed;top:16px;right:16px;width:48px;height:48px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);color:#111;font-size:24px;font-weight:bold;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:10000;display:flex;align-items:center;justify-content:center;line-height:1">✕</button>
-      <img id="pImgModalImg" src="" onclick="event.stopPropagation()" style="max-width:100%;max-height:90vh;object-fit:contain;border-radius:8px">
+      <button onclick="closePImgModal()" style="position:fixed;top:76px;right:16px;width:48px;height:48px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);color:#111;font-size:24px;font-weight:bold;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:10000;display:flex;align-items:center;justify-content:center;line-height:1">✕</button>
+      <img id="pImgModalImg" src="" onclick="event.stopPropagation()" style="max-width:100%;max-height:85vh;margin-top:60px;object-fit:contain;border-radius:8px">
     </div>
 
       <div class="p-dash">
@@ -3270,22 +3293,33 @@ function switchAcad(a) {
   ey.textContent = a === 'eng' ? 'mu:m English 대치캠퍼스' : '폴리오국어논술 대치캠퍼스';
   document.getElementById('pgTitle').textContent = a === 'eng' ? '영어반 학생 명단' : '국어반 학생 명단';
   document.getElementById('tbLbl').textContent = a === 'eng' ? '뮤엠영어 대치캠퍼스' : '뮤엠폴리오 대치캠퍼스';
-  // 현재 보고 있는 화면을 유지하면서 학원만 전환
-  // 학생 명단 화면이면 학생 명단 새로 그리기
-  // 과제/리뷰 화면이면 그 화면 새로 그리기
+  // 현재 보고 있는 화면만 새로 그리기
   updateStats();
   renderStudents();
-  // 과제 화면이 활성화돼 있으면 새로 그리기
-  try {
-    if (typeof renderHW === 'function') renderHW(a);
-  } catch(e) {}
-  try {
-    if (typeof renderRV === 'function') renderRV(a);
-  } catch(e) {}
-  // 출석부도 새로 그리기
-  try {
-    if (typeof renderAtt === 'function') renderAtt();
-  } catch(e) {}
+  // 과제 화면 활성화 상태면 재렌더링
+  const hwSec = document.querySelector('#eng-hw.active, #kor-hw.active');
+  if (hwSec) { try { renderHW(a); } catch(e) {} }
+  // 리뷰 화면 활성화 상태면 재렌더링
+  const rvSec = document.querySelector('#eng-rv.active, #kor-rv.active');
+  if (rvSec) { try { renderRV(a); } catch(e) {} }
+  // 출석부 활성화 상태면 재렌더링
+  const attSec = document.getElementById('attendance');
+  if (attSec && attSec.classList.contains('active')) { try { renderAtt(); } catch(e) {} }
+  // 과제/리뷰 섹션 ID도 학원에 맞게 전환
+  const activeHW = document.getElementById('eng-hw')?.classList.contains('active') || document.getElementById('kor-hw')?.classList.contains('active');
+  const activeRV = document.getElementById('eng-rv')?.classList.contains('active') || document.getElementById('kor-rv')?.classList.contains('active');
+  if (activeHW) {
+    document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+    const hwId = a === 'eng' ? 'eng-hw' : 'kor-hw';
+    document.getElementById(hwId)?.classList.add('active');
+    try { renderHW(a); } catch(e) {}
+  }
+  if (activeRV) {
+    document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+    const rvId = a === 'eng' ? 'eng-rv' : 'kor-rv';
+    document.getElementById(rvId)?.classList.add('active');
+    try { renderRV(a); } catch(e) {}
+  }
 }
 
 /* 섹션 전환 */
@@ -4943,19 +4977,17 @@ function renderPTabToday(s, attRec, hwRec, today, thisMonth) {
     </div>`;
   }
 
-  // 출석률 (이번 달)
+  // 출석 횟수 (이번 달)
   const attDays = Object.keys(attDB).filter(d => d.startsWith(thisMonth));
-  const totalDays = attDays.length;
   const presentDays = attDays.filter(d => {
     const r = (attDB[d] || {})[s.id] || {};
     return r.inTime && !r.absent;
   }).length;
-  const attRate = totalDays > 0 ? Math.round(presentDays / totalDays * 100) : 0;
-  const attRateHtml = totalDays > 0 ? `
+  const attRateHtml = presentDays > 0 ? `
     <div class="p-att-rate-wrap">
-      <div class="p-att-rate-lbl">이번 달 출석률</div>
-      <div class="p-att-rate-bar"><div class="p-att-rate-fill" style="width:${attRate}%"></div></div>
-      <div class="p-att-rate-txt"><span>${attRate}%</span><span>${presentDays}회 출석</span></div>
+      <div class="p-att-rate-lbl">이번 달 출석</div>
+      <div style="font-size:22px;font-weight:800;color:var(--blue);margin:4px 0">${presentDays}<span style="font-size:13px;font-weight:600;color:var(--t3)">회</span></div>
+      <div style="font-size:11px;color:var(--t4)">꾸준히 출석하고 있어요 👍</div>
     </div>` : '';
 
   // 이달의 한마디 (학생별 — s.teacherWord)
@@ -4966,44 +4998,38 @@ function renderPTabToday(s, attRec, hwRec, today, thisMonth) {
       <div class="p-word-text">${teacherWord}</div>
     </div>` : '';
 
-  // 공지사항
-  let noticeHtml = '';
-  if (_fdb) {
-    _fdb.ref('notice').once('value', snap => {
-      const notice = snap.val();
-      const noticeEl = document.getElementById('pNoticeWrap');
-      if (notice && notice.title && noticeEl) {
-        noticeEl.innerHTML = `<div class="p-notice-card">
-          <div class="p-notice-label">📢 공지사항</div>
-          <div class="p-notice-title">${notice.title}</div>
-          <div class="p-notice-body">${notice.body||''}</div>
-        </div>`;
-      }
-    });
-  }
-
-  // 보낸 메시지 확인 이력
-  let myMsgsHtml = '';
+  // 메시지 확인 이력
   if (_fdb) {
     _fdb.ref('messages').orderByChild('pT').equalTo(s.pT).once('value', snap => {
       const msgs = snap.val();
-      const msgEl = document.getElementById('pMyMsgList');
+      const msgEl = document.getElementById('pMyMsgWrap');
       if (msgs && msgEl) {
-        const msgArr = Object.values(msgs).sort((a,b) => b.ts - a.ts).slice(0, 5);
-        msgEl.innerHTML = msgArr.map(m => {
-          const time = new Date(m.ts).toLocaleString('ko-KR', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
-          const readInfo = m.read ? `<div class="p-msg-history-read">✅ 확인했습니다${m.readAt ? ' · ' + m.readAt : ''}</div>` : '<div style="font-size:10px;color:var(--t4)">확인 전</div>';
-          return `<div class="p-msg-history-item">
-            <div class="p-msg-history-txt">${m.msg}</div>
-            <div class="p-msg-history-meta">${time}</div>
-            ${readInfo}
-          </div>`;
-        }).join('') || '<div style="font-size:12px;color:var(--t4);padding:10px 0">보낸 메시지가 없습니다</div>';
+        const msgArr = Object.values(msgs).sort((a,b) => b.ts - a.ts);
+        const latest = msgArr[0];
+        if (latest) {
+          const time = new Date(latest.ts).toLocaleString('ko-KR', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
+          const readInfo = latest.read
+            ? `<span style="color:var(--blue);font-weight:700;font-size:11px">✅ 확인했습니다${latest.readAt ? ' · ' + latest.readAt : ''}</span>`
+            : `<span style="color:var(--t4);font-size:11px">⏳ 확인 전</span>`;
+          msgEl.innerHTML = `
+            <div style="background:var(--sand);border-radius:12px;padding:12px 14px">
+              <div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:6px">"${latest.msg}"</div>
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <span style="font-size:10px;color:var(--t4)">${time}</span>
+                ${readInfo}
+              </div>
+            </div>`;
+        } else {
+          msgEl.innerHTML = '<div style="font-size:12px;color:var(--t4);text-align:center;padding:8px 0">보낸 메시지가 없습니다</div>';
+        }
       }
     });
   }
 
   document.getElementById('pTodayBody').innerHTML = `
+    <!-- 공지사항 (있을 때만 맨 위 표시) -->
+    <div id="pNoticeWrap"></div>
+
     <!-- 액션 버튼 -->
     <div class="p-action-section">
       <button class="p-action-btn p-action-msg" onclick="openPMsgModal()" style="flex:2">
@@ -5034,13 +5060,42 @@ function renderPTabToday(s, attRec, hwRec, today, thisMonth) {
     <!-- 이달의 한마디 -->
     ${wordHtml}
 
-    <!-- 공지사항 -->
-    <div id="pNoticeWrap"></div>
+    <!-- 현재 학습 과정 (간략) -->
+    ${(s.eng && s.eLv) || (s.kor && s.kLv) ? `
+    <div class="p-sec-lbl" style="margin-top:6px">현재 학습 과정</div>
+    <div class="p-card" style="padding:14px 16px">
+      ${s.eng && s.eLv ? `<div style="display:flex;align-items:center;gap:8px;${s.kor && s.kLv ? 'margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--bd)' : ''}">
+        <span style="font-size:11px;font-weight:700;color:var(--t4);width:28px">영어</span>
+        <span style="font-size:13px;font-weight:800;color:var(--blue)">${s.eLv}</span>
+        ${s.eSub ? `<span style="font-size:11px;color:var(--t3)">${s.eSub}</span>` : ''}
+      </div>` : ''}
+      ${s.kor && s.kLv ? `<div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:11px;font-weight:700;color:var(--t4);width:28px">국어</span>
+        <span style="font-size:13px;font-weight:800;color:var(--blue)">${s.kLv}</span>
+        ${s.kSub ? `<span style="font-size:11px;color:var(--t3)">${s.kSub}</span>` : ''}
+      </div>` : ''}
+    </div>` : ''}
 
     <!-- 보낸 메시지 확인 -->
-    <div class="p-sec-lbl" style="margin-top:6px">메시지 확인 내역</div>
-    <div class="p-msg-history"><div id="pMyMsgList"><div style="font-size:12px;color:var(--t4);padding:10px 0">불러오는 중...</div></div></div>
+    <div class="p-sec-lbl" style="margin-top:6px">최근 메시지</div>
+    <div id="pMyMsgWrap"><div style="font-size:12px;color:var(--t4);text-align:center;padding:8px 0">불러오는 중...</div></div>
   `;
+
+  // 공지사항 Firebase에서 로드 (있을 때만 표시)
+  if (_fdb) {
+    _fdb.ref('notice').once('value', snap => {
+      const notice = snap.val();
+      const noticeEl = document.getElementById('pNoticeWrap');
+      if (notice && notice.title && noticeEl) {
+        noticeEl.innerHTML = `<div class="p-notice-card" style="margin-bottom:4px">
+          <div class="p-notice-label">📢 공지사항</div>
+          <div class="p-notice-title">${notice.title}</div>
+          <div class="p-notice-body">${notice.body||''}</div>
+        </div>`;
+      }
+      // 없으면 빈 상태 유지 (숨김)
+    });
+  }
 
   // 알림 버튼 상태 동기화
   setTimeout(syncPushBtnState, 100);
@@ -5359,6 +5414,12 @@ async function lpConfirm() {
       // 관리자 화면에서 하단 내비 보이기
       const mnavA = document.getElementById('mobileNav');
       if (mnavA) mnavA.style.removeProperty('display');
+      // 모바일이면 출석부로 자동 이동
+      if (window.innerWidth <= 680) {
+        setTimeout(() => {
+          try { mobileGoSec('attendance', document.getElementById('mnAttendance')); } catch(e) {}
+        }, 100);
+      }
       // 푸시 알림 초기화
       setTimeout(initFCM, 1000);
       // 탑바 모드 버튼 표시
@@ -6049,24 +6110,89 @@ async function markAllMsgRead() {
 /* ── 공지사항 관리 ── */
 let _noticeData = null;
 
-function openNoticeModal() {
+// PC 전용: 아이콘 버튼 표시 (680px 이상)
+function initNoticeIconBtn() {
+  const btn = document.getElementById('noticeIconBtn');
+  if (!btn) return;
+  if (window.innerWidth > 680) btn.style.display = 'flex';
+  else btn.style.display = 'none';
+}
+window.addEventListener('resize', initNoticeIconBtn);
+
+function toggleNoticePopup(e) {
+  if (e) e.stopPropagation();
+  const popup = document.getElementById('noticePopup');
+  if (!popup) return;
+  if (popup.style.display === 'block') {
+    closeNoticePopup();
+  } else {
+    openNoticePopup();
+  }
+}
+
+function openNoticePopup() {
+  const popup = document.getElementById('noticePopup');
+  if (!popup) return;
+  document.getElementById('noticeTitleInp').value = '';
+  document.getElementById('noticeBodyInp').value = '';
   // 현재 공지 불러오기
   if (_fdb) {
     _fdb.ref('notice').once('value', snap => {
       _noticeData = snap.val();
-      const wrap = document.getElementById('noticeCurrentWrap');
-      if (_noticeData && _noticeData.title) {
-        document.getElementById('noticeCurrentTitle').textContent = _noticeData.title;
-        document.getElementById('noticeCurrentBody').textContent = _noticeData.body || '';
-        if (wrap) wrap.style.display = 'block';
-      } else {
-        if (wrap) wrap.style.display = 'none';
+      const cur = document.getElementById('noticePopupCurrent');
+      if (_noticeData && _noticeData.title && cur) {
+        cur.innerHTML = `<div style="background:var(--blue-lt);border-radius:10px;padding:10px 12px;margin-bottom:4px">
+          <div style="font-size:11px;font-weight:700;color:var(--t4);margin-bottom:4px">현재 공지</div>
+          <div style="font-size:13px;font-weight:700;color:var(--t1)">${_noticeData.title}</div>
+          <div style="font-size:12px;color:var(--t3);margin-top:3px;white-space:pre-wrap">${_noticeData.body||''}</div>
+        </div>`;
+      } else if (cur) {
+        cur.innerHTML = '<div style="font-size:12px;color:var(--t4);margin-bottom:4px">현재 등록된 공지가 없습니다</div>';
       }
     });
   }
-  document.getElementById('noticeTitleInp').value = '';
-  document.getElementById('noticeBodyInp').value = '';
-  openModal('noticeModal');
+  popup.style.display = 'block';
+  // 외부 클릭 시 닫기
+  setTimeout(() => {
+    document.addEventListener('click', closeNoticePopupOutside);
+  }, 100);
+}
+
+function closeNoticePopupOutside(e) {
+  const popup = document.getElementById('noticePopup');
+  if (popup && !popup.contains(e.target)) {
+    closeNoticePopup();
+  }
+}
+
+function closeNoticePopup() {
+  const popup = document.getElementById('noticePopup');
+  if (popup) popup.style.display = 'none';
+  document.removeEventListener('click', closeNoticePopupOutside);
+}
+
+// 사이드바 버튼용 (모바일 fallback)
+function openNoticeModal() {
+  if (window.innerWidth > 680) {
+    openNoticePopup();
+  } else {
+    openModal('noticeModal');
+    if (_fdb) {
+      _fdb.ref('notice').once('value', snap => {
+        _noticeData = snap.val();
+        const wrap = document.getElementById('noticeCurrentWrap');
+        if (_noticeData && _noticeData.title) {
+          document.getElementById('noticeCurrentTitle').textContent = _noticeData.title;
+          document.getElementById('noticeCurrentBody').textContent = _noticeData.body || '';
+          if (wrap) wrap.style.display = 'block';
+        } else {
+          if (wrap) wrap.style.display = 'none';
+        }
+      });
+    }
+    document.getElementById('noticeTitleInp').value = '';
+    document.getElementById('noticeBodyInp').value = '';
+  }
 }
 
 async function saveNotice() {
@@ -6077,6 +6203,7 @@ async function saveNotice() {
   try {
     await _fdb.ref('notice').set({ title, body, ts: Date.now() });
     showToast('✅ 공지사항이 저장됐어요');
+    closeNoticePopup();
     closeModal('noticeModal');
   } catch(e) {
     showToast('저장 실패. 다시 시도해주세요.');
@@ -6088,6 +6215,7 @@ async function deleteNotice() {
   try {
     await _fdb.ref('notice').remove();
     showToast('공지사항을 삭제했어요');
+    closeNoticePopup();
     closeModal('noticeModal');
   } catch(e) {
     showToast('삭제 실패. 다시 시도해주세요.');
@@ -6096,6 +6224,7 @@ async function deleteNotice() {
 
 /* 시작 */
 init();
+setTimeout(initNoticeIconBtn, 300);
 
 </script>
 
