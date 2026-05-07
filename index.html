@@ -2834,6 +2834,12 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
       </div>
     </div>
     <div id="pDash" style="display:none;position:fixed;top:60px;left:0;right:0;bottom:0;z-index:50;overflow-y:auto;background:var(--bg)">
+
+    <!-- 학부모 사진 확대 모달 -->
+    <div id="pImgModal" onclick="closePImgModal()" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;padding:16px">
+      <button onclick="closePImgModal()" style="position:fixed;top:16px;right:16px;width:48px;height:48px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);color:#111;font-size:24px;font-weight:bold;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:10000;display:flex;align-items:center;justify-content:center;line-height:1">✕</button>
+      <img id="pImgModalImg" src="" onclick="event.stopPropagation()" style="max-width:100%;max-height:90vh;object-fit:contain;border-radius:8px">
+    </div>
       <div class="p-dash">
         <div class="p-dash-top">
           <button class="p-logout" onclick="pLogout()">
@@ -5022,15 +5028,23 @@ function togglePFB(key, type, btn) {
   }
 }
 
-/* 학부모 페이지 — 리뷰 이미지 큰 화면으로 보기 */
+/* 학부모 페이지 — 리뷰 이미지 모달로 보기 (iPhone Safari 팝업 차단 대응) */
 function openParentRvImg(dataUrl) {
-  const w = window.open('', '_blank', 'width=860,height=680');
-  if (!w) return;
-  w.document.write(`<html><head><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=3.0"><title>수업 리뷰 사진</title></head><body style="margin:0;background:#111;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:12px">
-    <button onclick="window.close()" style="position:fixed;top:16px;right:16px;width:48px;height:48px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);color:#111;font-size:24px;font-weight:bold;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:9999;display:flex;align-items:center;justify-content:center;line-height:1">✕</button>
-    <img src="${dataUrl}" style="max-width:100%;max-height:95vh;object-fit:contain;border-radius:8px">
-  </body></html>`);
-  w.document.close();
+  const modal = document.getElementById('pImgModal');
+  const img   = document.getElementById('pImgModalImg');
+  if (!modal || !img) return;
+  img.src = dataUrl;
+  modal.style.display = 'flex';
+  // 스크롤 잠금
+  document.body.style.overflow = 'hidden';
+}
+function closePImgModal() {
+  const modal = document.getElementById('pImgModal');
+  if (!modal) return;
+  modal.style.display = 'none';
+  document.getElementById('pImgModalImg').src = '';
+  // 스크롤 복원
+  document.body.style.overflow = '';
 }
 
 
