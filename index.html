@@ -10,8 +10,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="뮤엠 학원">
-<meta name="theme-color" content="#1A72B8">
-<meta name="msapplication-TileColor" content="#1A72B8">
+<meta name="theme-color" content="#2072B8">
+<meta name="msapplication-TileColor" content="#2072B8">
 <meta name="description" content="뮤엠영어 · 폴리오국어논술 대치캠퍼스 학원 관리시스템">
 
 <!-- 학원 로고 아이콘 (mu:m English 부엉이) -->
@@ -79,24 +79,27 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
      FOLIO 공식 브랜드 컬러 시스템
      FOLIO beige  : CMYK 0,0,15,5   → #F3F2DC
      FOLIO brown  : CMYK 30,40,60,0 → #B3956A
-     FOLIO blue   : CMYK 90,40,0,0  → #1A72B8
+     FOLIO blue   : CMYK 90,40,0,0  → #2072B8
      FOLIO gray   : CMYK 25,20,20,0 → #BDB9B4
      FOLIO black  : CMYK 30,30,30,100 → #1A1A1A
   ══════════════════════════════════════ */
 
-  /* ── Primary — FOLIO Blue (국어) ── */
-  --blue:#1A72B8;
-  --blue2:#2678C0;
+  /* ── Primary — FOLIO PANTONE Process Blue (국어) ── */
+  --blue:#2072B8;             /* 폴리오 공식 블루 */
+  --blue2:#2A82C9;            /* 살짝 밝은 변형 */
   --blue-lt:#EAF3FB;
   --blue-md:#BDD7EF;
-  --blue-dk:#0E5A96;
-  --blue-bg:#EFF6FF;   /* 국어 카드 배경 */
+  --blue-dk:#10568F;          /* 진한 버전 */
+  --blue-bg:#F5F2DC;          /* 국어 카드 배경 — FOLIO 베이지 */
+  --kor-bg:#F5F2DC;           /* alias for clarity */
+  --kor-bg-lt:#FBFAF1;        /* 베이지 더 연한 변형 */
 
   /* ── 뮤엠 옐로우 (영어) ── */
   --mum-yellow:#F5A623;       /* 뮤엠 대표 노란색 */
   --mum-yellow-dk:#C47D0E;    /* 진한 버전 */
   --mum-yellow-lt:#FFF8ED;    /* 연한 배경 */
   --mum-yellow-bg:#FFFBF0;    /* 영어 카드 배경 */
+  --eng-bg:#FFFBF0;           /* alias */
 
   /* ── Secondary — FOLIO Beige/Brown ── */
   --br:#1A1A1A;          /* FOLIO black (텍스트) */
@@ -127,7 +130,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   --sage:#3D7A4A;    --sage-lt:#EAF5EC;  --sage-dk:#2A5E35;
   --rd:#C42B30;      --rd-lt:#FEF0F0;
   --am:#A86B10;      --am-lt:#FEF4E6;
-  --pu:#1A72B8;      --pu-lt:#EAF3FB;    /* pu → blue 계열로 통일 */
+  --pu:#2072B8;      --pu-lt:#EAF3FB;    /* pu → blue 계열로 통일 */
   --gn:#2E7A40;      --gn-lt:#EAF5EC;
 
   /* ── Layout ── */
@@ -196,7 +199,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .seg-btn.eng.on .l1,.seg-btn.eng.on .l2{color:#fff !important;opacity:1 !important}
 /* 국어 — 파란색 (선명하게) */
 .seg-btn.kor.on{
-  background:linear-gradient(135deg,#0E5A96,#1A72B8);
+  background:linear-gradient(135deg,#10568F,#2072B8);
   color:#fff !important;
   box-shadow:0 3px 12px rgba(26,114,184,.45);
 }
@@ -216,15 +219,35 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   color:var(--t2);font-size:13px;font-weight:600;
   transition:background .18s,color .18s;
   user-select:none;position:relative;margin-bottom:2px}
-.sb-item:hover{background:rgba(26,114,184,.06);color:var(--blue)}
+.sb-item:hover{background:rgba(32,114,184,.07);color:var(--blue)}
 .sb-item.on{
-  background:linear-gradient(100deg,rgba(26,114,184,.12),rgba(26,114,184,.05),transparent);
+  background:linear-gradient(100deg,rgba(32,114,184,.14),rgba(32,114,184,.05),transparent);
   color:var(--blue);font-weight:700;
-  box-shadow:0 1px 8px rgba(26,114,184,.10)}
+  box-shadow:0 1px 8px rgba(32,114,184,.12)}
 .sb-item.on::before{content:'';position:absolute;left:0;
   top:5px;bottom:5px;width:3px;border-radius:0 4px 4px 0;
   background:linear-gradient(180deg,var(--blue2),var(--blue));
-  box-shadow:0 0 6px rgba(26,114,184,.35)}
+  box-shadow:0 0 6px rgba(32,114,184,.40)}
+/* 영어 전용 nav 아이템 — 뮤엠 옐로우 톤 */
+.sb-item.e-nav:hover{background:rgba(245,166,35,.10);color:var(--mum-yellow-dk)}
+.sb-item.e-nav.on{
+  background:linear-gradient(100deg,rgba(245,166,35,.18),rgba(245,166,35,.06),transparent);
+  color:var(--mum-yellow-dk);
+  box-shadow:0 1px 8px rgba(245,166,35,.18)}
+.sb-item.e-nav.on::before{
+  background:linear-gradient(180deg,#FFB84D,var(--mum-yellow));
+  box-shadow:0 0 6px rgba(245,166,35,.55)}
+/* 국어 전용 nav 아이템 — 폴리오 블루 톤 (기본 .on과 동일하지만 명시) */
+.sb-item.k-nav.on{color:var(--blue)}
+/* 사이드바 영어/국어 그룹 라벨 강조 */
+#engGrp .sb-grp-lbl{color:var(--mum-yellow-dk) !important;
+  background:linear-gradient(90deg,rgba(245,166,35,.10),transparent);
+  padding:5px 10px;border-radius:8px;letter-spacing:.05em;
+  border-left:3px solid var(--mum-yellow);margin-left:-3px}
+#korGrp .sb-grp-lbl{color:var(--blue-dk) !important;
+  background:linear-gradient(90deg,rgba(32,114,184,.10),transparent);
+  padding:5px 10px;border-radius:8px;letter-spacing:.05em;
+  border-left:3px solid var(--blue);margin-left:-3px}
 .sb-ico{width:20px;height:20px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
   opacity:.55;transition:opacity .18s}
@@ -345,21 +368,37 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   border-color:rgba(200,151,58,.18)}
 .stat-acc{position:absolute;top:0;left:0;right:0;height:3px;
   border-radius:18px 18px 0 0}
-.sa-br{background:var(--blue)}.sa-g{background:var(--blue2)}
-.sa-s{background:var(--br3)}.sa-a{background:var(--am)}
+.sa-br{background:var(--blue)}.sa-g{background:var(--mum-yellow)}
+.sa-s{background:var(--blue)}.sa-a{background:var(--am)}
 .stat-top{display:flex;align-items:flex-start;justify-content:space-between;
   margin-bottom:10px}
 .stat-ico{width:34px;height:34px;border-radius:10px;
   display:flex;align-items:center;justify-content:center}
 .stat-ico svg{width:17px;height:17px;stroke-width:1.75}
 .si-br{background:rgba(26,114,184,.10)}.si-br svg{stroke:var(--blue)}
-.si-g{background:rgba(26,114,184,.08)}.si-g svg{stroke:var(--blue2)}
-.si-s{background:rgba(179,149,106,.12)}.si-s svg{stroke:var(--br3)}
+.si-g{background:rgba(245,166,35,.10)}.si-g svg{stroke:var(--mum-yellow-dk)}
+.si-s{background:rgba(26,114,184,.10)}.si-s svg{stroke:var(--blue)}
 .si-a{background:var(--am-lt)}.si-a svg{stroke:var(--am)}
-.stat-num{font-size:28px;font-weight:800;color:var(--t1);
+.stat-num{font-size:30px;font-weight:900;color:var(--t1);
   line-height:1;letter-spacing:-.03em}
 .stat-unit{font-size:12px;font-weight:500;color:var(--t4);margin-left:1px}
-.stat-lbl{font-size:11px;font-weight:500;color:var(--t3);margin-top:4px;letter-spacing:.01em}
+.stat-lbl{font-size:11.5px;font-weight:600;color:var(--t3);margin-top:5px;letter-spacing:.01em}
+/* 영어 통계 카드 — 옐로우 강조 */
+.stat-card.sc-eng{
+  background:linear-gradient(145deg,#FFFBF0,#FFF8ED);
+  border-color:rgba(245,166,35,.35)}
+.stat-card.sc-eng:hover{border-color:rgba(245,166,35,.55);
+  box-shadow:0 6px 20px rgba(245,166,35,.18)}
+.stat-card.sc-eng #stEng{color:var(--mum-yellow-dk);
+  text-shadow:0 1px 0 rgba(255,255,255,.6)}
+/* 국어 통계 카드 — 폴리오 베이지 + 블루 강조 */
+.stat-card.sc-kor{
+  background:linear-gradient(145deg,#FBFAF1,#F5F2DC);
+  border-color:rgba(32,114,184,.30)}
+.stat-card.sc-kor:hover{border-color:rgba(32,114,184,.50);
+  box-shadow:0 6px 20px rgba(32,114,184,.18)}
+.stat-card.sc-kor #stKor{color:var(--blue-dk);
+  text-shadow:0 1px 0 rgba(255,255,255,.6)}
 
 /* 컨트롤 바 */
 .controls{display:flex;align-items:center;gap:9px;
@@ -393,20 +432,44 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   background:linear-gradient(160deg,#FFFFFF 0%,#FEFCF8 100%);
   border:1px solid rgba(200,151,58,.12);
   border-radius:20px;overflow:hidden;box-shadow:var(--sh-sm);
-  transition:box-shadow .22s,transform .22s,border-color .22s;cursor:pointer}
+  transition:box-shadow .22s,transform .22s,border-color .22s;cursor:pointer;
+  position:relative}
 .s-card:hover{box-shadow:var(--sh-lg);transform:translateY(-4px);
   border-color:rgba(200,151,58,.25)}
 .s-card.unpaid{border-color:#F0C4C4}
-.card-stripe{height:3px}
-.cs-e{background:linear-gradient(90deg,var(--blue),var(--blue2))}
-.cs-k{background:linear-gradient(90deg,var(--br3),#C8A880)}
-.cs-b{background:linear-gradient(90deg,var(--blue),var(--br3))}
+/* 영어/국어 카드 — 좌측 컬러 띠 + 미묘한 배경 */
+.s-card.card-eng{
+  background:linear-gradient(160deg,#FFFBF0 0%,#FFFFFF 70%);
+  border-color:rgba(245,166,35,.32)}
+.s-card.card-eng:hover{border-color:rgba(245,166,35,.55);
+  box-shadow:0 10px 28px rgba(245,166,35,.18)}
+.s-card.card-kor{
+  background:linear-gradient(160deg,#F5F2DC 0%,#FBFAF1 70%);
+  border-color:rgba(32,114,184,.32)}
+.s-card.card-kor:hover{border-color:rgba(32,114,184,.55);
+  box-shadow:0 10px 28px rgba(32,114,184,.18)}
+.s-card.card-both{
+  background:linear-gradient(160deg,#FFFBF0 0%,#F5F2DC 100%);
+  border-color:rgba(120,120,80,.30)}
+.s-card.card-both:hover{border-color:rgba(120,120,80,.55);
+  box-shadow:0 10px 28px rgba(120,120,80,.18)}
+/* 좌측 세로 띠 */
+.s-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;
+  border-radius:20px 0 0 20px;background:transparent;transition:width .22s}
+.s-card.card-eng::before{background:linear-gradient(180deg,var(--mum-yellow),#FFB84D)}
+.s-card.card-kor::before{background:linear-gradient(180deg,var(--blue),var(--blue2))}
+.s-card.card-both::before{background:linear-gradient(180deg,var(--mum-yellow) 0%,var(--mum-yellow) 49%,var(--blue) 51%,var(--blue) 100%)}
+.s-card:hover::before{width:7px}
+.card-stripe{height:4px}
+.cs-e{background:linear-gradient(90deg,var(--mum-yellow),#FFB84D)}
+.cs-k{background:linear-gradient(90deg,var(--blue),var(--blue2))}
+.cs-b{background:linear-gradient(90deg,var(--mum-yellow) 0%,var(--mum-yellow) 49%,var(--blue) 51%,var(--blue) 100%)}
 .card-head{padding:16px 18px 11px;display:flex;align-items:flex-start;gap:11px}
 .card-av{width:44px;height:44px;border-radius:12px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
   font-size:17px;font-weight:800}
-.av-e{background:var(--blue-lt);color:var(--blue-dk)}
-.av-k{background:rgba(179,149,106,.12);color:var(--br3)}
+.av-e{background:var(--mum-yellow-lt);color:var(--mum-yellow-dk)}
+.av-k{background:var(--blue-lt);color:var(--blue-dk)}
 .av-b{background:var(--sand);color:var(--t2)}
 .card-name{font-size:15.5px;font-weight:800;color:var(--t1);
   letter-spacing:-.025em;margin-bottom:2px}
@@ -417,8 +480,8 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .sbadge{display:inline-flex;align-items:center;gap:3px;
   padding:2.5px 8px;border-radius:20px;font-size:9.5px;font-weight:700}
 .sbe{background:rgba(245,166,35,.12);color:#C47D0E;border:1px solid rgba(245,166,35,.35)}
-.sbk{background:rgba(61,43,31,.08);color:var(--br2);
-  border:1px solid rgba(61,43,31,.13)}
+.sbk{background:rgba(26,114,184,.10);color:var(--blue-dk);
+  border:1px solid rgba(26,114,184,.30)}
 .sbadge svg{width:9px;height:9px;stroke-width:2.5}
 .lvl-strip{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap}
 .lp{padding:2.5px 8px;border-radius:20px;font-size:9.5px;font-weight:700;
@@ -898,9 +961,9 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 }
 .sch.k.sel{
   border-color:var(--blue);
-  background:linear-gradient(135deg,var(--blue-lt),rgba(26,114,184,.12));
+  background:linear-gradient(135deg,#F5F2DC,rgba(32,114,184,.14));
   color:var(--blue-dk);
-  box-shadow:0 2px 10px rgba(26,114,184,.15);
+  box-shadow:0 2px 10px rgba(32,114,184,.20);
 }
 .sch svg{width:13px;height:13px;stroke-width:2.2;flex-shrink:0}
 
@@ -1299,10 +1362,10 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .p-curr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
 .p-curr-sub{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t4)}
 .p-curr-pill{font-size:12px;font-weight:800;padding:4px 11px;border-radius:20px}
-.pill-eng{background:var(--blue-lt);color:var(--blue-dk)}.pill-kor{background:var(--blue-lt);color:var(--blue-dk)}
+.pill-eng{background:var(--mum-yellow-lt);color:var(--mum-yellow-dk)}.pill-kor{background:var(--blue-lt);color:var(--blue-dk)}
 .p-prog-track{height:5px;background:rgba(26,26,26,.08);border-radius:20px;overflow:hidden;margin-bottom:7px}
 .p-prog-fill{height:100%;border-radius:20px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
-.pfill-eng{background:linear-gradient(90deg,var(--blue),var(--blue2))}.pfill-kor{background:linear-gradient(90deg,var(--blue-dk),var(--blue))}
+.pfill-eng{background:linear-gradient(90deg,var(--mum-yellow),#FFB84D)}.pfill-kor{background:linear-gradient(90deg,var(--blue),var(--blue2))}
 .p-curr-foot{display:flex;align-items:center;justify-content:space-between}
 .p-curr-book{font-size:11px;color:var(--t4);font-weight:400}.p-curr-pct{font-size:12px;font-weight:700;color:var(--t3)}
 .p-empty{padding:36px 0;text-align:center;font-size:13px;color:var(--t4);line-height:2;font-weight:400}
@@ -1592,7 +1655,7 @@ canvas#pGrowthChart{width:100%!important}
   border-color:rgba(179,149,106,.4);
 }
 #msParent.on{
-  background:linear-gradient(135deg,#0A5A9C,#1A72B8);
+  background:linear-gradient(135deg,#0A5A9C,#2072B8);
   color:#fff;
   border-color:transparent;
   box-shadow:0 3px 12px rgba(26,114,184,.35);
@@ -2036,7 +2099,7 @@ canvas#pGrowthChart{width:100%!important}
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="mu:m 대치">
-<meta name="theme-color" content="#1A72B8">
+<meta name="theme-color" content="#2072B8">
 <!-- Firebase CDN -->
 <!-- Firebase CDN -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -2295,11 +2358,11 @@ canvas#pGrowthChart{width:100%!important}
             <div class="stat-top"><div class="stat-ico si-br"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div></div>
             <div class="stat-num" id="stTotal">—<span class="stat-unit">명</span></div>
             <div class="stat-lbl">전체 학생</div></div>
-          <div class="stat-card"><div class="stat-acc sa-g"></div>
+          <div class="stat-card sc-eng"><div class="stat-acc sa-g"></div>
             <div class="stat-top"><div class="stat-ico si-g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg></div></div>
             <div class="stat-num" id="stEng">—<span class="stat-unit">명</span></div>
             <div class="stat-lbl">영어 수강생</div></div>
-          <div class="stat-card"><div class="stat-acc sa-s"></div>
+          <div class="stat-card sc-kor"><div class="stat-acc sa-s"></div>
             <div class="stat-top"><div class="stat-ico si-s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></div></div>
             <div class="stat-num" id="stKor">—<span class="stat-unit">명</span></div>
             <div class="stat-lbl">국어 수강생</div></div>
@@ -2526,7 +2589,7 @@ canvas#pGrowthChart{width:100%!important}
         </div>
       </div>
       <div class="f-block" id="engCurr" style="display: none;">
-        <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--gold)"></span>영어 커리큘럼</div>
+        <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--mum-yellow)"></span>영어 커리큘럼</div>
         <div class="f-row">
           <div class="f-col"><label>과정</label>
             <select id="fELv"><option value="">선택</option><option>White</option><option>Yellow</option><option>Pink</option><option>Green</option><option>Blue</option><option>Red</option><option>Black</option></select>
@@ -2539,7 +2602,7 @@ canvas#pGrowthChart{width:100%!important}
         </div>
       </div>
       <div class="f-block" id="korCurr" style="display: none;">
-        <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--br)"></span>국어 커리큘럼</div>
+        <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--blue)"></span>국어 커리큘럼</div>
         <div class="f-row">
           <div class="f-col"><label>과정</label>
             <select id="fKLv"><option value="">선택</option><option>독서한글</option><option>독서시작</option><option>원</option><option>삼각</option><option>사각A</option><option>사각B</option><option>오각A</option><option>오각B</option></select>
@@ -2561,7 +2624,7 @@ canvas#pGrowthChart{width:100%!important}
       </div>
       <!-- 영어 수강료 -->
       <div class="f-block" id="fBlockEngFee">
-        <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--gold)"></span>영어 수강료 (mu:m English)</div>
+        <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--mum-yellow)"></span>영어 수강료 (mu:m English)</div>
         <div class="f-row">
           <div class="f-col">
             <label>월 수강료</label>
@@ -2602,7 +2665,7 @@ canvas#pGrowthChart{width:100%!important}
       </div>
       <!-- 국어 수강료 -->
       <div class="f-block" id="fBlockKorFee">
-        <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--br3)"></span>국어 수강료 (폴리오 국어논술)</div>
+        <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--blue)"></span>국어 수강료 (폴리오 국어논술)</div>
         <div class="f-row">
           <div class="f-col">
             <label>월 수강료</label>
@@ -2984,7 +3047,7 @@ canvas#pGrowthChart{width:100%!important}
       <span class="kiosk-logo-mum">mu<span class="kc">:</span>m</span>
       <span class="kiosk-logo-sub">english &nbsp;·&nbsp; 폴리오 국어논술</span>
       <div class="kiosk-logo-divider"></div>
-      <div class="kiosk-time" id="kioskTimeTxt">00:00 &nbsp;|&nbsp; <span id="kioskDateTxt"></span></div>
+      <div class="kiosk-time"><span id="kioskTimeTxt">00:00</span> &nbsp;|&nbsp; <span id="kioskDateTxt"></span></div>
     </div>
 
     <!-- PIN 입력 -->
@@ -3242,8 +3305,22 @@ async function _loadFirebase() {
     try { renderStudents(); } catch(e) {}
   });
   fbWatch('att', val => { if (!val) return; attDB = val; try { localStorage.setItem(ATT_KEY, JSON.stringify(attDB)); } catch(e) {} const s=document.getElementById('attendance'); if(s&&s.classList.contains('active')) renderAtt(); });
-  fbWatch('hw',  val => { if (val) hwDB = val; });
-  fbWatch('rv',  val => { if (val) rvDB = val; });
+  fbWatch('hw',  val => {
+    if (!val) return;
+    hwDB = val;
+    const sec = document.getElementById('hw');
+    if (sec && sec.classList.contains('active')) {
+      try { renderHWStat(_hwAcad); renderHWGrid(_hwAcad); } catch(e) {}
+    }
+  });
+  fbWatch('rv',  val => {
+    if (!val) return;
+    rvDB = val;
+    const sec = document.getElementById('rv');
+    if (sec && sec.classList.contains('active')) {
+      try { renderRVStat(_rvAcad); renderRVGrid(_rvAcad); } catch(e) {}
+    }
+  });
   fbWatch('parentReactions', val => {
     if (val) {
       fbDB = val;
@@ -3407,6 +3484,7 @@ function buildCard(s) {
   const up = s.tuition?.status === 'unpaid';
   const sc = (s.eng && s.kor) ? 'cs-b' : s.eng ? 'cs-e' : 'cs-k';
   const ac = (s.eng && s.kor) ? 'av-b' : s.eng ? 'av-e' : 'av-k';
+  const cardCls = (s.eng && s.kor) ? 'card-both' : s.eng ? 'card-eng' : 'card-kor';
   const grp = s.grade.startsWith('유치') ? '유치부' : s.grade.startsWith('초') ? '초등' : '중등';
   const tel = s.pT ? s.pT.replace(/(\d{3})-(\d{4})-(\d{4})/, '$1-****-$3') : '—';
   const badges = [
@@ -3420,7 +3498,7 @@ function buildCard(s) {
   const schoolStr = s.school ? `<span>${s.school}</span><span class="msep">·</span>` : '';
   const memo = s.note ? `<div class="card-memo">${s.note}</div>` : '';
   return `
-<div class="s-card${up ? ' unpaid' : ''}" onclick="openEditModal(${s.id})">
+<div class="s-card ${cardCls}${up ? ' unpaid' : ''}" onclick="openEditModal(${s.id})">
   <div class="card-stripe ${sc}"></div>
   <div class="card-head">
     <div class="card-av ${ac}">${s.name.charAt(0)}</div>
@@ -3909,8 +3987,10 @@ function kUpdateClock() {
   const d = new Date(), days = ['일','월','화','수','목','금','토'];
   const hh = String(d.getHours()).padStart(2,'0');
   const mm = String(d.getMinutes()).padStart(2,'0');
-  const el = document.getElementById('kioskTimeTxt');
-  if (el) el.innerHTML = `${hh}:${mm} &nbsp;|&nbsp; <span id="kioskDateTxt">${d.getMonth()+1}월 ${d.getDate()}일 (${days[d.getDay()]})</span>`;
+  const tEl = document.getElementById('kioskTimeTxt');
+  const dEl = document.getElementById('kioskDateTxt');
+  if (tEl) tEl.textContent = `${hh}:${mm}`;
+  if (dEl) dEl.textContent = `${d.getMonth()+1}월 ${d.getDate()}일 (${days[d.getDay()]})`;
 }
 
 /* ── PIN 입력 ── */
@@ -4247,8 +4327,8 @@ function switchHWModalTab(acad) {
     tabE.style.boxShadow = isEng ? '0 3px 8px rgba(245,166,35,.35)' : 'none';
   }
   if (tabK) {
-    tabK.style.background = !isEng ? 'linear-gradient(135deg,#0E5A96,#1A72B8)' : 'var(--sf)';
-    tabK.style.borderColor = !isEng ? '#1A72B8' : 'var(--bd)';
+    tabK.style.background = !isEng ? 'linear-gradient(135deg,#10568F,#2072B8)' : 'var(--sf)';
+    tabK.style.borderColor = !isEng ? '#2072B8' : 'var(--bd)';
     tabK.style.color = !isEng ? '#fff' : 'var(--t3)';
     tabK.style.fontWeight = !isEng ? '800' : '700';
     tabK.style.boxShadow = !isEng ? '0 3px 8px rgba(26,114,184,.35)' : 'none';
@@ -4287,8 +4367,8 @@ function switchRVModalTab(acad) {
     tabE.style.boxShadow = isEng ? '0 3px 8px rgba(245,166,35,.35)' : 'none';
   }
   if (tabK) {
-    tabK.style.background = !isEng ? 'linear-gradient(135deg,#0E5A96,#1A72B8)' : 'var(--sf)';
-    tabK.style.borderColor = !isEng ? '#1A72B8' : 'var(--bd)';
+    tabK.style.background = !isEng ? 'linear-gradient(135deg,#10568F,#2072B8)' : 'var(--sf)';
+    tabK.style.borderColor = !isEng ? '#2072B8' : 'var(--bd)';
     tabK.style.color = !isEng ? '#fff' : 'var(--t3)';
     tabK.style.fontWeight = !isEng ? '800' : '700';
     tabK.style.boxShadow = !isEng ? '0 3px 8px rgba(26,114,184,.35)' : 'none';
@@ -4438,10 +4518,10 @@ function buildHWCard(s, rec, acad, accent) {
   // 영어: 노란 배경+바, 국어: 파란 배경+바
   const barColor = acad === 'eng'
     ? 'linear-gradient(90deg,#F5A623,#FFB84D)'
-    : 'linear-gradient(90deg,#1A72B8,#2678C0)';
+    : 'linear-gradient(90deg,#2072B8,#2A82C9)';
   const cardStyle = acad === 'eng'
     ? 'style="background:linear-gradient(160deg,#FFFBF0 0%,#FFFFFF 60%);border-color:rgba(245,166,35,.3)"'
-    : 'style="background:linear-gradient(160deg,#EFF6FF 0%,#FFFFFF 60%);border-color:rgba(26,114,184,.25)"';
+    : 'style="background:linear-gradient(160deg,#F5F2DC 0%,#FBFAF1 60%);border-color:rgba(32,114,184,.30)"';
   return `
 <div class="hw-card ${cardCls}" id="hwCard_${s.id}" ${cardStyle}>
   <div class="hw-card-bar" style="background:${barColor}"></div>
@@ -4575,7 +4655,7 @@ function switchRVTab(acad) {
     tabE.style.boxShadow = isEng ? '0 3px 10px rgba(245,166,35,.4)' : 'none';
   }
   if (tabK) {
-    tabK.style.background = !isEng ? 'linear-gradient(135deg,#0E5A96,#1A72B8)' : 'transparent';
+    tabK.style.background = !isEng ? 'linear-gradient(135deg,#10568F,#2072B8)' : 'transparent';
     tabK.style.color = !isEng ? '#fff' : 'var(--t4)';
     tabK.style.fontWeight = !isEng ? '800' : '700';
     tabK.style.boxShadow = !isEng ? '0 3px 10px rgba(26,114,184,.4)' : 'none';
@@ -4689,12 +4769,12 @@ function buildRVCard(s, rec, acad) {
   // 영어: 뮤엠 노랑, 국어: 파란색
   const barColor = acad === 'eng'
     ? 'linear-gradient(90deg,#F5A623,#FFB84D)'
-    : 'linear-gradient(90deg,#1A72B8,#2678C0)';
+    : 'linear-gradient(90deg,#2072B8,#2A82C9)';
   const cardStyle = acad === 'eng'
     ? 'background:linear-gradient(160deg,#FFFBF0 0%,#FFFFFF 60%);border-color:rgba(245,166,35,.3)'
-    : 'background:linear-gradient(160deg,#EFF6FF 0%,#FFFFFF 60%);border-color:rgba(26,114,184,.25)';
+    : 'background:linear-gradient(160deg,#F5F2DC 0%,#FBFAF1 60%);border-color:rgba(32,114,184,.30)';
   const acadLabel = acad === 'eng' ? '영어 리뷰' : '국어 리뷰';
-  const acadColor = acad === 'eng' ? '#C47D0E' : '#1A72B8';
+  const acadColor = acad === 'eng' ? '#C47D0E' : '#2072B8';
   let scoreHtml = '';
   if (done && rec?.score !== undefined) {
     const pct  = Math.round(rec.score / (rec.total || 100) * 100);
@@ -4721,7 +4801,7 @@ function buildRVCard(s, rec, acad) {
   let reactHtml = '';
   if (done) {
     const fbKey = _rvDate + '_' + s.id + '_' + acad;
-    const reactions = fbDB[fbKey] || {};
+    const reactions = getReactions(_rvDate, s.id, acad);
     const cnt = { like: reactions.like ? 1 : 0, thanks: reactions.thanks ? 1 : 0, great: reactions.great ? 1 : 0 };
     if (cnt.like || cnt.thanks || cnt.great) {
       reactHtml = `<div class="rv-react-row">
@@ -5017,6 +5097,10 @@ let _pPin = '', _pStudent = null;
 const FB_KEY = 'muem_fb_v1';
 let fbDB = JSON.parse(localStorage.getItem(FB_KEY) || '{}');
 function saveFB() { localStorage.setItem(FB_KEY, JSON.stringify(fbDB)); }
+/* fbKey: 신규 = `${date}_${sid}_${acad}`, 구버전 = `${date}_${sid}` */
+function getReactions(date, sid, acad) {
+  return fbDB[date + '_' + sid + '_' + acad] || fbDB[date + '_' + sid] || {};
+}
 
 function initParentLogin() {
   _pPin = ''; _pStudent = null;
@@ -5328,7 +5412,7 @@ function renderPTabReview(s, rvDays, thisMonth) {
     const [,mo,dd] = r.date.split('-');
     const acad = r.acad || 'eng';
     const fbKey = r.date + '_' + s.id + '_' + acad;
-    const fb = fbDB[fbKey] || {};
+    const fb = getReactions(r.date, s.id, acad);
     const acadColor = acad === 'eng' ? 'var(--mum-yellow)' : 'var(--blue)';
     const acadLabel = acad === 'eng' ? '🔵 영어 리뷰' : '📖 국어 리뷰';
     const scoreHtml = r.score !== undefined && r.score !== null
@@ -5436,10 +5520,10 @@ function drawPGrowthChart(canvas, data) {
       datasets: [{
         label: '리뷰 점수',
         data: data.map(d => d.score),
-        borderColor: '#1A72B8',
+        borderColor: '#2072B8',
         backgroundColor: gradient,
         borderWidth: 2.5,
-        pointBackgroundColor: '#1A72B8',
+        pointBackgroundColor: '#2072B8',
         pointRadius: 5,
         pointHoverRadius: 7,
         fill: true,
