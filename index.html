@@ -181,35 +181,6 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .logo-sub{font-size:10px;font-weight:700;letter-spacing:.18em;
   text-transform:uppercase;color:var(--t4);display:block;margin-top:3px}
 
-/* 학원 전환 세그먼트 */
-.sb-seg{display:flex;width:100%;
-  background:rgba(255,255,255,.6);border-radius:12px;
-  padding:3px;border:1px solid rgba(61,79,124,.15);
-  box-shadow:inset 0 1px 3px rgba(26,26,26,.04)}
-.seg-btn{
-  flex:1;padding:10px 6px;border-radius:10px;border:none;
-  cursor:pointer;font-family:'Pretendard',sans-serif;
-  color:var(--t3);background:transparent;
-  transition:all .2s ease;
-}
-.seg-btn .l1{font-size:11px;font-weight:800;line-height:1.2;display:block}
-.seg-btn .l2{font-size:9px;font-weight:600;opacity:.7;display:block;margin-top:1px}
-/* 영어 — 뮤엠 노랑 (진하고 선명하게) */
-.seg-btn.eng.on{
-  background:linear-gradient(135deg,#A08B00,#FFD600);
-  color:#fff !important;
-  box-shadow:0 3px 12px rgba(255,214,0,.45);
-}
-.seg-btn.eng.on .l1,.seg-btn.eng.on .l2{color:#fff !important;opacity:1 !important}
-/* 국어 — 파란색 (선명하게) */
-.seg-btn.kor.on{
-  background:linear-gradient(135deg,#2A3557,#3D4F7C);
-  color:#fff !important;
-  box-shadow:0 3px 12px rgba(61,79,124,.45);
-}
-.seg-btn.kor.on .l1,.seg-btn.kor.on .l2{color:#fff !important;opacity:1 !important}
-.seg-btn:not(.on):hover{background:rgba(26,26,26,.06)}
-
 /* 내비게이션 */
 .sb-nav{flex:1;padding:12px 10px 8px;overflow-y:auto}
 .sb-grp{margin-bottom:20px}
@@ -1623,15 +1594,15 @@ canvas#pGrowthChart{width:100%!important}
   white-space:nowrap;
 }
 #msAdmin{
-  background:rgba(61,79,124,.1);
-  color:var(--blue);
-  border-color:rgba(61,79,124,.3);
+  background:rgba(255,214,0,.18);
+  color:#5C4800;
+  border-color:rgba(255,214,0,.50);
 }
 #msAdmin.on{
-  background:linear-gradient(135deg,#A08B00,#FFD600);
-  color:#fff;
-  border-color:transparent;
-  box-shadow:0 3px 12px rgba(255,214,0,.4);
+  background:#FFD600;
+  color:#5C4800;
+  border-color:#FFD600;
+  box-shadow:0 3px 12px rgba(255,214,0,.45);
 }
 #msParent{
   background:rgba(179,149,106,.1);
@@ -2184,16 +2155,6 @@ canvas#pGrowthChart{width:100%!important}
     <div class="logo-mark">
       <span class="logo-mum">mu<span class="colon">:</span>m</span>
       <span class="logo-sub">관리시스템</span>
-    </div>
-    <div class="sb-seg">
-      <button class="seg-btn eng on" id="sEng" onclick="switchAcad(&#39;eng&#39;)">
-        <span class="l1">mu:m english</span>
-        <span class="l2">영어반</span>
-      </button>
-      <button class="seg-btn kor" id="sKor" onclick="switchAcad(&#39;kor&#39;)">
-        <span class="l1">폴리오</span>
-        <span class="l2">국어논술</span>
-      </button>
     </div>
   </div>
 
