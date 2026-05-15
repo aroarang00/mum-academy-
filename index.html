@@ -4620,22 +4620,7 @@ function sendHWReport(sid, acad, e) {
 function switchRVTab(acad) {
   _rvAcad = acad;
   _rvFilter = 'none';
-  const isEng = acad === 'eng';
-  const tabE = document.getElementById('rvTabEng');
-  const tabK = document.getElementById('rvTabKor');
-  if (tabE) {
-    tabE.style.background = isEng ? 'linear-gradient(135deg,#A08B00,#FFD600)' : 'transparent';
-    tabE.style.color = isEng ? '#fff' : 'var(--t4)';
-    tabE.style.fontWeight = isEng ? '800' : '700';
-    tabE.style.boxShadow = isEng ? '0 3px 10px rgba(255,214,0,.4)' : 'none';
-  }
-  if (tabK) {
-    tabK.style.background = !isEng ? 'linear-gradient(135deg,#2A3557,#3D4F7C)' : 'transparent';
-    tabK.style.color = !isEng ? '#fff' : 'var(--t4)';
-    tabK.style.fontWeight = !isEng ? '800' : '700';
-    tabK.style.boxShadow = !isEng ? '0 3px 10px rgba(61,79,124,.4)' : 'none';
-  }
-  // 필터 버튼 미작성으로 초기화
+  // 필터 버튼 미작성으로 초기화 (탭 진입점이 사이드바로 단일화됨)
   document.querySelectorAll('#rv .att-frow .afc').forEach(c => c.classList.remove('on'));
   const noneBtn = document.querySelector('#rv .att-frow .afc:last-child');
   if (noneBtn) noneBtn.classList.add('on');
@@ -4938,8 +4923,12 @@ function saveRVRecord() {
     }
 
     closeModal('rvModal');
-    renderRVStat(_rvAcad);
-    renderRVGrid(_rvAcad);
+    // 저장 직후 결과 확인을 위해 필터를 '전체'로 자동 변경
+    _rvFilter = 'all';
+    document.querySelectorAll('#rv .att-frow .afc').forEach(c => c.classList.remove('on'));
+    const allBtn = document.querySelector('#rv .att-frow .afc');
+    if (allBtn) allBtn.classList.add('on');
+    renderRV(_rvAcad);
     showToast('✅ 리뷰 저장 완료! (' + _rvDate + ')');
 
   } catch(err) {
@@ -5075,6 +5064,13 @@ function saveFB() { localStorage.setItem(FB_KEY, JSON.stringify(fbDB)); }
 /* fbKey: 신규 = `${date}_${sid}_${acad}`, 구버전 = `${date}_${sid}` */
 function getReactions(date, sid, acad) {
   return fbDB[date + '_' + sid + '_' + acad] || fbDB[date + '_' + sid] || {};
+}
+/* 메시지 ts: 신규=숫자(Date.now()), 구버전=ISO 문자열 — 정렬/비교 시 항상 숫자로 */
+function tsNum(v) {
+  if (typeof v === 'number') return v;
+  if (!v) return 0;
+  const n = new Date(v).getTime();
+  return isNaN(n) ? 0 : n;
 }
 
 function initParentLogin() {
@@ -5263,7 +5259,7 @@ function renderPTabToday(s, attRec, hwRec, today, thisMonth) {
       const msgs = snap.val();
       const msgEl = document.getElementById('pMyMsgWrap');
       if (msgs && msgEl) {
-        const msgArr = Object.values(msgs).sort((a,b) => b.ts - a.ts);
+        const msgArr = Object.values(msgs).sort((a,b) => tsNum(b.ts) - tsNum(a.ts));
         const latest = msgArr[0];
         if (latest) {
           const time = new Date(latest.ts).toLocaleString('ko-KR', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
@@ -6302,7 +6298,7 @@ function openMsgAlert() {
   const list  = document.getElementById('msgAlertList');
   if (!popup || !list) return;
 
-  const msgs = Object.entries(_msgData).sort((a,b) => b[1].ts - a[1].ts);
+  const msgs = Object.entries(_msgData).sort((a,b) => tsNum(b[1].ts) - tsNum(a[1].ts));
   if (!msgs.length) {
     list.innerHTML = '<div class="msg-alert-empty">메시지가 없습니다</div>';
   } else {
