@@ -353,7 +353,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   margin-bottom:24px;gap:14px}
 .eyebrow{font-size:9.5px;font-weight:700;letter-spacing:.1em;
   text-transform:uppercase;margin-bottom:4px}
-.ey-e{color:#A08B00;font-weight:900}.ey-k{color:var(--blue-dk)}
+.ey-e{color:var(--mum-yellow-dk);font-weight:900}.ey-k{color:var(--folio-indigo-dk);font-weight:900}
 .pg-title{font-size:21px;font-weight:800;color:var(--t1);
   letter-spacing:-.02em;line-height:1.25}
 .pg-desc{font-size:12px;color:var(--t3);margin-top:4px;font-weight:400;
@@ -1033,7 +1033,10 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   cursor:pointer;font-family:inherit;color:var(--t4);
   transition:all .18s;min-width:60px;
 }
-.mn-btn.on{color:var(--blue);background:var(--blue-lt)}
+.mn-btn.on{color:var(--folio-indigo);background:var(--folio-indigo-lt)}
+.mn-btn.on[data-cat="eng"]{color:var(--mum-yellow-dk);background:var(--mum-yellow-lt)}
+.mn-btn.on[data-cat="kor"]{color:var(--folio-indigo-dk);background:var(--folio-indigo-lt)}
+.mn-btn.on[data-cat="admin"]{color:var(--t1);background:var(--bg2)}
 .mn-btn svg{width:22px;height:22px;stroke:currentColor;stroke-width:1.75;fill:none}
 .mn-btn span{font-size:10px;font-weight:600;letter-spacing:.01em}
 
@@ -1052,8 +1055,8 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 }
 .mac-btn .l1{font-size:12px;font-weight:800;color:var(--t2)}
 .mac-btn .l2{font-size:9px;font-weight:500;color:var(--t4)}
-.mac-btn.on{background:var(--blue);border-color:var(--blue)}
-#macEng.on{background:linear-gradient(135deg,#8B5800,#A08B00);border-color:#A08B00}
+.mac-btn.on{background:linear-gradient(135deg,var(--folio-indigo-dk),var(--folio-indigo));border-color:var(--folio-indigo)}
+#macEng.on{background:linear-gradient(135deg,var(--mum-yellow-dk),var(--mum-yellow));border-color:var(--mum-yellow)}
 .mac-btn.on .l1,.mac-btn.on .l2{color:#fff !important;opacity:1 !important}
 
 /* 모바일용 여백 (하단 내비 공간) */
@@ -2508,19 +2511,19 @@ canvas#pGrowthChart{width:100%!important}
 <!-- ── 모바일 하단 내비 ── -->
 <div class="mobile-nav" id="mobileNav">
   <div class="mobile-nav-inner">
-    <button class="mn-btn on" id="mnAttendance" onclick="mobileGoSec('attendance',this)">
+    <button class="mn-btn on" id="mnAttendance" data-cat="admin" onclick="mobileGoSec('attendance',this)">
       <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
       <span>출석부</span>
     </button>
-    <button class="mn-btn" id="mnHw" onclick="mobileGoSec('hw',this)">
+    <button class="mn-btn" id="mnHw" data-cat="eng" onclick="mobileGoSec('hw',this)">
       <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
       <span>과제</span>
     </button>
-    <button class="mn-btn" id="mnRv" onclick="mobileGoSec('rv',this)">
+    <button class="mn-btn" id="mnRv" data-cat="eng" onclick="mobileGoSec('rv',this)">
       <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
       <span>리뷰</span>
     </button>
-    <button class="mn-btn" id="mnMsg" onclick="toggleMsgAlert()" style="position:relative">
+    <button class="mn-btn" id="mnMsg" data-cat="admin" onclick="toggleMsgAlert()" style="position:relative">
       <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       <span>메시지</span>
       <span class="msg-badge" id="msgBadge" style="display:none">0</span>
@@ -4624,6 +4627,9 @@ function switchRVTab(acad) {
   document.querySelectorAll('#rv .att-frow .afc').forEach(c => c.classList.remove('on'));
   const noneBtn = document.querySelector('#rv .att-frow .afc:last-child');
   if (noneBtn) noneBtn.classList.add('on');
+  // 모바일 탭바 카테고리 동기화
+  const mnRv = document.getElementById('mnRv');
+  if (mnRv) mnRv.setAttribute('data-cat', acad);
   renderRV(acad);
 }
 
@@ -5573,7 +5579,12 @@ function mobileGoSec(id, el) {
   if (id === 'students')   goSec('students',   document.getElementById('nl-students'));
   if (id === 'attendance') goSec('attendance', document.getElementById('nl-attendance'));
   if (id === 'hw') { goSec('hw', null); switchHWTab(curAcad); }
-  if (id === 'rv') { goSec('rv', null); switchRVTab(curAcad); }
+  if (id === 'rv') { goSec('rv', null); switchRVTab(curAcad); syncMobileTabCat(); }
+}
+/* 모바일 리뷰 탭 카테고리 동기화 — 영어/국어 acad 전환 시 호출 */
+function syncMobileTabCat() {
+  const mnRv = document.getElementById('mnRv');
+  if (mnRv) mnRv.setAttribute('data-cat', _rvAcad || 'eng');
 }
 
 /* ── 관리자 로그인 ── */
