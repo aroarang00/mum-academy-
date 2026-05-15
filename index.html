@@ -241,6 +241,19 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .sb-phone{font-size:11px;font-weight:600;color:var(--t3);
   display:flex;align-items:center;gap:4px}
 .sb-phone svg{width:11px;height:11px;stroke:var(--t4);stroke-width:2}
+/* 사이드바 설정 토글 */
+.sb-setting-row{margin-top:8px;display:flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:700;color:var(--t2);cursor:pointer;user-select:none;
+  padding:7px 9px;border-radius:10px;background:var(--sf);border:1px solid var(--bd)}
+.sb-setting-row span:first-child{flex:1}
+.sb-setting-row input{display:none}
+.sb-switch{width:34px;height:19px;border-radius:20px;background:var(--bdm);
+  position:relative;transition:background .2s;flex-shrink:0}
+.sb-switch::after{content:'';position:absolute;top:2px;left:2px;width:15px;height:15px;
+  border-radius:50%;background:#fff;transition:transform .2s;
+  box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.sb-setting-row input:checked ~ .sb-switch{background:var(--folio-indigo)}
+.sb-setting-row input:checked ~ .sb-switch::after{transform:translateX(15px)}
 
 /* ════════════════════════════════
    CONTENT SHELL
@@ -330,42 +343,29 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .pg-desc{font-size:12px;color:var(--t3);margin-top:4px;font-weight:400;
   letter-spacing:.01em;line-height:1.55}
 
-/* 통계 카드 */
-.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);
-  gap:14px;margin-bottom:24px}
-.stat-card{
-  background:#FFFFFF;
-  border:1px solid var(--bd);
-  border-radius:18px;padding:18px 20px;
-  position:relative;overflow:hidden;
-  transition:box-shadow .22s,transform .22s,border-color .22s;box-shadow:var(--sh-sm)}
-.stat-card:hover{box-shadow:var(--sh-md);transform:translateY(-3px);
-  border-color:var(--bdm)}
-.stat-acc{position:absolute;top:0;left:0;right:0;height:3px;
-  border-radius:18px 18px 0 0}
-.sa-br{background:var(--folio-indigo)}.sa-g{background:var(--mum-yellow)}
-.sa-s{background:var(--folio-indigo)}.sa-a{background:var(--am)}
-.stat-top{display:flex;align-items:flex-start;justify-content:space-between;
-  margin-bottom:10px}
-.stat-ico{width:34px;height:34px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center}
-.stat-ico svg{width:17px;height:17px;stroke-width:1.75}
-.si-br{background:rgba(61,79,124,.10)}.si-br svg{stroke:var(--blue)}
-.si-g{background:rgba(255,214,0,.10)}.si-g svg{stroke:var(--mum-yellow-dk)}
-.si-s{background:rgba(61,79,124,.10)}.si-s svg{stroke:var(--blue)}
-.si-a{background:var(--am-lt)}.si-a svg{stroke:var(--am)}
-.stat-num{font-size:30px;font-weight:900;color:var(--t1);
-  line-height:1;letter-spacing:-.03em}
-.stat-unit{font-size:12px;font-weight:500;color:var(--t4);margin-left:1px}
-.stat-lbl{font-size:11.5px;font-weight:600;color:var(--t3);margin-top:5px;letter-spacing:.01em}
-/* 영어 통계 카드 — 옐로우 컬러 액센트 */
-.stat-card.sc-eng:hover{border-color:rgba(255,214,0,.65);
-  box-shadow:0 6px 18px rgba(255,214,0,.22)}
-.stat-card.sc-eng #stEng{color:var(--mum-yellow-dk)}
-/* 국어 통계 카드 — 인디고 컬러 액센트 */
-.stat-card.sc-kor:hover{border-color:rgba(61,79,124,.55);
-  box-shadow:0 6px 18px rgba(61,79,124,.22)}
-.stat-card.sc-kor #stKor{color:var(--folio-indigo-dk)}
+/* 통계 스트립 — 컴팩트 한 줄 */
+.stat-strip{
+  display:flex;align-items:center;flex-wrap:wrap;
+  gap:4px 6px;margin-bottom:20px;padding:11px 18px;
+  background:#FFFFFF;border:1px solid var(--bd);border-radius:14px;
+  box-shadow:var(--sh-sm)}
+.ss-item{display:flex;align-items:center;gap:6px;padding:2px 4px}
+.ss-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ss-dot-all{background:var(--t3)}
+.ss-dot-eng{background:var(--mum-yellow)}
+.ss-dot-kor{background:var(--folio-indigo)}
+.ss-dot-unpaid{background:var(--am)}
+.ss-lbl{font-size:12px;font-weight:600;color:var(--t3)}
+.ss-num{font-size:17px;font-weight:900;color:var(--t1);letter-spacing:-.02em}
+.ss-item:nth-child(3) .ss-num{color:var(--mum-yellow-dk)}
+.ss-item:nth-child(5) .ss-num{color:var(--folio-indigo-dk)}
+.ss-unit{font-size:11px;font-weight:500;color:var(--t4);margin-left:1px}
+.ss-sep{width:1px;height:16px;background:var(--bd);margin:0 4px}
+@media(max-width:680px){
+  .stat-strip{padding:10px 12px;gap:3px 2px;justify-content:space-between}
+  .ss-sep{display:none}
+  .ss-num{font-size:15px}
+}
 
 /* 컨트롤 바 */
 .controls{display:flex;align-items:center;gap:9px;
@@ -389,12 +389,47 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   border-color:var(--blue);color:#fff;box-shadow:0 2px 10px rgba(61,79,124,.22)}
 .cnt{font-size:12px;color:var(--t4);font-weight:500;
   margin-left:auto;white-space:nowrap}
+/* 카드/리스트 뷰 전환 토글 */
+.view-toggle{display:flex;gap:2px;padding:3px;border:1px solid var(--bd);
+  border-radius:10px;background:var(--sf)}
+.vt-btn{width:30px;height:26px;border:none;background:transparent;border-radius:7px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:var(--t4);transition:all .15s}
+.vt-btn svg{width:15px;height:15px;stroke-width:2}
+.vt-btn.on{background:var(--folio-indigo);color:#fff}
 
 /* ════════════════════════════════
    학생 카드 (명단)
 ════════════════════════════════ */
 .sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
   gap:16px}
+/* 리스트 뷰 */
+.sg.list-view{display:flex;flex-direction:column;gap:7px}
+.sg.list-view .s-card{border-radius:12px}
+.sg.list-view .s-card .card-stripe{display:none}
+.sg.list-view .s-card .card-head,
+.sg.list-view .s-card .card-body,
+.sg.list-view .s-card .card-tabs,
+.sg.list-view .s-card .card-tab-content,
+.sg.list-view .s-card .card-memo,
+.sg.list-view .s-card .card-foot{display:none}
+.sg.list-view .s-card .card-status{top:50%;transform:translateY(-50%);right:14px}
+.s-list-row{display:none;align-items:center;gap:10px;padding:11px 16px}
+.sg.list-view .s-list-row{display:flex}
+.slr-bar{width:4px;align-self:stretch;border-radius:3px;flex-shrink:0}
+.slr-bar.cs-e{background:var(--mum-yellow)}
+.slr-bar.cs-k{background:var(--folio-indigo)}
+.slr-bar.cs-b{background:linear-gradient(180deg,var(--mum-yellow) 50%,var(--folio-indigo) 50%)}
+.slr-av{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:flex;
+  align-items:center;justify-content:center;font-size:13px;font-weight:800}
+.slr-name{font-size:13.5px;font-weight:800;color:var(--t1);min-width:62px}
+.slr-lv{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap}
+.slr-tel{font-size:11.5px;color:var(--t3);margin-left:auto;white-space:nowrap}
+.slr-meta{font-size:11px;color:var(--t4)}
+@media(max-width:680px){
+  .slr-tel{display:none}
+  .slr-meta{display:none}
+}
 .s-card{
   background:#FFFFFF;
   border:1px solid var(--bd);
@@ -435,6 +470,20 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .sbk{background:rgba(61,79,124,.10);color:var(--blue-dk);
   border:1px solid rgba(61,79,124,.30)}
 .sbadge svg{width:9px;height:9px;stroke-width:2.5}
+/* 카드 우측 상단 상태 배지 (리뷰/과제/생일) */
+.card-status{position:absolute;top:11px;right:12px;display:flex;gap:5px;align-items:center;z-index:3}
+.cs-dot{width:16px;height:16px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.cs-rv-none{background:#E53935}
+.cs-hw-none{background:#F57C00}
+.cs-rv-done,.cs-hw-done{background:var(--sage)}
+.cs-dot svg{width:9px;height:9px;stroke-width:3.5;fill:none}
+.cs-rv-none::after{content:'R';font-size:8px;font-weight:900;color:#fff}
+.cs-hw-none::after{content:'H';font-size:8px;font-weight:900;color:#fff}
+.cs-cake{font-size:15px;line-height:1}
+/* 생일 학생 카드 */
+.s-card.birthday{background:linear-gradient(160deg,#FFF0F5 0%,#FFFFFF 78%);border-color:#F0BFD0}
+.s-card.birthday:hover{border-color:#E59CB6;box-shadow:0 10px 24px rgba(229,156,182,.28)}
 .lvl-strip{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap}
 .lp{padding:2.5px 8px;border-radius:20px;font-size:9.5px;font-weight:700;
   display:inline-flex;align-items:center;white-space:nowrap}
@@ -555,6 +604,21 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .att-kakao-btn:hover{background:var(--blue-dk);transform:scale(1.07)}
 .att-kakao-btn svg{width:13px;height:13px;fill:#fff}
 .att-kakao-btn svg{width:13px;height:13px;fill:var(--br)}
+/* 당일 메모 버튼/배지 */
+.att-memo-btn{width:27px;height:27px;border-radius:7px;border:1px solid var(--bd);
+  cursor:pointer;background:var(--sf);font-size:13px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;transition:all .18s;
+  filter:grayscale(.6);opacity:.7}
+.att-memo-btn:hover{transform:scale(1.07);filter:none;opacity:1}
+.att-memo-btn.has-memo{background:var(--mum-yellow-lt);border-color:var(--mum-yellow);
+  filter:none;opacity:1}
+.att-memo-badge{font-size:10.5px;font-weight:600;color:#8A6D00;
+  background:var(--mum-yellow-lt);border:1px solid rgba(255,214,0,.5);
+  border-radius:8px;padding:5px 8px;margin:5px 0 3px;cursor:pointer;
+  line-height:1.4;word-break:break-word}
+/* 생일 출결 카드 */
+.att-card.att-birthday{border-color:#F0BFD0;background:#FFF4F8}
+.att-card.att-birthday .att-card-bar{background:linear-gradient(90deg,#F49AC0,#E56B98)}
 /* 부가 정보 — 얇게 */
 .att-card-meta{font-size:9.5px;color:var(--t4);
   margin-bottom:7px;line-height:1.4;font-weight:400}
@@ -1288,6 +1352,15 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .p-dash-sub{font-size:12px;color:rgba(255,255,255,.4);margin-top:4px;letter-spacing:.02em}
 .p-dash-body{padding:18px 16px 0;display:flex;flex-direction:column;gap:10px}
 .p-sec-lbl{font-size:13px;font-weight:700;color:var(--t2);margin:20px 0 10px;display:flex;align-items:center;gap:6px}
+/* 학부모 생일 카드 */
+.p-birthday-card{
+  background:linear-gradient(135deg,#FFE0EC,#FFF0F5);
+  border:1.5px solid #F4B8CE;border-radius:16px;
+  padding:16px 18px;margin-bottom:14px;text-align:center;
+  font-size:15px;font-weight:800;color:#C2306A;
+  box-shadow:0 3px 14px rgba(229,107,152,.2)}
+.p-birthday-card strong{color:#A01F52}
+.p-birthday-sub{font-size:11.5px;font-weight:600;color:#D06A92;margin-top:4px}
 .p-sec-lbl::before{content:'';width:13px;height:1.5px;background:var(--blue);border-radius:2px;flex-shrink:0}
 .p-card{background:var(--sf);border-radius:18px;padding:18px;border:1px solid var(--bd);box-shadow:var(--sh-sm);transition:box-shadow .2s}
 .p-card:hover{box-shadow:var(--sh-md)}
@@ -2021,6 +2094,23 @@ canvas#pGrowthChart{width:100%!important}
 .msg-alert-text{font-size:11px;color:var(--t3);margin-top:3px;line-height:1.4}
 .msg-alert-time{font-size:10px;color:var(--t5);margin-top:4px}
 .msg-alert-empty{text-align:center;padding:20px;font-size:13px;color:var(--t4)}
+/* 보낸 답장 표시 */
+.msg-reply-shown{margin-top:7px;font-size:11px;color:var(--folio-indigo-dk);
+  background:var(--folio-indigo-lt);border-radius:8px;padding:6px 9px;line-height:1.5}
+/* 답장 템플릿 picker */
+.rtpl-row{display:flex;gap:5px;margin-bottom:6px}
+.rtpl-pick{flex:1;text-align:left;padding:10px 12px;border-radius:10px;
+  border:1px solid var(--bd);background:var(--sf);font-size:12.5px;font-weight:600;
+  color:var(--t1);cursor:pointer;font-family:inherit;transition:all .15s}
+.rtpl-pick:hover{border-color:var(--folio-indigo);background:var(--folio-indigo-lt)}
+.rtpl-mini{width:30px;flex-shrink:0;border-radius:8px;border:1px solid var(--bd);
+  background:var(--sf);cursor:pointer;font-size:12px;color:var(--t3);font-family:inherit}
+.rtpl-mini:hover{background:var(--bg2)}
+.rtpl-mini.rtpl-del:hover{background:var(--rd-lt);color:var(--rd);border-color:var(--rd-lt)}
+.rtpl-add{width:100%;margin-top:2px;padding:9px;border-radius:10px;
+  border:1.5px dashed var(--bdm);background:transparent;font-size:12px;font-weight:700;
+  color:var(--t3);cursor:pointer;font-family:inherit}
+.rtpl-add:hover{border-color:var(--folio-indigo);color:var(--folio-indigo)}
 
 
 /* ── 학부모 액션 버튼 ── */
@@ -2206,6 +2296,11 @@ canvas#pGrowthChart{width:100%!important}
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-5"/><path d="M17 3a2.828 2.828 0 1 1 4 4L12 17l-4 1 1-4z"/></svg>
         공지사항 관리
       </button>
+      <label class="sb-setting-row" title="리뷰 모달에 수업 일지 입력란 표시">
+        <span>수업 일지 사용</span>
+        <input type="checkbox" id="setJournal" onchange="toggleJournalSetting(this.checked)">
+        <span class="sb-switch"></span>
+      </label>
     </div>
   </div>
 </aside>
@@ -2298,24 +2393,30 @@ canvas#pGrowthChart{width:100%!important}
           </button>
         </div>
 
-        <div class="stat-grid">
-          <div class="stat-card"><div class="stat-acc sa-br"></div>
-            <div class="stat-top"><div class="stat-ico si-br"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div></div>
-            <div class="stat-num" id="stTotal">—<span class="stat-unit">명</span></div>
-            <div class="stat-lbl">전체 학생</div></div>
-          <div class="stat-card sc-eng"><div class="stat-acc sa-g"></div>
-            <div class="stat-top"><div class="stat-ico si-g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg></div></div>
-            <div class="stat-num" id="stEng">—<span class="stat-unit">명</span></div>
-            <div class="stat-lbl">영어 수강생</div></div>
-          <div class="stat-card sc-kor"><div class="stat-acc sa-s"></div>
-            <div class="stat-top"><div class="stat-ico si-s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></div></div>
-            <div class="stat-num" id="stKor">—<span class="stat-unit">명</span></div>
-            <div class="stat-lbl">국어 수강생</div></div>
-          <div class="stat-card"><div class="stat-acc sa-a"></div>
-            <div class="stat-top"><div class="stat-ico si-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></div></div>
-            <div class="stat-num" id="stUnpaid">—<span class="stat-unit">명</span></div>
-            <div class="stat-lbl">미납 학생</div>
-            <div class="stat-sub" id="stUnpaidSub" style="font-size:10.5px;color:var(--am);font-weight:600;margin-top:3px"></div>
+        <div class="stat-strip">
+          <div class="ss-item">
+            <span class="ss-dot ss-dot-all"></span>
+            <span class="ss-lbl">전체</span>
+            <span class="ss-num" id="stTotal">—</span><span class="ss-unit">명</span>
+          </div>
+          <div class="ss-sep"></div>
+          <div class="ss-item">
+            <span class="ss-dot ss-dot-eng"></span>
+            <span class="ss-lbl">영어</span>
+            <span class="ss-num" id="stEng">—</span><span class="ss-unit">명</span>
+          </div>
+          <div class="ss-sep"></div>
+          <div class="ss-item">
+            <span class="ss-dot ss-dot-kor"></span>
+            <span class="ss-lbl">국어</span>
+            <span class="ss-num" id="stKor">—</span><span class="ss-unit">명</span>
+          </div>
+          <div class="ss-sep"></div>
+          <div class="ss-item">
+            <span class="ss-dot ss-dot-unpaid"></span>
+            <span class="ss-lbl">미납</span>
+            <span class="ss-num" id="stUnpaid">—</span><span class="ss-unit">명</span>
+            <span class="stat-sub" id="stUnpaidSub" style="font-size:10px;color:var(--am);font-weight:600;margin-left:4px"></span>
           </div>
         </div>
 
@@ -2333,6 +2434,14 @@ canvas#pGrowthChart{width:100%!important}
 
           </div>
           <span class="cnt" id="cntLbl">5명 표시 중</span>
+          <div class="view-toggle" id="viewToggle">
+            <button class="vt-btn" id="vtCard" onclick="setStudentView('card')" title="카드 보기">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            </button>
+            <button class="vt-btn" id="vtList" onclick="setStudentView('list')" title="리스트 보기">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </button>
+          </div>
         </div>
         <div class="sg" id="studentGrid">
 </div>
@@ -2513,7 +2622,10 @@ canvas#pGrowthChart{width:100%!important}
             </select>
           </div>
         </div>
-        <div class="f-row"><div class="f-col"><label>학교명</label><input id="fSchool" placeholder="예: 대치초등학교"></div></div>
+        <div class="f-row">
+          <div class="f-col"><label>학교명</label><input id="fSchool" placeholder="예: 대치초등학교"></div>
+          <div class="f-col"><label>생년월일</label><input type="date" id="fBirth"></div>
+        </div>
         <div class="f-col" style="margin-bottom:0"><label>수강 과목 *</label>
           <div class="subj-chips">
             <div class="sch e" id="chipE" onclick="toggleChip(&#39;e&#39;)">
@@ -2832,6 +2944,10 @@ canvas#pGrowthChart{width:100%!important}
         <textarea id="rvCommentInp" rows="3" maxlength="500" placeholder="학부모님께 전달할 수업 피드백을 작성하세요. (최대 500자)" style="width:100%;padding:9px 11px;border:1.5px solid var(--bd);border-radius:11px;font-size:12.5px;resize:vertical;min-height:74px;outline:none;font-family:inherit;line-height:1.65;"></textarea>
         <div style="text-align:right;font-size:10.5px;color:var(--t4);margin-top:2px" id="rvCharCnt">0 / 500자</div>
       </div>
+      <div class="f-block" id="rvJournalBlock" style="display:none">
+        <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--folio-indigo)"></span>수업 일지 <span style="font-size:9.5px;font-weight:600;color:var(--t4);margin-left:4px">관리자 전용 · 학부모 미표시</span></div>
+        <textarea id="rvJournalInp" rows="3" maxlength="800" placeholder="수업 진행 내용, 특이사항 등 내부 기록용 일지를 작성하세요. (학부모에게 표시되지 않습니다)" style="width:100%;padding:9px 11px;border:1.5px solid var(--bd);border-radius:11px;font-size:12.5px;resize:vertical;min-height:64px;outline:none;font-family:inherit;line-height:1.65;background:var(--folio-indigo-lt)"></textarea>
+      </div>
     </div>
     <div class="m-foot"><button class="btn btn-ghost" onclick="closeModal(&#39;rvModal&#39;)">취소</button><button class="btn btn-br" onclick="saveRVRecord()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="13" height="13"><polyline points="20 6 9 17 4 12"></polyline></svg>저장</button></div>
   </div>
@@ -3135,6 +3251,37 @@ function saveAtt() {
   fbSet('att', attDB);
 }
 
+/* 당일 메모 — /dayMemo/{날짜}/{학생ID}, 날짜 키 분리로 자정 자동 초기화 */
+const DAYMEMO_KEY = 'muem_daymemo_v1';
+let dayMemoDB = JSON.parse(localStorage.getItem(DAYMEMO_KEY) || '{}');
+function saveDayMemo() {
+  try { localStorage.setItem(DAYMEMO_KEY, JSON.stringify(dayMemoDB)); } catch(e) {}
+  fbSet('dayMemo', dayMemoDB);
+}
+function getDayMemo(sid) {
+  return (dayMemoDB[attDate] || {})[sid] || '';
+}
+
+/* 답장 템플릿 — /templates */
+const TPL_KEY = 'muem_templates_v1';
+let replyTemplates = JSON.parse(localStorage.getItem(TPL_KEY) || 'null') || [
+  '확인했습니다 😊',
+  '오늘 수업 잘 마쳤습니다!',
+  '선생님께 전달했습니다',
+];
+function saveTemplates() {
+  try { localStorage.setItem(TPL_KEY, JSON.stringify(replyTemplates)); } catch(e) {}
+  fbSet('templates', replyTemplates);
+}
+
+/* 앱 전역 설정 — /settings (수업 일지 ON/OFF 등) */
+const APPSET_KEY = 'muem_appsettings_v1';
+let appSettings = JSON.parse(localStorage.getItem(APPSET_KEY) || 'null') || { journalEnabled: false };
+function saveAppSettings() {
+  try { localStorage.setItem(APPSET_KEY, JSON.stringify(appSettings)); } catch(e) {}
+  fbSet('settings', appSettings);
+}
+
 /* ═══════════════════════════════════
    STATE
 ═══════════════════════════════════ */
@@ -3194,6 +3341,7 @@ function init() {
   renderTodaySchedule();
   initSchedTable();
   syncCurrBlocks();
+  syncJournalSetting();
   /* Firebase에서 최신 데이터 로드 후 갱신 */
   _loadFirebase();
 
@@ -3268,6 +3416,28 @@ async function _loadFirebase() {
       try { renderRVGrid(_rvAcad || curAcad); } catch(e) {}
     }
   });
+  fbWatch('dayMemo', val => {
+    if (!val) return;
+    dayMemoDB = val;
+    try { localStorage.setItem(DAYMEMO_KEY, JSON.stringify(dayMemoDB)); } catch(e) {}
+    const s = document.getElementById('attendance');
+    if (s && s.classList.contains('active')) { try { renderAttList(); } catch(e) {} }
+  });
+  fbWatch('templates', val => { if (val) replyTemplates = val; });
+  fbWatch('settings', val => {
+    if (val) { appSettings = Object.assign(appSettings, val); syncJournalSetting(); }
+  });
+}
+
+/* 수업 일지 설정 토글 */
+function toggleJournalSetting(on) {
+  appSettings.journalEnabled = !!on;
+  saveAppSettings();
+  showToast(on ? '수업 일지를 사용합니다' : '수업 일지를 끕니다');
+}
+function syncJournalSetting() {
+  const cb = document.getElementById('setJournal');
+  if (cb) cb.checked = !!appSettings.journalEnabled;
 }
 
 function handleLogo(e) {
@@ -3364,10 +3534,10 @@ function setFilter(f, el) {
 function updateStats() {
   const s = db.students;
   const up = s.filter(x => x.tuition?.status === 'unpaid');
-  document.getElementById('stTotal').innerHTML = `${s.length}<span class="stat-unit">명</span>`;
-  document.getElementById('stEng').innerHTML   = `${s.filter(x=>x.eng).length}<span class="stat-unit">명</span>`;
-  document.getElementById('stKor').innerHTML   = `${s.filter(x=>x.kor).length}<span class="stat-unit">명</span>`;
-  document.getElementById('stUnpaid').innerHTML = `${up.length}<span class="stat-unit">명</span>`;
+  document.getElementById('stTotal').textContent  = s.length;
+  document.getElementById('stEng').textContent    = s.filter(x=>x.eng).length;
+  document.getElementById('stKor').textContent    = s.filter(x=>x.kor).length;
+  document.getElementById('stUnpaid').textContent = up.length;
   document.getElementById('stUnpaidSub').textContent = up.length ? up.map(x=>x.name).join(', ') : '';
 }
 
@@ -3414,6 +3584,50 @@ function renderStudents() {
     return;
   }
   grid.innerHTML = list.map(s => buildCard(s)).join('');
+  applyStudentView();
+}
+
+/* 카드 / 리스트 뷰 전환 */
+let _studentView = localStorage.getItem('muem_student_view') || 'card';
+function setStudentView(v) {
+  _studentView = (v === 'list') ? 'list' : 'card';
+  try { localStorage.setItem('muem_student_view', _studentView); } catch(e) {}
+  applyStudentView();
+}
+function applyStudentView() {
+  const grid = document.getElementById('studentGrid');
+  if (grid) grid.classList.toggle('list-view', _studentView === 'list');
+  document.getElementById('vtCard')?.classList.toggle('on', _studentView === 'card');
+  document.getElementById('vtList')?.classList.toggle('on', _studentView === 'list');
+}
+
+/* 오늘이 생일인지 — birth는 YYYY-MM-DD */
+function isBirthday(s) {
+  if (!s || !s.birth) return false;
+  const t = new Date();
+  const parts = String(s.birth).split('-');
+  if (parts.length < 3) return false;
+  return parseInt(parts[1],10) === (t.getMonth()+1) && parseInt(parts[2],10) === t.getDate();
+}
+/* 오늘 리뷰 작성 완료 여부 — 학생 수강 과목 모두 작성됐으면 true */
+function rvDoneToday(s) {
+  const day = rvDB[todayISO()]?.[s.id];
+  if (!day) return false;
+  const acads = [];
+  if (s.eng) acads.push('eng');
+  if (s.kor) acads.push('kor');
+  if (!acads.length) acads.push('eng');
+  return acads.every(ac => {
+    const r = day[ac] ?? (day.eng === undefined ? day : null);
+    return !!(r && (r.comment || r.score !== undefined));
+  });
+}
+/* 오늘 과제 체크 여부 — 과제는 영어 전용. 대상 아니면 null */
+function hwDoneToday(s) {
+  if (!s.eng) return null;
+  const day = hwDB[todayISO()]?.[s.id];
+  const r = day?.eng ?? (day && day.eng === undefined ? day : null);
+  return !!(r?.comp);
 }
 
 function buildCard(s) {
@@ -3421,6 +3635,7 @@ function buildCard(s) {
   const sc = (s.eng && s.kor) ? 'cs-b' : s.eng ? 'cs-e' : 'cs-k';
   const ac = (s.eng && s.kor) ? 'av-b' : s.eng ? 'av-e' : 'av-k';
   const cardCls = (s.eng && s.kor) ? 'card-both' : s.eng ? 'card-eng' : 'card-kor';
+  const bday = isBirthday(s);
   const grp = s.grade.startsWith('유치') ? '유치부' : s.grade.startsWith('초') ? '초등' : '중등';
   const tel = s.pT ? s.pT.replace(/(\d{3})-(\d{4})-(\d{4})/, '$1-****-$3') : '—';
   const badges = [
@@ -3433,9 +3648,22 @@ function buildCard(s) {
   ].filter(Boolean).join('');
   const schoolStr = s.school ? `<span>${s.school}</span><span class="msep">·</span>` : '';
   const memo = s.note ? `<div class="card-memo">${s.note}</div>` : '';
+  // 우측 상단 상태 배지 (리뷰/과제/생일)
+  const checkSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff"><polyline points="20 6 9 17 4 12"/></svg>';
+  const rvDone = rvDoneToday(s);
+  const hwDone = hwDoneToday(s);
+  const statusBadges = [
+    bday ? '<span class="cs-cake" title="오늘 생일">🎂</span>' : '',
+    rvDone ? `<span class="cs-dot cs-rv-done" title="리뷰 완료">${checkSvg}</span>`
+           : `<span class="cs-dot cs-rv-none" title="리뷰 미작성"></span>`,
+    hwDone === null ? ''
+      : hwDone ? `<span class="cs-dot cs-hw-done" title="과제 완료">${checkSvg}</span>`
+               : `<span class="cs-dot cs-hw-none" title="과제 미체크"></span>`,
+  ].filter(Boolean).join('');
   return `
-<div class="s-card ${cardCls}${up ? ' unpaid' : ''}" onclick="openEditModal(${s.id})">
+<div class="s-card ${cardCls}${up ? ' unpaid' : ''}${bday ? ' birthday' : ''}" onclick="openEditModal(${s.id})">
   <div class="card-stripe ${sc}"></div>
+  <div class="card-status">${statusBadges}</div>
   <div class="card-head">
     <div class="card-av ${ac}">${s.name.charAt(0)}</div>
     <div>
@@ -3444,6 +3672,14 @@ function buildCard(s) {
       <div class="sbadges">${badges}</div>
       ${lvls ? `<div class="lvl-strip">${lvls}</div>` : ''}
     </div>
+  </div>
+  <div class="s-list-row">
+    <div class="slr-bar ${sc}"></div>
+    <div class="slr-av ${ac}">${s.name.charAt(0)}</div>
+    <div class="slr-name">${s.name}${bday ? ' 🎂' : ''}</div>
+    ${lvls || '<span class="slr-meta">레벨 미정</span>'}
+    <span class="slr-meta">${s.grade}</span>
+    <span class="slr-tel">${s.pN || '—'} · ${tel}</span>
   </div>
   ${s.eng && s.kor ? `
   <div class="card-tabs">
@@ -3523,6 +3759,7 @@ function openEditModal(id) {
   document.getElementById('fName').value   = s.name;
   document.getElementById('fGrade').value  = s.grade;
   document.getElementById('fSchool').value = s.school || '';
+  document.getElementById('fBirth') && (document.getElementById('fBirth').value = s.birth || '');
   document.getElementById('chipE').classList.toggle('sel', !!s.eng);
   document.getElementById('chipK').classList.toggle('sel', !!s.kor);
   document.getElementById('fELv').value    = s.eLv || '';
@@ -3586,7 +3823,7 @@ function openEditModal(id) {
   setTimeout(() => document.getElementById('fName').focus(), 120);
 }
 function clearForm() {
-  ['fName','fSchool','fELv','fESub','fESpec','fENote','fKLv','fKSub','fKSpec','fKNote','fPN','fPT','fST','fCls','fNote']
+  ['fName','fSchool','fBirth','fELv','fESub','fESpec','fENote','fKLv','fKSub','fKSpec','fKNote','fPN','fPT','fST','fCls','fNote']
     .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
   document.getElementById('fGrade').value = '';
   document.getElementById('fEnr').value = todayISO();
@@ -3635,6 +3872,7 @@ function saveStudent() {
   const obj = {
     name, grade, eng, kor,
     school:document.getElementById('fSchool').value.trim(),
+    birth:document.getElementById('fBirth')?.value || '',
     eLv:document.getElementById('fELv').value, eSub:document.getElementById('fESub').value.trim(),
     eSpec:document.getElementById('fESpec').value.trim(), eNote:document.getElementById('fENote').value.trim(),
     kLv:document.getElementById('fKLv').value, kSub:document.getElementById('fKSub').value.trim(),
@@ -3785,24 +4023,27 @@ function buildAttCard(s, rec) {
 
   const sg   = [s.school, s.grade].filter(Boolean).join(' ');
   const tags = [s.eng ? '영어' : '', s.kor ? '국어' : ''].filter(Boolean).join(' · ');
-
-  // 쿨다운 상태 확인 (관리자는 쿨다운 없음 — 관리자 모드 항상 허용)
-  // 키오스크용 쿨다운만 별도 관리
+  const bday = isBirthday(s);
+  const memo = getDayMemo(s.id);
 
   return `
-<div class="att-card ${cardCls}" id="ar_${s.id}">
+<div class="att-card ${cardCls}${bday ? ' att-birthday' : ''}" id="ar_${s.id}">
   <div class="att-card-bar"></div>
   <div class="att-card-body">
     <div class="att-card-top">
       <div>
-        <div class="att-card-name">${s.name}</div>
+        <div class="att-card-name">${bday ? '🎂 ' : ''}${s.name}</div>
         <div><span class="ch-badge ch-kakao">카톡</span></div>
       </div>
-      <button class="att-kakao-btn" onclick="showKakaoPopup(${s.id},event)" title="알림 보내기">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 5.814 2 10.5c0 2.943 1.79 5.537 4.52 7.098l-.9 3.302 3.834-2.52A11.2 11.2 0 0 0 12 19c5.523 0 10-3.814 10-8.5S17.523 2 12 2z"/></svg>
-      </button>
+      <div style="display:flex;gap:6px;align-items:center">
+        <button class="att-memo-btn${memo ? ' has-memo' : ''}" onclick="openDayMemo(${s.id},event)" title="당일 메모">📌</button>
+        <button class="att-kakao-btn" onclick="showKakaoPopup(${s.id},event)" title="알림 보내기">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 5.814 2 10.5c0 2.943 1.79 5.537 4.52 7.098l-.9 3.302 3.834-2.52A11.2 11.2 0 0 0 12 19c5.523 0 10-3.814 10-8.5S17.523 2 12 2z"/></svg>
+        </button>
+      </div>
     </div>
     <div class="att-card-meta">${sg}${s.cls ? ' · ' + s.cls : ''}${tags ? ' · ' + tags : ''}</div>
+    ${memo ? `<div class="att-memo-badge" onclick="openDayMemo(${s.id},event)">📌 ${memo}</div>` : ''}
     <div class="att-card-times">${timeBadges}</div>
     <div class="att-card-btns">
       <button class="ac-btn b-in${hasIn ? ' active' : ''}${isAbs ? ' disabled' : ''}" onclick="adminMark(${s.id},'in',event)" ${isAbs ? 'disabled' : ''}>등원</button>
@@ -3852,6 +4093,40 @@ function applyAttTime(sid, type, timeVal) {
   saveAtt();
   renderAttList();
   showToast(`${type==='in'?'등원':'하원'} 시간이 ${timeVal}로 변경됐어요`);
+}
+
+/* ── 당일 메모 ── */
+function openDayMemo(sid, e) {
+  if (e) e.stopPropagation();
+  const s = db.students.find(x => x.id === sid);
+  const current = getDayMemo(sid);
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px';
+  overlay.innerHTML = `
+    <div style="background:#fff;border-radius:18px;padding:22px;width:330px;max-width:100%;box-shadow:0 20px 60px rgba(0,0,0,.25)">
+      <div style="font-size:15px;font-weight:800;color:var(--t1);margin-bottom:4px">📌 당일 메모</div>
+      <div style="font-size:11.5px;color:var(--t4);margin-bottom:14px">${s ? s.name : ''} · ${attDate} (자정에 자동 초기화)</div>
+      <textarea id="dayMemoInp" placeholder="예: 학부모님이 오늘 30분 일찍 하원 요청하셨어요" rows="4"
+        style="width:100%;padding:11px;border:2px solid var(--folio-indigo);border-radius:12px;font-size:13px;font-family:inherit;box-sizing:border-box;outline:none;resize:vertical;line-height:1.5">${current.replace(/</g,'&lt;')}</textarea>
+      <div style="display:flex;gap:10px;margin-top:14px">
+        <button onclick="this.closest('div[style]').remove()"
+          style="flex:1;padding:11px;border-radius:12px;border:1px solid var(--bd);background:var(--sf);font-size:13.5px;cursor:pointer;font-family:inherit">취소</button>
+        <button onclick="saveDayMemoFor(${sid},document.getElementById('dayMemoInp').value);this.closest('div[style]').remove()"
+          style="flex:1;padding:11px;border-radius:12px;border:none;background:var(--folio-indigo);color:#fff;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit">저장</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', ev => { if (ev.target === overlay) overlay.remove(); });
+  setTimeout(() => document.getElementById('dayMemoInp')?.focus(), 100);
+}
+function saveDayMemoFor(sid, text) {
+  text = (text || '').trim();
+  if (!dayMemoDB[attDate]) dayMemoDB[attDate] = {};
+  if (text) dayMemoDB[attDate][sid] = text;
+  else delete dayMemoDB[attDate][sid];
+  saveDayMemo();
+  renderAttList();
+  showToast(text ? '📌 메모가 저장됐어요' : '메모가 삭제됐어요');
 }
 
 function adminMark(sid, type, e) {
@@ -4334,6 +4609,13 @@ function switchRVModalTab(acad) {
   document.querySelectorAll('.rv-tag-btn').forEach(btn =>
     btn.classList.toggle('tag-on', _rvTags.includes(btn.textContent.trim()))
   );
+  // 수업 일지 — 과목 전환 시에도 동기화
+  const jBlock = document.getElementById('rvJournalBlock');
+  const jInp   = document.getElementById('rvJournalInp');
+  if (jBlock && jInp) {
+    jBlock.style.display = appSettings.journalEnabled ? '' : 'none';
+    jInp.value = appSettings.journalEnabled ? (rec.journal || '') : '';
+  }
   renderRVImgPreview();
 }
 
@@ -4810,6 +5092,18 @@ function openRVModal(sid, acad, e) {
   );
   renderRVImgPreview();
   document.getElementById('rvFileInp').value = '';
+  // 수업 일지 — 설정 ON일 때만 표시 + 기존 값 로드
+  const jBlock = document.getElementById('rvJournalBlock');
+  const jInp   = document.getElementById('rvJournalInp');
+  if (jBlock && jInp) {
+    if (appSettings.journalEnabled) {
+      jBlock.style.display = '';
+      jInp.value = rec.journal || '';
+    } else {
+      jBlock.style.display = 'none';
+      jInp.value = '';
+    }
+  }
   openModal('rvModal');
 }
 function toggleRVTag(btn, tag) {
@@ -4829,6 +5123,7 @@ function saveRVRecord() {
     const scoreRaw  = document.getElementById('rvScoreInp')?.value || '';
     const total     = parseInt(document.getElementById('rvTotalInp')?.value) || 100;
     const comment   = document.getElementById('rvCommentInp')?.value.trim() || '';
+    const journal   = document.getElementById('rvJournalInp')?.value.trim() || '';
     const score     = scoreRaw !== '' ? parseInt(scoreRaw) : undefined;
     const prevScore = getPrevScore(_rvSid, _rvAcad);
 
@@ -4847,6 +5142,7 @@ function saveRVRecord() {
       prevScore: prevScore !== undefined ? prevScore : null,
       tags:      [...(_rvTags||[])],
       comment:   comment || '',
+      journal:   journal || '',
       images:    Array.isArray(_rvImages) ? _rvImages.map(img => ({ data: img.data, name: img.name || '' })) : [],
       imgData:   _rvImages?.[0]?.data || null,
       imgName:   _rvImages?.[0]?.name || '',
@@ -5230,6 +5526,11 @@ function renderPTabToday(s, attRec, hwRec, today, thisMonth) {
           const readInfo = latest.read
             ? `<span style="color:var(--blue);font-weight:700;font-size:11px">✅ 확인했습니다${latest.readAt ? ' · ' + latest.readAt : ''}</span>`
             : `<span style="color:var(--t4);font-size:11px">⏳ 확인 전</span>`;
+          const replyBox = latest.reply
+            ? `<div style="margin-top:8px;background:var(--folio-indigo-lt);border-radius:10px;padding:9px 11px">
+                 <div style="font-size:10px;font-weight:700;color:var(--folio-indigo);margin-bottom:3px">↩ 선생님 답장${latest.replyAt ? ' · ' + latest.replyAt : ''}</div>
+                 <div style="font-size:12px;color:var(--folio-indigo-dk);line-height:1.6">${latest.reply}</div>
+               </div>` : '';
           msgEl.innerHTML = `
             <div style="background:var(--sand);border-radius:12px;padding:12px 14px">
               <div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:6px">"${latest.msg}"</div>
@@ -5237,6 +5538,7 @@ function renderPTabToday(s, attRec, hwRec, today, thisMonth) {
                 <span style="font-size:10px;color:var(--t4)">${time}</span>
                 ${readInfo}
               </div>
+              ${replyBox}
             </div>`;
         } else {
           msgEl.innerHTML = '<div style="font-size:12px;color:var(--t4);text-align:center;padding:8px 0">보낸 메시지가 없습니다</div>';
@@ -5246,6 +5548,7 @@ function renderPTabToday(s, attRec, hwRec, today, thisMonth) {
   }
 
   document.getElementById('pTodayBody').innerHTML = `
+    ${isBirthday(s) ? `<div class="p-birthday-card">🎂 오늘은 <strong>${s.name}</strong>의 생일이에요!<div class="p-birthday-sub">생일 축하해요 🎉</div></div>` : ''}
     <!-- 공지사항 (있을 때만 맨 위 표시) -->
     <div id="pNoticeWrap"></div>
 
@@ -6274,6 +6577,8 @@ function openMsgAlert() {
     list.innerHTML = msgs.map(([key, m]) => {
       const time = new Date(m.ts).toLocaleString('ko-KR', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
       const readStyle = m.read ? 'opacity:.55' : '';
+      const replyHtml = m.reply
+        ? `<div class="msg-reply-shown">↩ 보낸 답장: ${m.reply}</div>` : '';
       return `<div class="msg-alert-item ${m.read?'read':''}" style="${readStyle}">
         <div style="display:flex;align-items:flex-start;gap:8px">
           <div style="flex:1" onclick="readMsg('${key}')">
@@ -6282,8 +6587,12 @@ function openMsgAlert() {
             <div class="msg-alert-time">${time} · ${m.pT||''}</div>
             ${m.read ? '<div style="font-size:10px;color:var(--blue);margin-top:3px">✅ 확인했습니다</div>' : '<div style="font-size:10px;color:var(--t4);margin-top:3px">탭하면 읽음 처리됩니다</div>'}
           </div>
-          <button onclick="deleteSingleMsg('${key}')" style="padding:4px 8px;border-radius:8px;border:1px solid var(--rd-lt);background:var(--rd-lt);color:var(--rd);font-size:10px;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">삭제</button>
+          <div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0">
+            <button onclick="openReplyPicker('${key}')" style="padding:4px 8px;border-radius:8px;border:1px solid var(--folio-indigo);background:var(--folio-indigo-lt);color:var(--folio-indigo-dk);font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">빠른 답장</button>
+            <button onclick="deleteSingleMsg('${key}')" style="padding:4px 8px;border-radius:8px;border:1px solid var(--rd-lt);background:var(--rd-lt);color:var(--rd);font-size:10px;cursor:pointer;font-family:inherit;white-space:nowrap">삭제</button>
+          </div>
         </div>
+        ${replyHtml}
       </div>`;
     }).join('');
   }
@@ -6307,6 +6616,82 @@ async function readMsg(key) {
   await _fdb.ref(`messages/${key}`).update({ read: true, readAt: now });
   updateMsgBadge();
   openMsgAlert(); // 목록 새로고침
+}
+
+/* ── 빠른 답장 템플릿 ── */
+function openReplyPicker(key) {
+  const m = _msgData[key];
+  if (!m) return;
+  const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/'/g,'&#39;');
+  const overlay = document.createElement('div');
+  overlay.id = 'replyPickerOverlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9500;display:flex;align-items:center;justify-content:center;padding:20px';
+  const tplRows = replyTemplates.map((t, i) => `
+    <div class="rtpl-row">
+      <button class="rtpl-pick" onclick="sendReply('${key}',replyTemplates[${i}])">${esc(t)}</button>
+      <button class="rtpl-mini" onclick="editTemplate(${i},'${key}')" title="수정">✏</button>
+      <button class="rtpl-mini rtpl-del" onclick="deleteTemplate(${i},'${key}')" title="삭제">✕</button>
+    </div>`).join('');
+  overlay.innerHTML = `
+    <div style="background:#fff;border-radius:18px;padding:20px;width:360px;max-width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+      <div style="font-size:15px;font-weight:800;color:var(--t1);margin-bottom:3px">빠른 답장</div>
+      <div style="font-size:11.5px;color:var(--t4);margin-bottom:14px">${esc(m.from)} 학부모님께 · "${esc(m.msg).slice(0,40)}${m.msg.length>40?'…':''}"</div>
+      <div id="rtplList">${tplRows}</div>
+      <button class="rtpl-add" onclick="addTemplate('${key}')">+ 템플릿 추가</button>
+      <div style="margin-top:12px;border-top:1px solid var(--bd);padding-top:12px">
+        <textarea id="replyCustomInp" rows="2" placeholder="직접 입력해서 보내기" style="width:100%;padding:9px 11px;border:1.5px solid var(--bd);border-radius:10px;font-size:12.5px;font-family:inherit;box-sizing:border-box;resize:vertical;outline:none"></textarea>
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button onclick="this.closest('div[style]').parentElement.remove()" style="flex:1;padding:10px;border-radius:10px;border:1px solid var(--bd);background:var(--sf);font-size:13px;cursor:pointer;font-family:inherit">닫기</button>
+          <button onclick="sendReply('${key}',document.getElementById('replyCustomInp').value)" style="flex:1;padding:10px;border-radius:10px;border:none;background:var(--folio-indigo);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">보내기</button>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', ev => { if (ev.target === overlay) overlay.remove(); });
+}
+function closeReplyPicker() {
+  document.getElementById('replyPickerOverlay')?.remove();
+}
+async function sendReply(key, text) {
+  text = (text || '').trim();
+  if (!text) { showToast('답장 내용을 입력해주세요'); return; }
+  if (!_fdb || !_msgData[key]) { showToast('메시지를 찾을 수 없어요'); return; }
+  const now = new Date().toLocaleString('ko-KR', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
+  _msgData[key].reply = text;
+  _msgData[key].replyAt = now;
+  _msgData[key].read = true;
+  if (!_msgData[key].readAt) _msgData[key].readAt = now;
+  await _fdb.ref(`messages/${key}`).update({
+    reply: text, replyAt: now, read: true, readAt: _msgData[key].readAt
+  });
+  closeReplyPicker();
+  updateMsgBadge();
+  openMsgAlert();
+  showToast('✅ 답장을 보냈어요');
+}
+function addTemplate(key) {
+  const t = prompt('새 답장 템플릿을 입력하세요:');
+  if (t && t.trim()) {
+    replyTemplates.push(t.trim());
+    saveTemplates();
+    closeReplyPicker(); openReplyPicker(key);
+  }
+}
+function editTemplate(idx, key) {
+  const t = prompt('템플릿 수정:', replyTemplates[idx]);
+  if (t !== null) {
+    if (t.trim()) replyTemplates[idx] = t.trim();
+    else replyTemplates.splice(idx, 1);
+    saveTemplates();
+    closeReplyPicker(); openReplyPicker(key);
+  }
+}
+function deleteTemplate(idx, key) {
+  if (confirm('이 템플릿을 삭제할까요?')) {
+    replyTemplates.splice(idx, 1);
+    saveTemplates();
+    closeReplyPicker(); openReplyPicker(key);
+  }
 }
 
 /* 개별 메시지 삭제 */
