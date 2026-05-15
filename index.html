@@ -580,8 +580,11 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .att-card:hover{box-shadow:var(--sh-md);transform:translateY(-3px);
   border-color:rgba(200,151,58,.22)}
 /* 상태별 배경 */
+.att-card.st-none{border-color:var(--mum-yellow);background:var(--mum-yellow-lt);
+  box-shadow:0 2px 10px rgba(255,214,0,.18)}
 .att-card.st-in {border-color:#A8D8A8;background:#F5FBF5}
-.att-card.st-out{border-color:#DDD9C8;background:#F7F5EE}
+.att-card.st-out{border-color:#DDD9C8;background:#F7F5EE;opacity:.62}
+.att-card.st-out:hover{opacity:1}
 .att-card.st-abs{border-color:#E89A9A;background:#FCE4E4}
 /* 상단 4px 컬러 바 — 과목 기준 (영어=노랑, 국어=인디고, 둘다=반반) */
 .att-card-bar{height:4px;flex-shrink:0;background:var(--bd)}
@@ -1879,9 +1882,13 @@ canvas#pGrowthChart{width:100%!important}
 .ahs-none b{color:var(--am)}
 .ahs-abs b{color:var(--rd)}
 .att-heatmap{
-  background:#fff;margin-bottom:12px;
+  background:#fff;
   border:1px solid var(--bd);border-radius:14px;padding:11px 14px;
   box-shadow:var(--sh-sm)}
+/* 미등원 리스트 + 히트맵 좌우 반반 */
+.att-split{display:flex;gap:12px;margin-bottom:12px;align-items:stretch}
+.att-split > div{flex:1;min-width:0;margin-bottom:0}
+@media(max-width:680px){.att-split{flex-direction:column}}
 .att-collapse-hd{display:flex;align-items:center;gap:8px;cursor:pointer;
   font-size:11px;font-weight:800;color:var(--t3);letter-spacing:.03em;user-select:none}
 .acl-title{flex:1}
@@ -2569,23 +2576,25 @@ canvas#pGrowthChart{width:100%!important}
           </div>
         </div>
 
-        <!-- 2) 시간대별 인원 히트맵 -->
-        <div class="att-heatmap" id="heatmapBox">
-          <div class="att-collapse-hd" onclick="toggleHeatmap()">
-            <span class="acl-title">시간대별 인원</span>
-            <span class="collapse-arrow" id="heatmapArrow">▾</span>
+        <!-- 2) 미등원 리스트 + 시간대별 히트맵 (좌/우 반반) -->
+        <div class="att-split">
+          <!-- 왼쪽: 오늘 등원 예정 -->
+          <div class="sched-box" id="schedBox">
+            <div class="att-collapse-hd" onclick="toggleSched()">
+              <span class="acl-title">📋 오늘 등원 예정 <span id="schedCount" style="font-size:11px;color:var(--t4);font-weight:500;margin-left:3px"></span></span>
+              <span class="collapse-arrow" id="schedArrow">▾</span>
+            </div>
+            <div class="sched-list sched-simple" id="schedList">
+              <div class="sched-empty">스케줄 정보를 불러오는 중...</div>
+            </div>
           </div>
-          <div class="timeline-axis" id="timelineAxis"></div>
-        </div>
-
-        <!-- 3) 오늘 등원 예정 (접기/펼치기) -->
-        <div class="sched-box" id="schedBox">
-          <div class="att-collapse-hd" onclick="toggleSched()">
-            <span class="acl-title">📋 오늘 등원 예정 <span id="schedCount" style="font-size:11px;color:var(--t4);font-weight:500;margin-left:3px"></span></span>
-            <span class="collapse-arrow" id="schedArrow">▾</span>
-          </div>
-          <div class="sched-list sched-simple" id="schedList">
-            <div class="sched-empty">스케줄 정보를 불러오는 중...</div>
+          <!-- 오른쪽: 시간대별 히트맵 -->
+          <div class="att-heatmap" id="heatmapBox">
+            <div class="att-collapse-hd" onclick="toggleHeatmap()">
+              <span class="acl-title">시간대별 인원 <span id="peakLabel" style="font-size:10.5px;color:var(--mum-yellow-dk);font-weight:700;margin-left:3px"></span></span>
+              <span class="collapse-arrow" id="heatmapArrow">▾</span>
+            </div>
+            <div class="timeline-axis" id="timelineAxis"></div>
           </div>
         </div>
 
@@ -2843,7 +2852,7 @@ canvas#pGrowthChart{width:100%!important}
           <div class="qs-patterns">
             <button type="button" class="qs-pat" onclick="applyDayPattern('월,수,금',this)">월수금</button>
             <button type="button" class="qs-pat" onclick="applyDayPattern('화,목',this)">화목</button>
-            <button type="button" class="qs-pat" onclick="applyDayPattern('월,화,수,목,금',this)">월화수목금</button>
+            <button type="button" class="qs-pat" onclick="applyDayPattern('월,화,수,목,금',this)">월~금</button>
             <button type="button" class="qs-pat" onclick="applyDayPattern('월,수,금,토',this)">월수금토</button>
             <button type="button" class="qs-pat" onclick="applyDayPattern('화,목,토',this)">화목토</button>
             <button type="button" class="qs-pat" onclick="applyDayPattern('월,화,수,목,금,토,일',this)">매일</button>
@@ -2859,6 +2868,7 @@ canvas#pGrowthChart{width:100%!important}
                 <button type="button" class="qs-min" onclick="setQsMin(30,this)">30분</button>
                 <button type="button" class="qs-min on" onclick="setQsMin(60,this)">60분</button>
                 <button type="button" class="qs-min" onclick="setQsMin(90,this)">90분</button>
+                <button type="button" class="qs-min" onclick="setQsMin(120,this)">120분</button>
               </div>
             </div>
           </div>
@@ -4102,7 +4112,7 @@ function buildAttCard(s, rec) {
   const hasOut  = !!rec?.outTime;
   const isAbs   = !!rec?.absent;
 
-  const cardCls = isAbs ? 'st-abs' : hasOut ? 'st-out' : hasIn ? 'st-in' : '';
+  const cardCls = isAbs ? 'st-abs' : hasOut ? 'st-out' : hasIn ? 'st-in' : 'st-none';
   // 과목별 상단 바 클래스
   const acardCls = (s.eng && s.kor) ? 'acard-both' : s.eng ? 'acard-eng' : 'acard-kor';
 
@@ -6228,6 +6238,15 @@ function renderTodaySchedule() {
       <div class="tl-label">${h}시</div>
     </div>`;
   }).join('');
+
+  // 🔥 피크타임 라벨
+  const peakLabel = document.getElementById('peakLabel');
+  if (peakLabel) {
+    const peakHours = hours.filter(h => counts[h] === maxCount && counts[h] > 0);
+    peakLabel.textContent = peakHours.length
+      ? `🔥 ${peakHours.map(h => h + '시').join(', ')} 피크`
+      : '';
+  }
 }
 
 /* 출석부 히트맵/등원예정 접기·펼치기 */
