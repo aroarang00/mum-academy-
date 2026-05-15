@@ -2186,7 +2186,7 @@ canvas#pGrowthChart{width:100%!important}
         영어 리뷰
       </div>
     </div>
-    <div class="sb-grp" id="korGrp" style="display:none">
+    <div class="sb-grp" id="korGrp">
       <div class="sb-grp-lbl"><span class="sb-grp-dot" style="background:var(--folio-indigo)"></span>FOLIO 국어논술</div>
       <div class="sb-item k-nav" id="nl-rv-kor" onclick="goSec('rv',this);switchRVTab('kor')">
         <span class="sb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></span>
@@ -3292,10 +3292,7 @@ function switchAcad(a) {
   // 모든 학원 관련 변수 동기화 (학생/과제/리뷰가 한꺼번에 같은 학원 반영)
   if (typeof _hwAcad !== 'undefined') _hwAcad = a;
   if (typeof _rvAcad !== 'undefined') _rvAcad = a;
-  document.getElementById('sEng').classList.toggle('on', a === 'eng');
-  document.getElementById('sKor').classList.toggle('on', a === 'kor');
-  document.getElementById('engGrp').style.display = a === 'eng' ? '' : 'none';
-  document.getElementById('korGrp').style.display = a === 'kor' ? '' : 'none';
+  // 사이드바 상단 영/국 탭은 제거됨 — engGrp/korGrp는 항상 동시 표시
   // 모바일 학원 전환 버튼 동기화
   const macE = document.getElementById('macEng');
   const macK = document.getElementById('macKor');
