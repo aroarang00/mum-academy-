@@ -582,12 +582,12 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 /* 상태별 배경 */
 .att-card.st-in {border-color:#A8D8A8;background:#F5FBF5}
 .att-card.st-out{border-color:#DDD9C8;background:#F7F5EE}
-.att-card.st-abs{border-color:#F0C4C4;background:#FDF5F5}
-/* 상단 컬러 바 */
-.att-card-bar{height:3px;flex-shrink:0}
-.att-card.st-in  .att-card-bar{background:linear-gradient(90deg,var(--blue),var(--blue2))}
-.att-card.st-out .att-card-bar{background:linear-gradient(90deg,var(--br3),#C8A880)}
-.att-card.st-abs .att-card-bar{background:linear-gradient(90deg,#D08080,var(--rd))}
+.att-card.st-abs{border-color:#E89A9A;background:#FCE4E4}
+/* 상단 4px 컬러 바 — 과목 기준 (영어=노랑, 국어=인디고, 둘다=반반) */
+.att-card-bar{height:4px;flex-shrink:0;background:var(--bd)}
+.att-card.acard-eng  .att-card-bar{background:var(--mum-yellow)}
+.att-card.acard-kor  .att-card-bar{background:var(--folio-indigo)}
+.att-card.acard-both .att-card-bar{background:linear-gradient(90deg,var(--mum-yellow) 50%,var(--folio-indigo) 50%)}
 
 .att-card-body{padding:12px 13px 11px;flex:1;display:flex;flex-direction:column}
 .att-card-top{display:flex;align-items:flex-start;
@@ -1867,10 +1867,19 @@ canvas#pGrowthChart{width:100%!important}
   font-size:12.5px;font-weight:600;color:#7A5800;line-height:1.5;
   display:flex;align-items:center;gap:8px;transition:transform .15s,box-shadow .15s}
 .att-msg-banner:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(255,214,0,.3)}
-.att-toprow{display:flex;gap:12px;margin-bottom:12px;align-items:stretch}
-.att-stat-strip{flex:1;margin-bottom:0}
+/* 날짜 헤더 + 통계 인라인 */
+.att-hero-left{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.att-hero-stats{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ahs-item{display:flex;flex-direction:column;align-items:center;
+  min-width:48px;padding:4px 8px;border-radius:10px;background:rgba(255,255,255,.65)}
+.ahs-item b{font-size:18px;font-weight:900;color:var(--t1);line-height:1.1}
+.ahs-item span{font-size:9.5px;font-weight:700;color:var(--t3);margin-top:1px}
+.ahs-in b{color:var(--sage-dk)}
+.ahs-out b{color:var(--t3)}
+.ahs-none b{color:var(--am)}
+.ahs-abs b{color:var(--rd)}
 .att-heatmap{
-  width:360px;flex-shrink:0;background:#fff;
+  background:#fff;margin-bottom:12px;
   border:1px solid var(--bd);border-radius:14px;padding:11px 14px;
   box-shadow:var(--sh-sm)}
 .att-collapse-hd{display:flex;align-items:center;gap:8px;cursor:pointer;
@@ -1892,6 +1901,10 @@ canvas#pGrowthChart{width:100%!important}
   background:var(--bg2);border:1px solid var(--bd);
   font-size:12.5px;font-weight:700;color:var(--t1)}
 .sched-chip.arrived{background:var(--sage-lt);border-color:#A8D8A8;color:var(--sage-dk)}
+.sched-chip.late{background:#FDECEC;border-color:#E8A0A0;color:var(--rd)}
+.sched-chip.late .sched-chip-time{color:var(--rd)}
+.sched-done{text-align:center;padding:14px;font-size:13.5px;font-weight:800;
+  color:var(--sage-dk);background:var(--sage-lt);border-radius:10px}
 .sc-dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
 .sc-dot-e{background:var(--mum-yellow)}
 .sc-dot-k{background:var(--folio-indigo)}
@@ -2530,12 +2543,21 @@ canvas#pGrowthChart{width:100%!important}
         <!-- 학부모 메시지 배너 -->
         <div id="attMsgBanner" class="att-msg-banner" style="display:none" onclick="openMsgAlert()"></div>
 
-        <!-- 1) 날짜 헤더 (맨 위) -->
+        <!-- 1) 날짜 헤더 + 통계 인라인 -->
         <div class="att-hero">
-          <div>
-            <div class="att-date-day" id="attDow"></div>
-            <div class="att-date-main" id="attMain"></div>
-            <div class="att-date-sub" id="attSub"></div>
+          <div class="att-hero-left">
+            <div class="att-hero-date">
+              <div class="att-date-day" id="attDow"></div>
+              <div class="att-date-main" id="attMain"></div>
+              <div class="att-date-sub" id="attSub"></div>
+            </div>
+            <div class="att-hero-stats">
+              <span class="ahs-item"><b id="sumAll">0</b><span>전체</span></span>
+              <span class="ahs-item ahs-in"><b id="sumIn">0</b><span>학습중</span></span>
+              <span class="ahs-item ahs-out"><b id="sumOut">0</b><span>하원</span></span>
+              <span class="ahs-item ahs-none"><b id="sumNone">0</b><span>미체크</span></span>
+              <span class="ahs-item ahs-abs"><b id="sumAbs">0</b><span>결석</span></span>
+            </div>
           </div>
           <div class="att-date-right">
             <input type="date" class="att-date-inp" id="attPicker" onchange="onAttDate()">
@@ -2547,27 +2569,13 @@ canvas#pGrowthChart{width:100%!important}
           </div>
         </div>
 
-        <!-- 2) 통계 스트립 + 히트맵 -->
-        <div class="att-toprow">
-          <div class="stat-strip att-stat-strip">
-            <div class="ss-item"><span class="ss-dot" style="background:var(--t3)"></span><span class="ss-lbl">전체</span><span class="ss-num" id="sumAll">0</span><span class="ss-unit">명</span></div>
-            <div class="ss-sep"></div>
-            <div class="ss-item"><span class="ss-dot" style="background:var(--sage)"></span><span class="ss-lbl">학습중</span><span class="ss-num" id="sumIn">0</span></div>
-            <div class="ss-sep"></div>
-            <div class="ss-item"><span class="ss-dot" style="background:var(--t4)"></span><span class="ss-lbl">하원</span><span class="ss-num" id="sumOut">0</span></div>
-            <div class="ss-sep"></div>
-            <div class="ss-item"><span class="ss-dot" style="background:var(--am)"></span><span class="ss-lbl">미체크</span><span class="ss-num" id="sumNone">0</span></div>
-            <div class="ss-sep"></div>
-            <div class="ss-item"><span class="ss-dot" style="background:var(--rd)"></span><span class="ss-lbl">결석</span><span class="ss-num" id="sumAbs">0</span></div>
+        <!-- 2) 시간대별 인원 히트맵 -->
+        <div class="att-heatmap" id="heatmapBox">
+          <div class="att-collapse-hd" onclick="toggleHeatmap()">
+            <span class="acl-title">시간대별 인원</span>
+            <span class="collapse-arrow" id="heatmapArrow">▾</span>
           </div>
-          <div class="att-heatmap" id="heatmapBox">
-            <div class="att-collapse-hd" onclick="toggleHeatmap()">
-              <span class="acl-title">시간대별 인원</span>
-              <span class="cap-inp-wrap" onclick="event.stopPropagation()">최대 <input type="number" class="cap-inp" id="capLimit" value="6" min="1" max="30" onchange="renderTodaySchedule()">명</span>
-              <span class="collapse-arrow" id="heatmapArrow">▾</span>
-            </div>
-            <div class="timeline-axis" id="timelineAxis"></div>
-          </div>
+          <div class="timeline-axis" id="timelineAxis"></div>
         </div>
 
         <!-- 3) 오늘 등원 예정 (접기/펼치기) -->
@@ -4095,6 +4103,8 @@ function buildAttCard(s, rec) {
   const isAbs   = !!rec?.absent;
 
   const cardCls = isAbs ? 'st-abs' : hasOut ? 'st-out' : hasIn ? 'st-in' : '';
+  // 과목별 상단 바 클래스
+  const acardCls = (s.eng && s.kor) ? 'acard-both' : s.eng ? 'acard-eng' : 'acard-kor';
 
   let timeBadges = '';
   if (isAbs) {
@@ -4112,7 +4122,7 @@ function buildAttCard(s, rec) {
   const bday = isBirthday(s);
 
   return `
-<div class="att-card ${cardCls}${bday ? ' att-birthday' : ''}" id="ar_${s.id}">
+<div class="att-card ${cardCls} ${acardCls}${bday ? ' att-birthday' : ''}" id="ar_${s.id}">
   <div class="att-card-bar"></div>
   <div class="att-card-body">
     <div class="att-card-top">
@@ -6136,80 +6146,80 @@ function renderTodaySchedule() {
   const listEl    = document.getElementById('schedList');
   const tlEl      = document.getElementById('timelineAxis');
   const countEl   = document.getElementById('schedCount');
+  const schedBox  = document.getElementById('schedBox');
   if (!listEl || !tlEl) return;
 
   const dayNames  = ['일','월','화','수','목','금','토'];
   const today     = dayNames[new Date().getDay()];
   const todayKey  = todayISO();
-  const capLimit  = parseInt(document.getElementById('capLimit')?.value || '6');
 
   // 오늘 수업 예정 학생 — 요일별 스케줄에서 오늘 데이터만 추출
   const scheduled = [];
   (db.students || []).forEach(s => {
     const dayInfo = (s.schedule || {})[today];
     if (dayInfo && dayInfo.time) {
-      scheduled.push({
-        ...s,
-        todayTime: dayInfo.time,
-        todayMin:  dayInfo.min || 60,
-      });
+      scheduled.push({ ...s, todayTime: dayInfo.time, todayMin: dayInfo.min || 60 });
     }
   });
-
-  // 시간순 정렬
   scheduled.sort((a, b) => a.todayTime.localeCompare(b.todayTime));
 
-  // 카운트
-  if (countEl) countEl.textContent = scheduled.length ? `${scheduled.length}명 예정` : '';
+  // ── 오늘 등원 예정 (미등원 학생만) ──
+  const attRecs = attDB[todayKey] || {};
+  const isToday = todayKey === attDate;
+  const notArrived = scheduled.filter(s => !(attRecs[s.id] && attRecs[s.id].inTime));
+  const nowMin = new Date().getHours() * 60 + new Date().getMinutes();
 
-  // ── 오늘 등원 리스트 (심플 칩: 시간 + 이름 + 과목 도트) ──
+  if (countEl) {
+    countEl.textContent = scheduled.length
+      ? (notArrived.length ? `${notArrived.length}명 미등원` : '전원 등원 완료')
+      : '';
+  }
+
   if (!scheduled.length) {
     listEl.innerHTML = '<div class="sched-empty">오늘 스케줄에 등록된 학생이 없습니다</div>';
+    if (schedBox) schedBox.classList.add('collapsed');
+  } else if (!notArrived.length) {
+    listEl.innerHTML = '<div class="sched-done">✅ 오늘 등원 완료!</div>';
+    if (schedBox) schedBox.classList.add('collapsed');
   } else {
-    const attRecs = attDB[todayKey] || {};
-    listEl.innerHTML = scheduled.map(s => {
-      const arrived = !!(attRecs[s.id] && attRecs[s.id].inTime);
+    if (schedBox) schedBox.classList.remove('collapsed');
+    listEl.innerHTML = notArrived.map(s => {
       const dots = (s.eng ? '<span class="sc-dot sc-dot-e"></span>' : '')
                  + (s.kor ? '<span class="sc-dot sc-dot-k"></span>' : '');
-      return `<div class="sched-chip${arrived ? ' arrived' : ''}">
-        <span class="sched-chip-time">${s.todayTime}</span>${s.name}${dots}${arrived ? ' ✓' : ''}
+      // 예정 시간 30분 이상 지났으면 지각 강조
+      const [th, tm] = s.todayTime.split(':').map(Number);
+      const late = isToday && (nowMin - (th*60+tm) >= 30);
+      return `<div class="sched-chip${late ? ' late' : ''}">
+        ${late ? '⚠️ ' : ''}<span class="sched-chip-time">${s.todayTime}</span>${s.name}${dots}
       </div>`;
     }).join('');
   }
 
-  // ── 타임라인 (13~21시) ──
+  // ── 타임라인 히트맵 (13~21시) ──
   const START_H = 13, END_H = 21;
   const hours = [];
   for (let h = START_H; h <= END_H; h++) hours.push(h);
-
-  // 각 시간대에 몇 명이 있는지 계산
   const counts = {};
   hours.forEach(h => counts[h] = 0);
-
   scheduled.forEach(s => {
     const [sh, sm] = s.todayTime.split(':').map(Number);
     const startMin = sh * 60 + sm;
     const endMin   = startMin + (s.todayMin || 60);
     hours.forEach(h => {
-      const hStart = h * 60;
-      const hEnd   = hStart + 60;
-      // 이 시간대에 학생이 있으면 카운트
+      const hStart = h * 60, hEnd = hStart + 60;
       if (startMin < hEnd && endMin > hStart) counts[h]++;
     });
   });
-
   const maxCount = Math.max(...Object.values(counts), 1);
-  const now = new Date();
-  const nowH = now.getHours();
+  const nowH = new Date().getHours();
 
   tlEl.innerHTML = hours.map(h => {
-    const cnt   = counts[h];
-    const pct   = Math.round((cnt / Math.max(maxCount, capLimit)) * 100);
-    const isOver = cnt >= capLimit;
+    const cnt    = counts[h];
+    const pct    = Math.round((cnt / maxCount) * 100);
     const isNow  = h === nowH;
     const isPeak = cnt > 0 && cnt === maxCount;
-    // 피크타임(최다 인원) = 노랑 우선, 초과 = 빨강, 현재시각 = 인디고
-    const barCls = isPeak ? 'tl-bar peak' : isOver ? 'tl-bar over' : isNow ? 'tl-bar active' : 'tl-bar';
+    // 피크타임(최다 인원) = 노랑, 현재시각 = 인디고
+    const barCls = isPeak ? 'tl-bar peak' : isNow ? 'tl-bar active' : 'tl-bar';
     return `<div class="tl-col">
       <div class="tl-count">${cnt > 0 ? cnt : ''}</div>
       <div class="tl-bar-wrap" style="height:44px">
