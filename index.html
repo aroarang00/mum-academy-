@@ -604,18 +604,18 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .att-kakao-btn:hover{background:var(--blue-dk);transform:scale(1.07)}
 .att-kakao-btn svg{width:13px;height:13px;fill:#fff}
 .att-kakao-btn svg{width:13px;height:13px;fill:var(--br)}
-/* 당일 메모 버튼/배지 */
-.att-memo-btn{width:27px;height:27px;border-radius:7px;border:1px solid var(--bd);
-  cursor:pointer;background:var(--sf);font-size:13px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;transition:all .18s;
-  filter:grayscale(.6);opacity:.7}
-.att-memo-btn:hover{transform:scale(1.07);filter:none;opacity:1}
-.att-memo-btn.has-memo{background:var(--mum-yellow-lt);border-color:var(--mum-yellow);
-  filter:none;opacity:1}
-.att-memo-badge{font-size:10.5px;font-weight:600;color:#8A6D00;
-  background:var(--mum-yellow-lt);border:1px solid rgba(255,214,0,.5);
-  border-radius:8px;padding:5px 8px;margin:5px 0 3px;cursor:pointer;
-  line-height:1.4;word-break:break-word}
+/* 출석 시간 수정 팝업 — 빠른 선택 */
+.att-now-btn{width:100%;padding:9px;border-radius:10px;
+  border:1.5px solid var(--folio-indigo);background:var(--folio-indigo-lt);
+  color:var(--folio-indigo-dk);font-size:12.5px;font-weight:700;
+  cursor:pointer;font-family:inherit;margin-bottom:11px}
+.att-now-btn:hover{background:var(--folio-indigo);color:#fff}
+.att-qt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:13px}
+.att-qt{padding:8px 3px;border-radius:9px;border:1px solid var(--bd);
+  background:var(--sf);font-size:12px;font-weight:700;color:var(--t2);
+  cursor:pointer;font-family:inherit;transition:all .12s}
+.att-qt:hover{border-color:var(--folio-indigo);color:var(--folio-indigo)}
+.att-qt.on{background:var(--folio-indigo);border-color:var(--folio-indigo);color:#fff}
 /* 생일 출결 카드 */
 .att-card.att-birthday{border-color:#F0BFD0;background:#FFF4F8}
 .att-card.att-birthday .att-card-bar{background:linear-gradient(90deg,#F49AC0,#E56B98)}
@@ -1756,6 +1756,34 @@ canvas#pGrowthChart{width:100%!important}
 }
 
 
+/* ── 스케줄 빠른 설정 ── */
+.quick-sched{background:var(--folio-indigo-lt);border:1px solid rgba(61,79,124,.2);
+  border-radius:12px;padding:12px 13px;margin-bottom:12px}
+.qs-label{font-size:11px;font-weight:800;color:var(--folio-indigo-dk);margin-bottom:7px}
+.qs-patterns{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:11px}
+.qs-pat{padding:6px 11px;border-radius:20px;border:1.5px solid var(--bd);
+  background:var(--sf);font-size:11.5px;font-weight:700;color:var(--t2);
+  cursor:pointer;font-family:inherit;transition:all .14s}
+.qs-pat:hover{border-color:var(--folio-indigo);color:var(--folio-indigo)}
+.qs-pat.on{background:var(--folio-indigo);border-color:var(--folio-indigo);color:#fff}
+.qs-row{display:flex;gap:10px;margin-bottom:11px}
+.qs-field{flex:1}
+.qs-field label{display:block;font-size:11px;font-weight:800;color:var(--folio-indigo-dk);margin-bottom:5px}
+.qs-field input[type=time]{width:100%;padding:7px 9px;border:1.5px solid var(--bd);
+  border-radius:9px;font-size:13px;font-family:inherit;background:var(--sf);
+  box-sizing:border-box;outline:none}
+.qs-field input[type=time]:focus{border-color:var(--folio-indigo)}
+.qs-min-btns{display:flex;gap:5px}
+.qs-min{flex:1;padding:7px 4px;border-radius:9px;border:1.5px solid var(--bd);
+  background:var(--sf);font-size:11.5px;font-weight:700;color:var(--t2);
+  cursor:pointer;font-family:inherit;transition:all .14s}
+.qs-min:hover{border-color:var(--folio-indigo)}
+.qs-min.on{background:var(--folio-indigo);border-color:var(--folio-indigo);color:#fff}
+.qs-apply{width:100%;padding:9px;border-radius:10px;border:none;
+  background:var(--folio-indigo);color:#fff;font-size:12.5px;font-weight:800;
+  cursor:pointer;font-family:inherit}
+.qs-apply:hover{background:var(--folio-indigo-dk)}
+
 /* ── 요일별 스케줄 테이블 ── */
 .sched-table{width:100%;border-collapse:collapse;font-size:12px}
 .sched-table th{
@@ -1829,6 +1857,49 @@ canvas#pGrowthChart{width:100%!important}
 .tl-bar.active{background:linear-gradient(to top,var(--blue-dk),var(--blue))}
 .tl-label{font-size:9px;color:var(--t4);font-weight:600;white-space:nowrap}
 .tl-count{font-size:10px;font-weight:700;color:var(--t3)}
+.tl-bar.peak{background:linear-gradient(to top,var(--mum-yellow-dk),var(--mum-yellow))}
+
+/* ══ 출석부 개선 레이아웃 ══ */
+.att-msg-banner{
+  background:linear-gradient(135deg,#FFF4D0,#FFFCE0);
+  border:1.5px solid var(--mum-yellow);border-radius:12px;
+  padding:11px 14px;margin-bottom:12px;cursor:pointer;
+  font-size:12.5px;font-weight:600;color:#7A5800;line-height:1.5;
+  display:flex;align-items:center;gap:8px;transition:transform .15s,box-shadow .15s}
+.att-msg-banner:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(255,214,0,.3)}
+.att-toprow{display:flex;gap:12px;margin-bottom:12px;align-items:stretch}
+.att-stat-strip{flex:1;margin-bottom:0}
+.att-heatmap{
+  width:360px;flex-shrink:0;background:#fff;
+  border:1px solid var(--bd);border-radius:14px;padding:11px 14px;
+  box-shadow:var(--sh-sm)}
+.att-collapse-hd{display:flex;align-items:center;gap:8px;cursor:pointer;
+  font-size:11px;font-weight:800;color:var(--t3);letter-spacing:.03em;user-select:none}
+.acl-title{flex:1}
+.collapse-arrow{transition:transform .2s;font-size:11px;color:var(--t4)}
+.collapsed .collapse-arrow{transform:rotate(-90deg)}
+.att-heatmap .timeline-axis{height:58px;margin-top:8px}
+.att-heatmap.collapsed .timeline-axis,
+.att-heatmap.collapsed .cap-inp-wrap{display:none}
+.sched-box.collapsed .sched-list{display:none}
+.sched-box{background:#fff;border:1px solid var(--bd);border-radius:14px;
+  padding:11px 14px;margin-bottom:12px;box-shadow:var(--sh-sm)}
+.sched-box .sched-list{margin-top:10px}
+/* 심플 등원 예정 칩 */
+.sched-simple{flex-direction:row;flex-wrap:wrap;gap:6px}
+.sched-chip{display:flex;align-items:center;gap:5px;
+  padding:5px 11px;border-radius:20px;
+  background:var(--bg2);border:1px solid var(--bd);
+  font-size:12.5px;font-weight:700;color:var(--t1)}
+.sched-chip.arrived{background:var(--sage-lt);border-color:#A8D8A8;color:var(--sage-dk)}
+.sc-dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
+.sc-dot-e{background:var(--mum-yellow)}
+.sc-dot-k{background:var(--folio-indigo)}
+.sched-chip-time{font-size:10.5px;color:var(--t4);font-weight:600;margin-right:1px}
+@media(max-width:680px){
+  .att-toprow{flex-direction:column}
+  .att-heatmap{width:auto}
+}
 
 
 /* ── 학생 카드 과목 탭 ── */
@@ -2450,38 +2521,16 @@ canvas#pGrowthChart{width:100%!important}
       <!-- 출석부 -->
       <div class="sec" id="attendance">
         <!-- 모바일 공지 배너 (공지 있을 때만 표시) -->
-        <div id="mobileNoticeBanner" style="display:none;background:linear-gradient(135deg,var(--blue),#2A8FD4);border-radius:12px;padding:12px 14px;margin-bottom:14px;color:#fff">
+        <div id="mobileNoticeBanner" style="display:none;background:linear-gradient(135deg,var(--blue),#5A8FD4);border-radius:12px;padding:12px 14px;margin-bottom:14px;color:#fff">
           <div style="font-size:10px;font-weight:700;opacity:.7;letter-spacing:.08em;margin-bottom:4px">📢 공지사항</div>
           <div id="mobileNoticeTitle" style="font-size:13px;font-weight:800;margin-bottom:3px"></div>
           <div id="mobileNoticeBody" style="font-size:12px;opacity:.85;line-height:1.5;white-space:pre-wrap"></div>
         </div>
 
-        <div style="display:flex;justify-content:flex-end;margin-bottom:14px;">
-          <button class="btn btn-kiosk" onclick="openKiosk()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="15" height="15"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-            학생 출석 키오스크
-          </button>
-        </div>
+        <!-- 학부모 메시지 배너 -->
+        <div id="attMsgBanner" class="att-msg-banner" style="display:none" onclick="openMsgAlert()"></div>
 
-        <!-- 타임라인 + 오늘 등원 예정 -->
-        <div class="timeline-wrap">
-          <div class="timeline-title">
-            <div class="timeline-title-left">실시간 인원 현황</div>
-            <div class="cap-inp-wrap">
-              최대
-              <input type="number" class="cap-inp" id="capLimit" value="6" min="1" max="30" onchange="renderTodaySchedule()">
-              명
-            </div>
-          </div>
-          <div class="timeline-axis" id="timelineAxis"></div>
-        </div>
-        <div class="sched-hero" id="schedHero">
-          <div class="sched-hero-title">📋 오늘 등원 예정 <span id="schedCount" style="font-size:11px;color:var(--t3);font-weight:400;margin-left:4px"></span></div>
-          <div class="sched-list" id="schedList">
-            <div class="sched-empty">스케줄 정보를 불러오는 중...</div>
-          </div>
-        </div>
-
+        <!-- 1) 날짜 헤더 (맨 위) -->
         <div class="att-hero">
           <div>
             <div class="att-date-day" id="attDow"></div>
@@ -2491,34 +2540,57 @@ canvas#pGrowthChart{width:100%!important}
           <div class="att-date-right">
             <input type="date" class="att-date-inp" id="attPicker" onchange="onAttDate()">
             <button class="btn btn-ghost btn-sm" onclick="setAttToday()">오늘</button>
+            <button class="btn btn-kiosk btn-sm" onclick="openKiosk()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="14" height="14"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+              키오스크
+            </button>
           </div>
         </div>
 
-        <div class="att-sum">
-          <div class="att-sc s-all"><div class="att-sn" id="sumAll">0</div><div class="att-sl">전체</div></div>
-          <div class="att-sc s-in"><div class="att-sn" id="sumIn">0</div><div class="att-sl">학습 중</div></div>
-          <div class="att-sc s-out"><div class="att-sn" id="sumOut">0</div><div class="att-sl">하원 완료</div></div>
-          <div class="att-sc s-none"><div class="att-sn" id="sumNone">0</div><div class="att-sl">미체크</div></div>
-          <div class="att-sc s-abs"><div class="att-sn" id="sumAbs">0</div><div class="att-sl">결석</div></div>
+        <!-- 2) 통계 스트립 + 히트맵 -->
+        <div class="att-toprow">
+          <div class="stat-strip att-stat-strip">
+            <div class="ss-item"><span class="ss-dot" style="background:var(--t3)"></span><span class="ss-lbl">전체</span><span class="ss-num" id="sumAll">0</span><span class="ss-unit">명</span></div>
+            <div class="ss-sep"></div>
+            <div class="ss-item"><span class="ss-dot" style="background:var(--sage)"></span><span class="ss-lbl">학습중</span><span class="ss-num" id="sumIn">0</span></div>
+            <div class="ss-sep"></div>
+            <div class="ss-item"><span class="ss-dot" style="background:var(--t4)"></span><span class="ss-lbl">하원</span><span class="ss-num" id="sumOut">0</span></div>
+            <div class="ss-sep"></div>
+            <div class="ss-item"><span class="ss-dot" style="background:var(--am)"></span><span class="ss-lbl">미체크</span><span class="ss-num" id="sumNone">0</span></div>
+            <div class="ss-sep"></div>
+            <div class="ss-item"><span class="ss-dot" style="background:var(--rd)"></span><span class="ss-lbl">결석</span><span class="ss-num" id="sumAbs">0</span></div>
+          </div>
+          <div class="att-heatmap" id="heatmapBox">
+            <div class="att-collapse-hd" onclick="toggleHeatmap()">
+              <span class="acl-title">시간대별 인원</span>
+              <span class="cap-inp-wrap" onclick="event.stopPropagation()">최대 <input type="number" class="cap-inp" id="capLimit" value="6" min="1" max="30" onchange="renderTodaySchedule()">명</span>
+              <span class="collapse-arrow" id="heatmapArrow">▾</span>
+            </div>
+            <div class="timeline-axis" id="timelineAxis"></div>
+          </div>
         </div>
 
+        <!-- 3) 오늘 등원 예정 (접기/펼치기) -->
+        <div class="sched-box" id="schedBox">
+          <div class="att-collapse-hd" onclick="toggleSched()">
+            <span class="acl-title">📋 오늘 등원 예정 <span id="schedCount" style="font-size:11px;color:var(--t4);font-weight:500;margin-left:3px"></span></span>
+            <span class="collapse-arrow" id="schedArrow">▾</span>
+          </div>
+          <div class="sched-list sched-simple" id="schedList">
+            <div class="sched-empty">스케줄 정보를 불러오는 중...</div>
+          </div>
+        </div>
+
+        <!-- 4) 필터 -->
         <div class="att-frow">
           <div class="afc on" onclick="setAttF(&#39;all&#39;,this)">전체</div>
           <div class="afc" onclick="setAttF(&#39;eng&#39;,this)">영어반</div>
           <div class="afc" onclick="setAttF(&#39;kor&#39;,this)">국어반</div>
-          <div class="afc" onclick="setAttF(&#39;in&#39;,this)">학습 중</div>
+          <div class="afc" onclick="setAttF(&#39;in&#39;,this)">학습중</div>
           <div class="afc" onclick="setAttF(&#39;none&#39;,this)">미체크</div>
         </div>
 
-        <div style="font-size:11px;color:var(--blue-dk);
-          background:linear-gradient(135deg,rgba(234,243,251,.9),rgba(243,242,220,.5));
-          border:1px solid rgba(61,79,124,.18);border-radius:12px;padding:8px 13px;
-          margin-bottom:14px;display:flex;align-items:center;gap:7px;
-          box-shadow:0 1px 6px rgba(61,79,124,.08);">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-          <span><strong>관리자 모드:</strong> 30분 제한 없이 언제든 등하원 상태 수정 가능합니다.</span>
-        </div>
-
+        <!-- 5) 학생 카드 그리드 -->
         <div class="att-grid" id="attList"></div>
       </div>
 
@@ -2757,9 +2829,36 @@ canvas#pGrowthChart{width:100%!important}
       </div>
       <div class="f-block">
         <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--blue)"></span>개별 스케줄러</div>
+        <!-- 빠른 설정 — 패턴 + 공통 시간 -->
+        <div class="quick-sched">
+          <div class="qs-label">① 요일 패턴 선택</div>
+          <div class="qs-patterns">
+            <button type="button" class="qs-pat" onclick="applyDayPattern('월,수,금',this)">월수금</button>
+            <button type="button" class="qs-pat" onclick="applyDayPattern('화,목',this)">화목</button>
+            <button type="button" class="qs-pat" onclick="applyDayPattern('월,화,수,목,금',this)">월화수목금</button>
+            <button type="button" class="qs-pat" onclick="applyDayPattern('월,수,금,토',this)">월수금토</button>
+            <button type="button" class="qs-pat" onclick="applyDayPattern('화,목,토',this)">화목토</button>
+            <button type="button" class="qs-pat" onclick="applyDayPattern('월,화,수,목,금,토,일',this)">매일</button>
+          </div>
+          <div class="qs-row">
+            <div class="qs-field">
+              <label>② 공통 등원 시간</label>
+              <input type="time" id="qsTime" step="1800">
+            </div>
+            <div class="qs-field">
+              <label>③ 수업 시간</label>
+              <div class="qs-min-btns">
+                <button type="button" class="qs-min" onclick="setQsMin(30,this)">30분</button>
+                <button type="button" class="qs-min on" onclick="setQsMin(60,this)">60분</button>
+                <button type="button" class="qs-min" onclick="setQsMin(90,this)">90분</button>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="qs-apply" onclick="applyQuickSched()">④ 선택 요일에 일괄 적용</button>
+        </div>
         <!-- 요일별 스케줄 테이블 -->
         <div class="f-col" style="margin-bottom:0">
-          <label>요일별 스케줄 <span style="font-size:10px;color:var(--t4);font-weight:400">(수업 없는 요일은 비워두세요)</span></label>
+          <label>요일별 스케줄 <span style="font-size:10px;color:var(--t4);font-weight:400">(개별 수정 가능 · 수업 없는 요일은 비워두세요)</span></label>
           <table class="sched-table">
             <thead>
               <tr>
@@ -3251,17 +3350,6 @@ function saveAtt() {
   fbSet('att', attDB);
 }
 
-/* 당일 메모 — /dayMemo/{날짜}/{학생ID}, 날짜 키 분리로 자정 자동 초기화 */
-const DAYMEMO_KEY = 'muem_daymemo_v1';
-let dayMemoDB = JSON.parse(localStorage.getItem(DAYMEMO_KEY) || '{}');
-function saveDayMemo() {
-  try { localStorage.setItem(DAYMEMO_KEY, JSON.stringify(dayMemoDB)); } catch(e) {}
-  fbSet('dayMemo', dayMemoDB);
-}
-function getDayMemo(sid) {
-  return (dayMemoDB[attDate] || {})[sid] || '';
-}
-
 /* 답장 템플릿 — /templates */
 const TPL_KEY = 'muem_templates_v1';
 let replyTemplates = JSON.parse(localStorage.getItem(TPL_KEY) || 'null') || [
@@ -3415,13 +3503,6 @@ async function _loadFirebase() {
       // 현재 보고 있는 학원 기준으로 리뷰 화면 갱신
       try { renderRVGrid(_rvAcad || curAcad); } catch(e) {}
     }
-  });
-  fbWatch('dayMemo', val => {
-    if (!val) return;
-    dayMemoDB = val;
-    try { localStorage.setItem(DAYMEMO_KEY, JSON.stringify(dayMemoDB)); } catch(e) {}
-    const s = document.getElementById('attendance');
-    if (s && s.classList.contains('active')) { try { renderAttList(); } catch(e) {} }
   });
   fbWatch('templates', val => { if (val) replyTemplates = val; });
   fbWatch('settings', val => {
@@ -3823,10 +3904,14 @@ function openEditModal(id) {
   setTimeout(() => document.getElementById('fName').focus(), 120);
 }
 function clearForm() {
-  ['fName','fSchool','fBirth','fELv','fESub','fESpec','fENote','fKLv','fKSub','fKSpec','fKNote','fPN','fPT','fST','fCls','fNote']
+  ['fName','fSchool','fBirth','fELv','fESub','fESpec','fENote','fKLv','fKSub','fKSpec','fKNote','fPN','fPT','fST','fCls','fNote','qsTime']
     .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
   document.getElementById('fGrade').value = '';
   document.getElementById('fEnr').value = todayISO();
+  // 스케줄 빠른 설정 초기화
+  _qsMin = 60;
+  document.querySelectorAll('.qs-pat').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('.qs-min').forEach(b => b.classList.toggle('on', b.textContent === '60분'));
 }
 function toggleChip(t) {
   document.getElementById(t === 'e' ? 'chipE' : 'chipK').classList.toggle('sel');
@@ -3953,6 +4038,7 @@ function renderAtt() {
   document.getElementById('attSub').textContent  = attDate === todayISO() ? '오늘 수업' : attDate;
   document.getElementById('attPicker').value     = attDate;
   renderAttList();
+  renderAttMsgBanner();
 }
 function setAttToday() { attDate = todayISO(); renderAtt(); }
 function onAttDate()   { attDate = document.getElementById('attPicker').value || todayISO(); renderAtt(); }
@@ -4024,7 +4110,6 @@ function buildAttCard(s, rec) {
   const sg   = [s.school, s.grade].filter(Boolean).join(' ');
   const tags = [s.eng ? '영어' : '', s.kor ? '국어' : ''].filter(Boolean).join(' · ');
   const bday = isBirthday(s);
-  const memo = getDayMemo(s.id);
 
   return `
 <div class="att-card ${cardCls}${bday ? ' att-birthday' : ''}" id="ar_${s.id}">
@@ -4035,15 +4120,11 @@ function buildAttCard(s, rec) {
         <div class="att-card-name">${bday ? '🎂 ' : ''}${s.name}</div>
         <div><span class="ch-badge ch-kakao">카톡</span></div>
       </div>
-      <div style="display:flex;gap:6px;align-items:center">
-        <button class="att-memo-btn${memo ? ' has-memo' : ''}" onclick="openDayMemo(${s.id},event)" title="당일 메모">📌</button>
-        <button class="att-kakao-btn" onclick="showKakaoPopup(${s.id},event)" title="알림 보내기">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 5.814 2 10.5c0 2.943 1.79 5.537 4.52 7.098l-.9 3.302 3.834-2.52A11.2 11.2 0 0 0 12 19c5.523 0 10-3.814 10-8.5S17.523 2 12 2z"/></svg>
-        </button>
-      </div>
+      <button class="att-kakao-btn" onclick="showKakaoPopup(${s.id},event)" title="알림 보내기">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 5.814 2 10.5c0 2.943 1.79 5.537 4.52 7.098l-.9 3.302 3.834-2.52A11.2 11.2 0 0 0 12 19c5.523 0 10-3.814 10-8.5S17.523 2 12 2z"/></svg>
+      </button>
     </div>
     <div class="att-card-meta">${sg}${s.cls ? ' · ' + s.cls : ''}${tags ? ' · ' + tags : ''}</div>
-    ${memo ? `<div class="att-memo-badge" onclick="openDayMemo(${s.id},event)">📌 ${memo}</div>` : ''}
     <div class="att-card-times">${timeBadges}</div>
     <div class="att-card-btns">
       <button class="ac-btn b-in${hasIn ? ' active' : ''}${isAbs ? ' disabled' : ''}" onclick="adminMark(${s.id},'in',event)" ${isAbs ? 'disabled' : ''}>등원</button>
@@ -4057,31 +4138,51 @@ function buildAttCard(s, rec) {
 }
 
 /* 관리자 수동 등하원 (30분 제한 없음) */
-/* 출석 시간 수동 수정 */
+/* 출석 시간 수동 수정 — 빠른 선택 버튼 + 지금 + 직접 입력 */
 function editAttTime(sid, type) {
   const rec = (attDB[attDate] || {})[sid] || {};
   const current = type === 'in' ? rec.inTime : rec.outTime;
   const label = type === 'in' ? '등원' : '하원';
-
-  // 시간 입력 미니 팝업
+  const quickTimes = ['13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30'];
+  const quickBtns = quickTimes.map(t =>
+    `<button class="att-qt${t===current?' on':''}" onclick="pickAttQuick(this,'${t}')">${t}</button>`
+  ).join('');
+  closeAttTimeEdit();
   const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);z-index:9000;display:flex;align-items:center;justify-content:center';
+  overlay.id = 'attTimeOverlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px';
   overlay.innerHTML = `
-    <div style="background:#fff;border-radius:18px;padding:24px;width:280px;box-shadow:0 20px 60px rgba(0,0,0,0.25)">
-      <div style="font-size:15px;font-weight:800;color:var(--t1);margin-bottom:16px">⏰ ${label} 시간 수정</div>
+    <div style="background:#fff;border-radius:18px;padding:22px;width:320px;max-width:100%;box-shadow:0 20px 60px rgba(0,0,0,.28)">
+      <div style="font-size:15px;font-weight:800;color:var(--t1);margin-bottom:14px">⏰ ${label} 시간 수정</div>
+      <button class="att-now-btn" onclick="pickAttNow()">⌚ 지금 (현재 시각)</button>
+      <div class="att-qt-grid">${quickBtns}</div>
+      <label style="font-size:11px;font-weight:700;color:var(--t4)">직접 입력</label>
       <input type="time" id="attTimeEditInp" value="${current||''}" step="1800"
-        style="width:100%;padding:12px;border:2px solid var(--blue);border-radius:12px;font-size:20px;font-family:inherit;text-align:center;box-sizing:border-box;outline:none">
-      <div style="display:flex;gap:10px;margin-top:16px">
-        <button onclick="this.closest('div[style]').remove()" 
+        style="width:100%;padding:10px;margin-top:4px;border:2px solid var(--folio-indigo);border-radius:12px;font-size:18px;font-family:inherit;text-align:center;box-sizing:border-box;outline:none">
+      <div style="display:flex;gap:10px;margin-top:14px">
+        <button onclick="closeAttTimeEdit()"
           style="flex:1;padding:11px;border-radius:12px;border:1px solid var(--bd);background:var(--sf);font-size:14px;cursor:pointer;font-family:inherit">취소</button>
-        <button onclick="applyAttTime(${sid},'${type}',document.getElementById('attTimeEditInp').value);this.closest('div[style]').remove()"
-          style="flex:1;padding:11px;border-radius:12px;border:none;background:var(--blue);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">저장</button>
+        <button onclick="applyAttTime(${sid},'${type}',document.getElementById('attTimeEditInp').value)"
+          style="flex:1;padding:11px;border-radius:12px;border:none;background:var(--folio-indigo);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">저장</button>
       </div>
     </div>`;
   document.body.appendChild(overlay);
-  // 바깥 클릭 시 닫기
-  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
-  setTimeout(() => document.getElementById('attTimeEditInp')?.focus(), 100);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeAttTimeEdit(); });
+}
+function pickAttQuick(btn, t) {
+  document.querySelectorAll('.att-qt').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  const inp = document.getElementById('attTimeEditInp');
+  if (inp) inp.value = t;
+}
+function pickAttNow() {
+  const t = nowHHMM();
+  const inp = document.getElementById('attTimeEditInp');
+  if (inp) inp.value = t;
+  document.querySelectorAll('.att-qt').forEach(b => b.classList.toggle('on', b.textContent === t));
+}
+function closeAttTimeEdit() {
+  document.getElementById('attTimeOverlay')?.remove();
 }
 
 function applyAttTime(sid, type, timeVal) {
@@ -4091,42 +4192,9 @@ function applyAttTime(sid, type, timeVal) {
   if (type === 'in') attDB[attDate][sid].inTime = timeVal;
   else attDB[attDate][sid].outTime = timeVal;
   saveAtt();
+  closeAttTimeEdit();
   renderAttList();
   showToast(`${type==='in'?'등원':'하원'} 시간이 ${timeVal}로 변경됐어요`);
-}
-
-/* ── 당일 메모 ── */
-function openDayMemo(sid, e) {
-  if (e) e.stopPropagation();
-  const s = db.students.find(x => x.id === sid);
-  const current = getDayMemo(sid);
-  const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px';
-  overlay.innerHTML = `
-    <div style="background:#fff;border-radius:18px;padding:22px;width:330px;max-width:100%;box-shadow:0 20px 60px rgba(0,0,0,.25)">
-      <div style="font-size:15px;font-weight:800;color:var(--t1);margin-bottom:4px">📌 당일 메모</div>
-      <div style="font-size:11.5px;color:var(--t4);margin-bottom:14px">${s ? s.name : ''} · ${attDate} (자정에 자동 초기화)</div>
-      <textarea id="dayMemoInp" placeholder="예: 학부모님이 오늘 30분 일찍 하원 요청하셨어요" rows="4"
-        style="width:100%;padding:11px;border:2px solid var(--folio-indigo);border-radius:12px;font-size:13px;font-family:inherit;box-sizing:border-box;outline:none;resize:vertical;line-height:1.5">${current.replace(/</g,'&lt;')}</textarea>
-      <div style="display:flex;gap:10px;margin-top:14px">
-        <button onclick="this.closest('div[style]').remove()"
-          style="flex:1;padding:11px;border-radius:12px;border:1px solid var(--bd);background:var(--sf);font-size:13.5px;cursor:pointer;font-family:inherit">취소</button>
-        <button onclick="saveDayMemoFor(${sid},document.getElementById('dayMemoInp').value);this.closest('div[style]').remove()"
-          style="flex:1;padding:11px;border-radius:12px;border:none;background:var(--folio-indigo);color:#fff;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit">저장</button>
-      </div>
-    </div>`;
-  document.body.appendChild(overlay);
-  overlay.addEventListener('click', ev => { if (ev.target === overlay) overlay.remove(); });
-  setTimeout(() => document.getElementById('dayMemoInp')?.focus(), 100);
-}
-function saveDayMemoFor(sid, text) {
-  text = (text || '').trim();
-  if (!dayMemoDB[attDate]) dayMemoDB[attDate] = {};
-  if (text) dayMemoDB[attDate][sid] = text;
-  else delete dayMemoDB[attDate][sid];
-  saveDayMemo();
-  renderAttList();
-  showToast(text ? '📌 메모가 저장됐어요' : '메모가 삭제됐어요');
 }
 
 function adminMark(sid, type, e) {
@@ -6094,23 +6162,17 @@ function renderTodaySchedule() {
   // 카운트
   if (countEl) countEl.textContent = scheduled.length ? `${scheduled.length}명 예정` : '';
 
-  // ── 오늘 등원 리스트 ──
+  // ── 오늘 등원 리스트 (심플 칩: 시간 + 이름 + 과목 도트) ──
   if (!scheduled.length) {
     listEl.innerHTML = '<div class="sched-empty">오늘 스케줄에 등록된 학생이 없습니다</div>';
   } else {
     const attRecs = attDB[todayKey] || {};
     listEl.innerHTML = scheduled.map(s => {
-      const arrived  = !!(attRecs[s.id] && attRecs[s.id].inTime);
-      const endTime  = calcEndTime(s.todayTime, s.todayMin);
-      const subj     = [s.eng ? '영어' : '', s.kor ? '국어' : ''].filter(Boolean).join('/');
-      const badge    = arrived
-        ? '<span class="sched-badge arrived">✓ 등원</span>'
-        : '<span class="sched-badge not-yet">미등원</span>';
-      return `<div class="sched-item">
-        <div class="sched-time">${s.todayTime}</div>
-        <div class="sched-name">${s.name} <span style="font-size:10px;color:var(--t4);font-weight:400">${subj}</span></div>
-        <div class="sched-end">~${endTime}</div>
-        ${badge}
+      const arrived = !!(attRecs[s.id] && attRecs[s.id].inTime);
+      const dots = (s.eng ? '<span class="sc-dot sc-dot-e"></span>' : '')
+                 + (s.kor ? '<span class="sc-dot sc-dot-k"></span>' : '');
+      return `<div class="sched-chip${arrived ? ' arrived' : ''}">
+        <span class="sched-chip-time">${s.todayTime}</span>${s.name}${dots}${arrived ? ' ✓' : ''}
       </div>`;
     }).join('');
   }
@@ -6145,15 +6207,41 @@ function renderTodaySchedule() {
     const pct   = Math.round((cnt / Math.max(maxCount, capLimit)) * 100);
     const isOver = cnt >= capLimit;
     const isNow  = h === nowH;
-    const barCls = isOver ? 'tl-bar over' : isNow ? 'tl-bar active' : 'tl-bar';
+    const isPeak = cnt > 0 && cnt === maxCount;
+    // 피크타임(최다 인원) = 노랑 우선, 초과 = 빨강, 현재시각 = 인디고
+    const barCls = isPeak ? 'tl-bar peak' : isOver ? 'tl-bar over' : isNow ? 'tl-bar active' : 'tl-bar';
     return `<div class="tl-col">
       <div class="tl-count">${cnt > 0 ? cnt : ''}</div>
-      <div class="tl-bar-wrap" style="height:60px">
-        <div class="${barCls}" style="height:${Math.max(pct, cnt > 0 ? 8 : 2)}%"></div>
+      <div class="tl-bar-wrap" style="height:44px">
+        <div class="${barCls}" style="height:${Math.max(pct, cnt > 0 ? 10 : 3)}%"></div>
       </div>
       <div class="tl-label">${h}시</div>
     </div>`;
   }).join('');
+}
+
+/* 출석부 히트맵/등원예정 접기·펼치기 */
+function toggleHeatmap() {
+  const box = document.getElementById('heatmapBox');
+  if (box) box.classList.toggle('collapsed');
+}
+function toggleSched() {
+  const box = document.getElementById('schedBox');
+  if (box) box.classList.toggle('collapsed');
+}
+
+/* 출석부 상단 학부모 메시지 배너 */
+function renderAttMsgBanner() {
+  const banner = document.getElementById('attMsgBanner');
+  if (!banner) return;
+  const unread = Object.values(_msgData || {})
+    .filter(m => m && !m.read)
+    .sort((a, b) => tsNum(b.ts) - tsNum(a.ts));
+  if (!unread.length) { banner.style.display = 'none'; return; }
+  const m = unread[0];
+  const more = unread.length > 1 ? ` <span style="opacity:.7">외 ${unread.length-1}건</span>` : '';
+  banner.innerHTML = `📨 <strong>${m.from} 어머니</strong>: ${m.msg}${more}`;
+  banner.style.display = 'flex';
 }
 
 function calcEndTime(startTime, minutes) {
@@ -6203,6 +6291,42 @@ function autoCheckDay(day) {
   } else {
     chk.checked = false;
   }
+}
+
+/* ── 스케줄 빠른 설정 ── */
+let _qsMin = 60;
+function applyDayPattern(daysStr, btn) {
+  const days = daysStr.split(',');
+  document.querySelectorAll('.sDayChk').forEach(chk => {
+    chk.checked = days.includes(chk.value);
+  });
+  document.querySelectorAll('.qs-pat').forEach(b => b.classList.remove('on'));
+  if (btn) btn.classList.add('on');
+}
+function setQsMin(m, btn) {
+  _qsMin = m;
+  document.querySelectorAll('.qs-min').forEach(b => b.classList.remove('on'));
+  if (btn) btn.classList.add('on');
+}
+function applyQuickSched() {
+  const time = document.getElementById('qsTime')?.value;
+  if (!time) { showToast('공통 등원 시간을 입력해주세요'); return; }
+  const t = roundTo30Min(time);
+  let applied = 0;
+  ['월','화','수','목','금','토','일'].forEach(d => {
+    const chk = document.querySelector(`.sDayChk[value="${d}"]`);
+    if (chk && chk.checked) {
+      const tInp = document.getElementById('sTime'+d);
+      const mInp = document.getElementById('sMin'+d);
+      const endEl = document.getElementById('sEnd'+d);
+      if (tInp) tInp.value = t;
+      if (mInp) mInp.value = _qsMin;
+      if (endEl) endEl.textContent = calcEndTime(t, _qsMin);
+      applied++;
+    }
+  });
+  if (!applied) { showToast('적용할 요일 패턴을 먼저 선택해주세요'); return; }
+  showToast(`${applied}개 요일에 ${t} · ${_qsMin}분 적용됐어요`);
 }
 
 /* 시간을 30분 단위로 반올림 (예: "16:35" → "16:30", "16:48" → "16:30", "16:50" → "17:00") */
@@ -6553,6 +6677,8 @@ function updateMsgBadge() {
     badgeSb.textContent = unread;
     badgeSb.style.display = unread > 0 ? 'flex' : 'none';
   }
+  // 출석부 상단 메시지 배너도 동기화
+  try { renderAttMsgBanner(); } catch(e) {}
 }
 
 function toggleMsgAlert() {
