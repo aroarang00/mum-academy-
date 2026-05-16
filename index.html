@@ -7079,27 +7079,33 @@ function openNoticeModal() {
     openNoticePopup();
   } else {
     openModal('noticeModal');
+    const tEl = document.getElementById('noticeTitleInpM');
+    const bEl = document.getElementById('noticeBodyInpM');
+    if (tEl) tEl.value = '';
+    if (bEl) bEl.value = '';
+    // 현재 공지가 있으면 입력칸에 채워서 바로 수정 가능하게
     if (_fdb) {
       _fdb.ref('notice').once('value', snap => {
         _noticeData = snap.val();
-        const wrap = document.getElementById('noticeCurrentWrap');
-        if (_noticeData && _noticeData.title) {
-          document.getElementById('noticeCurrentTitle').textContent = _noticeData.title;
-          document.getElementById('noticeCurrentBody').textContent = _noticeData.body || '';
-          if (wrap) wrap.style.display = 'block';
-        } else {
-          if (wrap) wrap.style.display = 'none';
-        }
+        if (tEl) tEl.value = (_noticeData && _noticeData.title) || '';
+        if (bEl) bEl.value = (_noticeData && _noticeData.body)  || '';
       });
     }
-    document.getElementById('noticeTitleInp').value = '';
-    document.getElementById('noticeBodyInp').value = '';
   }
 }
 
+/* 현재 열려 있는 공지 편집기(모바일 모달 또는 PC 팝업)의 입력칸 반환 */
+function _noticeInputEls() {
+  const modal = document.getElementById('noticeModal');
+  if (modal && modal.classList.contains('open')) {
+    return { t: document.getElementById('noticeTitleInpM'), b: document.getElementById('noticeBodyInpM') };
+  }
+  return { t: document.getElementById('noticeTitleInp'), b: document.getElementById('noticeBodyInp') };
+}
 async function saveNotice() {
-  const title = document.getElementById('noticeTitleInp').value.trim();
-  const body  = document.getElementById('noticeBodyInp').value.trim();
+  const els = _noticeInputEls();
+  const title = (els.t?.value || '').trim();
+  const body  = (els.b?.value || '').trim();
   if (!title) { showToast('공지 제목을 입력해주세요'); return; }
   if (!body)  { showToast('공지 내용을 입력해주세요'); return; }
   try {
@@ -7151,11 +7157,11 @@ setTimeout(initNoticeIconBtn, 300);
       <div class="f-block">
         <div style="margin-bottom:12px">
           <label style="font-size:12px;font-weight:700;color:var(--t3);display:block;margin-bottom:6px">공지 제목</label>
-          <input id="noticeTitleInp" placeholder="예) 5월 휴원 안내" style="width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid var(--bd);font-size:13px;font-family:inherit;background:var(--sf);color:var(--t1);box-sizing:border-box">
+          <input id="noticeTitleInpM" placeholder="예) 5월 휴원 안내" style="width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid var(--bd);font-size:13px;font-family:inherit;background:var(--sf);color:var(--t1);box-sizing:border-box">
         </div>
         <div>
           <label style="font-size:12px;font-weight:700;color:var(--t3);display:block;margin-bottom:6px">공지 내용</label>
-          <textarea id="noticeBodyInp" rows="5" placeholder="공지 내용을 입력하세요" style="width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid var(--bd);font-size:13px;font-family:inherit;resize:vertical;background:var(--sf);color:var(--t1);line-height:1.6;box-sizing:border-box"></textarea>
+          <textarea id="noticeBodyInpM" rows="5" placeholder="공지 내용을 입력하세요" style="width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid var(--bd);font-size:13px;font-family:inherit;resize:vertical;background:var(--sf);color:var(--t1);line-height:1.6;box-sizing:border-box"></textarea>
         </div>
       </div>
     </div>
