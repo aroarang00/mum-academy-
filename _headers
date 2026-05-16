@@ -1,0 +1,23 @@
+# HTML은 항상 최신 버전을 받도록 — 배포 즉시 반영
+/
+  Cache-Control: no-cache, must-revalidate
+/index.html
+  Cache-Control: no-cache, must-revalidate
+/p
+  Cache-Control: no-cache, must-revalidate
+/kiosk
+  Cache-Control: no-cache, must-revalidate
+
+# 매니페스트도 최신 유지 (모드별 분기 영향)
+/manifest.json
+  Cache-Control: no-cache, must-revalidate
+/manifest-parent.json
+  Cache-Control: no-cache, must-revalidate
+/manifest-kiosk.json
+  Cache-Control: no-cache, must-revalidate
+
+# 아이콘 등 정적 파일은 길게 캐시
+/icon-192.png
+  Cache-Control: public, max-age=604800
+/icon-512.png
+  Cache-Control: public, max-age=604800
