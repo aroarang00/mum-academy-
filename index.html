@@ -173,11 +173,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   background:rgba(255,255,255,.3)}
 .logo-mark{line-height:1}
 .logo-mum{font-family:'Nunito',sans-serif;font-size:36px;font-weight:900;
-  color:var(--blue);letter-spacing:-.05em;display:block;
-  /* FOLIO blue 그라디언트 */
-  background:linear-gradient(135deg,var(--blue-dk) 0%,var(--blue) 50%,var(--blue2) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.logo-mum .colon{color:var(--gold)}
+  color:#3D4F7C;letter-spacing:-.05em;display:block}
 .logo-sub{font-size:10px;font-weight:700;letter-spacing:.18em;
   text-transform:uppercase;color:var(--t4);display:block;margin-top:3px}
 
@@ -771,12 +767,9 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   font-family:'Nunito',sans-serif;
   font-size:56px;font-weight:900;
   letter-spacing:-.05em;line-height:1;display:block;
-  background:linear-gradient(135deg,var(--blue-dk) 0%,var(--blue) 55%,var(--blue2) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
+  color:#3D4F7C;
   margin-bottom:8px;
 }
-.kiosk-logo-mum .kc{color:var(--br3);-webkit-text-fill-color:var(--br3)}
 .kiosk-logo-sub{
   font-size:13px;font-weight:600;color:rgba(0,0,0,.35);
   letter-spacing:.06em;display:block;margin-bottom:6px;
@@ -2334,7 +2327,7 @@ canvas#pGrowthChart{width:100%!important}
 
   <div class="sb-logo">
     <div class="logo-mark">
-      <span class="logo-mum">mu<span class="colon">:</span>m</span>
+      <span class="logo-mum">mu:m</span>
       <span class="logo-sub">관리시스템</span>
     </div>
   </div>
@@ -2414,7 +2407,7 @@ canvas#pGrowthChart{width:100%!important}
   <header class="topbar">
     <div class="tb-left">
       <div class="tb-logo-fixed" id="logoZone" style="display:flex;align-items:center;justify-content:center;padding:0 6px;flex-shrink:0">
-        <span style="font-family:'Nunito',Georgia,serif;font-size:22px;font-weight:900;color:var(--blue);letter-spacing:-.05em;line-height:1">mu<span style="color:var(--gold);font-size:18px">:</span>m</span>
+        <span style="font-family:'Nunito',Georgia,serif;font-size:22px;font-weight:900;color:#3D4F7C;letter-spacing:-.05em;line-height:1">mu:m</span>
       </div>
       <div class="tb-academy-name">
         <div class="tb-acad-main">뮤엠영어 · 폴리오국어논술</div>
@@ -2955,6 +2948,15 @@ canvas#pGrowthChart{width:100%!important}
           <textarea id="fTeacherWord" placeholder="예) 이번 달 어휘력이 눈에 띄게 늘었어요!" style="min-height:56px"></textarea>
         </div>
       </div>
+      <!-- 학부모 계정 — 수정 모드에서만 표시 -->
+      <div class="f-block" id="fBlockParentPin" style="display:none">
+        <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--rd)"></span>학부모 계정</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <div style="font-size:11.5px;color:var(--t4);line-height:1.55">학부모가 설정한 PIN을 휴대폰 뒷 4자리로 되돌립니다.<br>학부모가 PIN을 잊었을 때 사용하세요.</div>
+          <button type="button" class="btn btn-ghost btn-sm" onclick="resetParentPin()"
+            style="border-color:var(--rd-lt);color:var(--rd);flex-shrink:0">학부모 PIN 초기화</button>
+        </div>
+      </div>
     </div>
     <div class="m-foot">
       <button class="btn btn-ghost" onclick="closeModal(&#39;stuModal&#39;)">취소</button>
@@ -3114,7 +3116,7 @@ canvas#pGrowthChart{width:100%!important}
       <div class="p-login-wrap">
         <div class="p-logo-area">
           <div>
-            <span style="font-family:'Nunito',Georgia,serif;font-size:42px;font-weight:900;color:var(--blue);letter-spacing:-.05em;line-height:1">mu<span style="color:var(--gold);font-size:34px">:</span>m</span>
+            <span style="font-family:'Nunito',Georgia,serif;font-size:42px;font-weight:900;color:#3D4F7C;letter-spacing:-.05em;line-height:1">mu:m</span>
             <div class="p-logo-academy">English · Folio 국어논술</div>
           </div>
           <div class="p-rule"></div>
@@ -3216,7 +3218,7 @@ canvas#pGrowthChart{width:100%!important}
 
     <!-- 브랜드 로고 -->
     <div class="kiosk-brand">
-      <span class="kiosk-logo-mum">mu<span class="kc">:</span>m</span>
+      <span class="kiosk-logo-mum">mu:m</span>
       <span class="kiosk-logo-sub">english &nbsp;·&nbsp; 폴리오 국어논술</span>
       <div class="kiosk-logo-divider"></div>
       <div class="kiosk-time"><span id="kioskTimeTxt">00:00</span> &nbsp;|&nbsp; <span id="kioskDateTxt"></span></div>
@@ -3822,6 +3824,9 @@ function openAddModal() {
   const korFee0 = document.getElementById('fBlockKorFee');
   if (engFee0) engFee0.style.display = 'none';
   if (korFee0) korFee0.style.display = 'none';
+  // 학부모 PIN 초기화 블록 숨기기 (추가 모드)
+  const pinBlk0 = document.getElementById('fBlockParentPin');
+  if (pinBlk0) pinBlk0.style.display = 'none';
 
   // 수강료 초기화
   ['fEngMonthly','fEngBook','fKorMonthly','fKorBook'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
@@ -3880,6 +3885,9 @@ function openEditModal(id) {
   const korFeeEl = document.getElementById('fBlockKorFee');
   if (engFeeEl) engFeeEl.style.display = s.eng ? '' : 'none';
   if (korFeeEl) korFeeEl.style.display = s.kor ? '' : 'none';
+  // 학부모 PIN 초기화 블록 표시 (수정 모드)
+  const pinBlk = document.getElementById('fBlockParentPin');
+  if (pinBlk) pinBlk.style.display = '';
 
   // 수강료 로드 (영어/국어 분리)
   const te = s.tuitionEng || s.tuition || {};
@@ -3920,6 +3928,16 @@ function openEditModal(id) {
   syncCurrBlocks();
   openModal('stuModal');
   setTimeout(() => document.getElementById('fName').focus(), 120);
+}
+/* 학부모 PIN 초기화 — 학부모가 설정한 PIN을 삭제해 휴대폰 뒷 4자리(임시 PIN) 상태로 되돌림 */
+function resetParentPin() {
+  if (editingId == null) return;
+  const s = db.students.find(x => x.id === editingId);
+  if (!s) return;
+  if (!confirm('휴대폰 뒷 4자리로 초기화하시겠습니까?')) return;
+  delete s.parentPin;
+  saveDB();
+  showToast('학부모 PIN을 휴대폰 뒷 4자리로 초기화했어요');
 }
 function clearForm() {
   ['fName','fSchool','fBirth','fELv','fESub','fESpec','fENote','fKLv','fKSub','fKSpec','fKNote','fPN','fPT','fST','fCls','fNote','qsTime']
@@ -5689,6 +5707,16 @@ function renderPTabToday(s, attRec, hwRec, today, thisMonth) {
     <!-- 보낸 메시지 확인 -->
     <div class="p-sec-lbl" style="margin-top:6px">최근 메시지</div>
     <div id="pMyMsgWrap"><div style="font-size:12px;color:var(--t4);text-align:center;padding:8px 0">불러오는 중...</div></div>
+
+    <!-- 로그인 PIN 설정 -->
+    <div class="p-sec-lbl" style="margin-top:6px">로그인 설정</div>
+    <div class="p-card" style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+      <div style="min-width:0">
+        <div style="font-size:12.5px;font-weight:800;color:var(--t1)">🔒 로그인 PIN</div>
+        <div style="font-size:10.5px;color:var(--t4);margin-top:3px">${s.parentPin ? '직접 설정한 PIN 사용 중' : '휴대폰 뒷 4자리 사용 중'}</div>
+      </div>
+      <button onclick="openPPinModal()" style="flex-shrink:0;padding:9px 15px;border-radius:10px;border:none;background:var(--blue);color:#fff;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit">PIN 변경</button>
+    </div>
   `;
 
   // 공지사항 Firebase에서 로드 (있을 때만 표시)
@@ -6081,9 +6109,12 @@ async function lpConfirm() {
         if (fbDb) { db = fbDb; _dbStudents = db.students || []; }
       } catch(e) {}
     }
-    const match = _dbStudents.find(s =>
-      s.pT && s.pT.replace(/\D/g,'').slice(-4) === _lpPin
-    );
+    const match = _dbStudents.find(s => {
+      const phone4 = s.pT ? s.pT.replace(/\D/g,'').slice(-4) : '';
+      // 학부모가 직접 설정한 PIN이 있으면 그것으로만, 없으면 휴대폰 뒷 4자리로 인증
+      const validPin = s.parentPin || phone4;
+      return validPin && validPin === _lpPin;
+    });
     if (match) {
       hideLoginPin();
       document.getElementById('loginScreen').style.display = 'none';
@@ -6441,6 +6472,78 @@ function syncPushBtnState() {
 }
 
 /* ── 학부모→관리자 메시지 ── */
+/* ── 학부모 로그인 PIN 설정/변경 ── */
+function openPPinModal() {
+  if (!_pStudent) return;
+  const hasPin = !!_pStudent.parentPin;
+  const overlay = document.createElement('div');
+  overlay.id = 'pPinOverlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9500;display:flex;align-items:center;justify-content:center;padding:22px';
+  overlay.innerHTML = `
+    <div style="background:#fff;border-radius:20px;padding:24px 22px;width:340px;max-width:100%;box-shadow:0 22px 60px rgba(0,0,0,.3)">
+      <div style="font-size:16px;font-weight:800;color:var(--t1);margin-bottom:5px">🔒 로그인 PIN 변경</div>
+      <div style="font-size:11.5px;color:var(--t4);line-height:1.5;margin-bottom:18px">로그인 시 사용할 숫자 4자리 PIN을 설정하세요.</div>
+      <label style="font-size:11.5px;font-weight:700;color:var(--t3);display:block;margin-bottom:5px">새 PIN (숫자 4자리)</label>
+      <input id="pPinNew" type="tel" inputmode="numeric" maxlength="4" placeholder="••••"
+        style="width:100%;padding:12px;border:2px solid var(--blue);border-radius:12px;font-size:22px;letter-spacing:.4em;text-align:center;font-family:inherit;box-sizing:border-box;outline:none;margin-bottom:13px">
+      <label style="font-size:11.5px;font-weight:700;color:var(--t3);display:block;margin-bottom:5px">새 PIN 확인</label>
+      <input id="pPinConfirm" type="tel" inputmode="numeric" maxlength="4" placeholder="••••"
+        style="width:100%;padding:12px;border:2px solid var(--bd);border-radius:12px;font-size:22px;letter-spacing:.4em;text-align:center;font-family:inherit;box-sizing:border-box;outline:none">
+      <div id="pPinErr" style="font-size:11.5px;color:var(--rd);font-weight:600;margin-top:9px;min-height:15px"></div>
+      <div style="display:flex;gap:9px;margin-top:5px">
+        <button onclick="closePPinModal()" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--bd);background:var(--sf);font-size:13.5px;cursor:pointer;font-family:inherit">취소</button>
+        <button onclick="savePPin()" style="flex:1.4;padding:12px;border-radius:12px;border:none;background:var(--blue);color:#fff;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit">저장</button>
+      </div>
+      ${hasPin ? `<button onclick="resetPPin()" style="width:100%;margin-top:10px;padding:10px;border-radius:11px;border:1px solid var(--rd-lt);background:var(--rd-lt);color:var(--rd);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">휴대폰 뒷 4자리로 초기화</button>` : ''}
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closePPinModal(); });
+  ['pPinNew','pPinConfirm'].forEach(id => {
+    const inp = document.getElementById(id);
+    if (inp) inp.addEventListener('input', () => { inp.value = inp.value.replace(/\D/g,''); });
+  });
+  setTimeout(() => document.getElementById('pPinNew')?.focus(), 100);
+}
+function closePPinModal() {
+  document.getElementById('pPinOverlay')?.remove();
+}
+function savePPin() {
+  if (!_pStudent) return;
+  const pin   = (document.getElementById('pPinNew')?.value || '').trim();
+  const chk   = (document.getElementById('pPinConfirm')?.value || '').trim();
+  const errEl = document.getElementById('pPinErr');
+  const showErr = m => { if (errEl) errEl.textContent = m; };
+  if (!/^\d{4}$/.test(pin)) { showErr('PIN은 숫자 4자리여야 합니다'); return; }
+  if (pin !== chk)          { showErr('PIN 확인이 일치하지 않습니다'); return; }
+  // 다른 학생의 로그인 PIN(설정 PIN 또는 휴대폰 뒷 4자리)과 중복되면 차단
+  const collision = (db.students || []).some(x => {
+    if (x.id === _pStudent.id) return false;
+    const xPhone4 = x.pT ? x.pT.replace(/\D/g,'').slice(-4) : '';
+    const xPin = x.parentPin || xPhone4;
+    return xPin && xPin === pin;
+  });
+  if (collision) { showErr('다른 학생의 로그인 번호와 중복돼요. 다른 PIN으로 설정해주세요.'); return; }
+  const idx = (db.students || []).findIndex(x => x.id === _pStudent.id);
+  if (idx < 0) { showErr('학생 정보를 찾을 수 없습니다'); return; }
+  _pStudent.parentPin = pin;
+  db.students[idx].parentPin = pin;
+  if (_fdb) _fdb.ref('db/students/' + idx + '/parentPin').set(pin);
+  closePPinModal();
+  showToast('로그인 PIN이 변경됐어요');
+  renderParentDash(_pStudent);
+}
+function resetPPin() {
+  if (!_pStudent) return;
+  if (!confirm('휴대폰 뒷 4자리로 초기화하시겠습니까?')) return;
+  const idx = (db.students || []).findIndex(x => x.id === _pStudent.id);
+  if (idx < 0) return;
+  delete _pStudent.parentPin;
+  delete db.students[idx].parentPin;
+  if (_fdb) _fdb.ref('db/students/' + idx + '/parentPin').remove();
+  closePPinModal();
+  showToast('휴대폰 뒷 4자리로 초기화됐어요');
+  renderParentDash(_pStudent);
+}
 function openPMsgModal() {
   let s = _pStudent;
   // _pStudent가 비어있으면 화면에 표시된 자녀 이름으로 db에서 다시 찾기 시도
