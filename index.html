@@ -1352,10 +1352,10 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .p-logout{position:absolute;top:18px;right:18px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .18s}
 .p-logout:hover{background:rgba(255,255,255,.25)}.p-logout svg{width:15px;height:15px;stroke:rgba(255,255,255,.8);stroke-width:1.75}
 .p-dash-eyebrow{font-size:11px;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.85);margin-bottom:2px}
-.p-dash-name{font-size:27px;font-weight:800;color:#fff;letter-spacing:-.03em;line-height:1.15}
+.p-dash-name{font-size:19px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.2}
 .p-dash-sub{font-size:12px;color:rgba(255,255,255,.4);margin-top:4px;letter-spacing:.02em}
 .p-dash-body{padding:18px 16px 0;display:flex;flex-direction:column;gap:10px}
-.p-sec-lbl{font-size:13px;font-weight:700;color:var(--t2);margin:20px 0 10px;display:flex;align-items:center;gap:6px}
+.p-sec-lbl{font-size:13px;font-weight:700;color:var(--t1);margin:20px 0 10px;border-left:4px solid #3D4F7C;padding-left:10px;line-height:1.35}
 /* 학부모 생일 카드 */
 .p-birthday-card{
   background:linear-gradient(135deg,#FFE0EC,#FFF0F5);
@@ -1365,16 +1365,20 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   box-shadow:0 3px 14px rgba(229,107,152,.2)}
 .p-birthday-card strong{color:#A01F52}
 .p-birthday-sub{font-size:11.5px;font-weight:600;color:#D06A92;margin-top:4px}
-.p-sec-lbl::before{content:'';width:13px;height:1.5px;background:var(--blue);border-radius:2px;flex-shrink:0}
-.p-card{background:var(--sf);border-radius:18px;padding:18px;border:1px solid var(--bd);box-shadow:var(--sh-sm);transition:box-shadow .2s}
+.p-card{background:var(--sf);border-radius:12px;padding:18px;border:0.5px solid #E8E8E6;box-shadow:var(--sh-sm);transition:box-shadow .2s}
 .p-card:hover{box-shadow:var(--sh-md)}
 .p-status-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
 .p-status-main{font-size:18px;font-weight:800;color:var(--t1);letter-spacing:-.025em;line-height:1.2}
 .p-status-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;flex-shrink:0}
-.p-bi{background:var(--blue-lt);color:var(--blue-dk)}.p-bo{background:var(--gold-lt);color:var(--br3)}.p-bn{background:var(--bg);color:var(--t3)}.p-ba{background:var(--rd-lt);color:var(--rd)}
+.p-bi{background:var(--blue-lt);color:var(--blue-dk)}.p-bo{background:#EAF3DE;color:#3B6D11}.p-bn{background:var(--bg);color:var(--t3)}.p-ba{background:var(--rd-lt);color:var(--rd)}
 .p-status-badge svg{width:11px;height:11px;stroke:currentColor;stroke-width:2.5;fill:none}
-.p-time-row{display:flex;padding-top:13px;border-top:1px solid var(--bd);margin-top:4px}
-.p-ti{flex:1}.p-ti+.p-ti{border-left:1px solid var(--bd);padding-left:14px}
+.p-time-row{display:flex;gap:8px;padding-top:13px;border-top:1px solid var(--bd);margin-top:4px}
+.p-ti{flex:1;position:relative;padding:10px 12px;border-radius:8px;background:var(--bg);overflow:hidden}
+.p-ti.pti-done{background:#fff;border:0.5px solid #E8E8E6}
+.p-ti.pti-done::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.p-ti.pti-in-done::before{background:#3D4F7C}
+.p-ti.pti-out-done::before{background:#FFD600}
+.p-ti.pti-none{background:#FFFCE0;border:1px solid #FFD600}
 .p-ti-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t4);margin-bottom:4px}
 .p-ti-val{font-size:20px;font-weight:800;color:var(--blue);letter-spacing:-.03em}.p-ti-val.dim{font-size:16px;opacity:.2;font-weight:400}
 .p-sticker-row{display:flex;align-items:center;justify-content:space-between;padding-top:13px;margin-top:13px;border-top:1px solid var(--bd)}
@@ -1404,15 +1408,17 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 
 /* 학부모 페이지 2탭 구조 */
 .p-tab-bar{display:flex;background:var(--sf);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:10}
-.p-tab-btn{flex:1;padding:13px 8px;border:none;background:transparent;font-size:13px;font-weight:700;color:var(--t4);cursor:pointer;font-family:inherit;border-bottom:2.5px solid transparent;transition:all .2s}
+.p-tab-btn{flex:1;padding:13px 8px;border:none;background:transparent;font-size:13px;font-weight:700;color:#BFBFBF;cursor:pointer;font-family:inherit;border-bottom:2.5px solid transparent;transition:all .2s}
 .p-tab-btn.on{color:var(--blue);border-bottom-color:var(--blue)}
+#pDash.p-acad-eng .p-tab-btn.on{color:#A08B00;border-bottom-color:#FFD600}
+#pDash.p-acad-kor .p-tab-btn.on{color:#3D4F7C;border-bottom-color:#3D4F7C}
 .p-tab-content{display:none;padding:16px 16px 80px;flex-direction:column;gap:12px}
 .p-tab-content.on{display:flex}
 
 /* 이달의 한마디 */
 /* 공지사항 — 주황/골드 */
-.p-notice-card{background:linear-gradient(135deg,#A08B00,#FFD600);border-radius:16px;padding:16px 18px;color:#fff}
-.p-notice-label{font-size:10px;font-weight:700;letter-spacing:.1em;opacity:.7;margin-bottom:6px}
+.p-notice-card{background:#FFFCE0;border-left:4px solid #FFD600;border-radius:8px;padding:14px 16px;color:#3C3024}
+.p-notice-label{font-size:10px;font-weight:700;letter-spacing:.1em;opacity:.65;margin-bottom:6px}
 .p-notice-title{font-size:14px;font-weight:800;margin-bottom:6px}
 .p-notice-body{font-size:13px;line-height:1.7;opacity:.9;white-space:pre-wrap}
 
@@ -2246,13 +2252,13 @@ canvas#pGrowthChart{width:100%!important}
   transition:all .18s;
 }
 .p-action-msg{
-  background:var(--blue);color:#fff;
-  border-color:var(--blue);
+  background:#FFD600;color:#3C3024;
+  border-color:#FFD600;
 }
 .p-action-msg:active{opacity:.85}
 .p-action-bell{
-  background:#fff;color:var(--blue);
-  border-color:rgba(61,79,124,.3);
+  background:#fff;color:#3D4F7C;
+  border-color:#3D4F7C;
 }
 .p-action-bell:active{background:var(--blue-lt)}
 
@@ -3215,7 +3221,6 @@ canvas#pGrowthChart{width:100%!important}
             </svg>
           </button>
           <div class="p-dash-eyebrow" id="pGreet">안녕하세요</div>
-          <div class="p-greet-en" id="pGreetEn"></div>
           <div class="p-dash-name" id="pChildName"></div>
           <div class="p-dash-sub" id="pDate"></div>
         </div>
@@ -5560,9 +5565,15 @@ function renderParentDash(s) {
   const now = new Date(), days = ['일','월','화','수','목','금','토'];
   const el = id => document.getElementById(id);
   el('pGreet').textContent = '글을 읽는 눈을 뜨고, 세상을 담는 문장을 쓰다';
-  el('pGreetEn') && (el('pGreetEn').textContent = 'Opening Eyes to Read, Writing Sentences to Hold the World.');
   el('pChildName').textContent = s.name + ' 학생';
   el('pDate').textContent = `${now.getFullYear()}년 ${now.getMonth()+1}월 ${now.getDate()}일 (${days[now.getDay()]})`;
+  // 과목별 탭 색상 (영어=옐로우, 국어=인디고, 둘 다=기본 인디고)
+  const dashEl = document.getElementById('pDash');
+  if (dashEl) {
+    dashEl.classList.remove('p-acad-eng','p-acad-kor');
+    if (s.eng && !s.kor)      dashEl.classList.add('p-acad-eng');
+    else if (s.kor && !s.eng) dashEl.classList.add('p-acad-kor');
+  }
 
   const today = todayISO();
   const thisMonth = today.slice(0, 7);
@@ -5615,13 +5626,13 @@ function renderPTabToday(s, attRec, hwRec, today, thisMonth) {
     };
     const hwGradeInfo = hwGradeMap[hwGrade];
     const hwBadge = hwGradeInfo ? `<span class="p-hw-badge ${hwGradeInfo.cls}">${hwGradeInfo.lbl}</span>` : '';
-    hwHtml = `<div class="p-sticker-row">
-      <div>
+    // 스티커는 관리자가 부여한 경우(stars>0)에만 표시
+    const starsBlock = stars > 0 ? `<div>
         <div class="p-sticker-lbl">오늘 스티커</div>
         <div class="p-stars" style="margin-top:5px">${starSVG}</div>
-      </div>
-      ${hwBadge ? `<div><div class="p-sticker-lbl">과제 이행도</div><div style="margin-top:5px">${hwBadge}</div></div>` : ''}
-    </div>`;
+      </div>` : '';
+    const badgeBlock = hwBadge ? `<div><div class="p-sticker-lbl">과제 이행도</div><div style="margin-top:5px">${hwBadge}</div></div>` : '';
+    hwHtml = (starsBlock || badgeBlock) ? `<div class="p-sticker-row">${starsBlock}${badgeBlock}</div>` : '';
   }
 
   // 출석 횟수 (이번 달)
@@ -5634,7 +5645,7 @@ function renderPTabToday(s, attRec, hwRec, today, thisMonth) {
     <div class="p-att-rate-wrap">
       <div class="p-att-rate-lbl">이번 달 출석</div>
       <div style="font-size:22px;font-weight:800;color:var(--blue);margin:4px 0">${presentDays}<span style="font-size:13px;font-weight:600;color:var(--t3)">회</span></div>
-      <div style="font-size:11px;color:var(--t4)">꾸준히 출석하고 있어요 👍</div>
+      <div style="font-size:11px;color:var(--t4)">꾸준히 출석하고 있어요</div>
     </div>` : '';
 
   // 이달의 한마디 (학생별 — s.teacherWord)
@@ -5704,8 +5715,8 @@ function renderPTabToday(s, attRec, hwRec, today, thisMonth) {
         <div class="p-status-badge ${bCls}">${bIco} ${bTxt}</div>
       </div>
       <div class="p-time-row">
-        <div class="p-ti"><div class="p-ti-lbl">등원</div><div class="p-ti-val${attRec.inTime?'':' dim'}">${attRec.inTime||'- -'}</div></div>
-        <div class="p-ti"><div class="p-ti-lbl">하원</div><div class="p-ti-val${attRec.outTime?'':' dim'}">${attRec.outTime||'- -'}</div></div>
+        <div class="p-ti ${attRec.inTime ? 'pti-done pti-in-done' : 'pti-none'}"><div class="p-ti-lbl">등원</div><div class="p-ti-val${attRec.inTime?'':' dim'}">${attRec.inTime||'- -'}</div></div>
+        <div class="p-ti ${attRec.outTime ? 'pti-done pti-out-done' : ''}"><div class="p-ti-lbl">하원</div><div class="p-ti-val${attRec.outTime?'':' dim'}">${attRec.outTime||'- -'}</div></div>
       </div>
       ${hwHtml}
       ${attRateHtml}
