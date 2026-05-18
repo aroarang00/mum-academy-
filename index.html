@@ -224,6 +224,16 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   opacity:.55;transition:opacity .18s}
 .sb-item:hover .sb-ico,.sb-item.on .sb-ico{opacity:1}
 .sb-ico svg{width:15px;height:15px;stroke-width:1.5}
+/* 학생 명단 하위 영어/국어 선택 탭 */
+.sb-subtabs{display:flex;gap:5px;padding:0 10px 0 40px;margin:-1px 0 6px}
+.sb-subtab{flex:1;text-align:center;padding:5px 6px;border-radius:9px;
+  font-size:11px;font-weight:700;color:var(--t4);cursor:pointer;
+  border:1.5px solid var(--bd);background:var(--sf);
+  transition:background .15s,color .15s,border-color .15s;
+  user-select:none}
+.sb-subtab:not(.on):hover{border-color:var(--blue)}
+#sst-eng.on{background:var(--mum-yellow);border-color:var(--mum-yellow);color:#3a3000}
+#sst-kor.on{background:var(--folio-indigo);border-color:var(--folio-indigo);color:#fff}
 
 /* 하단 프로필 */
 .sb-foot{padding:10px 10px 14px;border-top:1px solid var(--sand-bd)}
@@ -2339,6 +2349,10 @@ canvas#pGrowthChart{width:100%!important}
         <span class="sb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
         학생 명단
       </div>
+      <div class="sb-subtabs" id="studentSubTabs">
+        <div class="sb-subtab on" id="sst-eng" onclick="selectStudentAcad(&#39;eng&#39;)">영어반</div>
+        <div class="sb-subtab" id="sst-kor" onclick="selectStudentAcad(&#39;kor&#39;)">국어반</div>
+      </div>
       <div class="sb-item s-nav" id="nl-attendance" onclick="goSec(&#39;attendance&#39;,this)">
         <span class="sb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg></span>
         출석부
@@ -3569,6 +3583,11 @@ function switchAcad(a) {
   const macK = document.getElementById('macKor');
   if (macE) macE.classList.toggle('on', a === 'eng');
   if (macK) macK.classList.toggle('on', a === 'kor');
+  // 사이드바 학생 명단 하위 영어/국어 탭 동기화
+  const sstE = document.getElementById('sst-eng');
+  const sstK = document.getElementById('sst-kor');
+  if (sstE) sstE.classList.toggle('on', a === 'eng');
+  if (sstK) sstK.classList.toggle('on', a === 'kor');
   // 테마 색상 전환 (영어=옐로우, 국어=블루)
   const root = document.documentElement;
   if (a === 'eng') {
@@ -3621,6 +3640,12 @@ function goSec(id, navEl) {
     _rvFilter = 'none';
     switchRVTab(_rvAcad || 'eng');
   }
+}
+
+/* 학생 명단 영어/국어 선택 (사이드바 하위 탭) */
+function selectStudentAcad(a) {
+  goSec('students', document.getElementById('nl-students'));
+  switchAcad(a);
 }
 
 /* 필터 */
