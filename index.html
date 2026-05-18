@@ -138,7 +138,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   --gn:#2E7A40;      --gn-lt:#EAF5EC;
 
   /* ── Layout ── */
-  --sw:258px; --hh:58px;
+  --sw:200px; --hh:58px;
 
   /* ── Shadows ── */
   --sh-sm:0 1px 3px rgba(26,26,26,.05),0 2px 10px rgba(61,79,124,.04);
@@ -167,7 +167,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   opacity:.9}
 
 /* 로고 블록 */
-.sb-logo{padding:22px 18px 16px;
+.sb-logo{padding:20px;
   border-bottom:1px solid rgba(200,151,58,.12);
   display:flex;flex-direction:column;gap:14px;
   background:rgba(255,255,255,.3)}
@@ -180,36 +180,24 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 /* 내비게이션 */
 .sb-nav{flex:1;padding:12px 10px 8px;overflow-y:auto}
 .sb-grp{margin-bottom:20px}
-.sb-grp-lbl{font-size:9.5px;font-weight:800;color:var(--t4);
-  letter-spacing:.15em;text-transform:uppercase;
-  padding:0 10px;margin-bottom:5px}
-.sb-grp-lbl.main-lbl{font-size:11.5px;font-weight:900;
-  color:var(--blue);letter-spacing:.05em;text-transform:none}
+.sb-grp-lbl{font-size:11px;font-weight:800;color:var(--t4);
+  letter-spacing:.5px;text-transform:uppercase;
+  padding:0 12px;margin-bottom:6px}
+.sb-grp-lbl.main-lbl{font-size:11px;font-weight:900;
+  color:var(--blue);letter-spacing:.5px;text-transform:none}
 .sb-item{display:flex;align-items:center;gap:10px;
-  padding:9.5px 10px;border-radius:14px;cursor:pointer;
+  padding:9.5px 12px;border-radius:8px;cursor:pointer;
   color:var(--t2);font-size:13px;font-weight:600;
-  transition:background .18s,color .18s;
+  transition:background .15s,color .15s;
   user-select:none;position:relative;margin-bottom:2px}
-.sb-item:hover{background:rgba(61,79,124,.07);color:var(--blue)}
-.sb-item.on{
-  background:linear-gradient(100deg,rgba(61,79,124,.14),rgba(61,79,124,.05),transparent);
-  color:var(--blue);font-weight:700;
-  box-shadow:0 1px 8px rgba(61,79,124,.12)}
-.sb-item.on::before{content:'';position:absolute;left:0;
-  top:5px;bottom:5px;width:3px;border-radius:0 4px 4px 0;
-  background:linear-gradient(180deg,var(--blue2),var(--blue));
-  box-shadow:0 0 6px rgba(61,79,124,.40)}
-/* 영어 전용 nav 아이템 — 뮤엠 옐로우 톤 */
-.sb-item.e-nav:hover{background:rgba(255,214,0,.10);color:var(--mum-yellow-dk)}
-.sb-item.e-nav.on{
-  background:linear-gradient(100deg,rgba(255,214,0,.18),rgba(255,214,0,.06),transparent);
-  color:var(--mum-yellow-dk);
-  box-shadow:0 1px 8px rgba(255,214,0,.18)}
-.sb-item.e-nav.on::before{
-  background:linear-gradient(180deg,#FFE54D,var(--mum-yellow));
-  box-shadow:0 0 6px rgba(255,214,0,.55)}
-/* 국어 전용 nav 아이템 — 폴리오 블루 톤 (기본 .on과 동일하지만 명시) */
-.sb-item.k-nav.on{color:var(--blue)}
+.sb-item:hover,
+.sb-item.e-nav:hover{background:#F8F8F6;color:var(--t1)}
+/* 활성 메뉴 — 인디고 솔리드 */
+.sb-item.on,
+.sb-item.e-nav.on,
+.sb-item.k-nav.on{
+  background:#3D4F7C;color:#fff;font-weight:700;
+}
 /* 사이드바 그룹 도트 */
 .sb-grp-dot{display:inline-block;width:7px;height:7px;border-radius:50%;
   margin-right:7px;vertical-align:middle;
@@ -348,27 +336,27 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .pg-desc{font-size:12px;color:var(--t3);margin-top:4px;font-weight:400;
   letter-spacing:.01em;line-height:1.55}
 
-/* 통계 스트립 — 컴팩트 한 줄 */
+/* 통계 스트립 — 항목별 흰 카드 */
 .stat-strip{
   display:flex;align-items:center;flex-wrap:wrap;
-  gap:4px 6px;margin-bottom:20px;padding:11px 18px;
-  background:#FFFFFF;border:1px solid var(--bd);border-radius:14px;
-  box-shadow:var(--sh-sm)}
-.ss-item{display:flex;align-items:center;gap:6px;padding:2px 4px}
+  gap:8px;margin-bottom:20px}
+.ss-item{display:flex;align-items:center;gap:7px;
+  padding:10px 16px;
+  background:#FFFFFF;border:0.5px solid #E8E8E6;border-radius:12px}
 .ss-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .ss-dot-all{background:var(--t3)}
 .ss-dot-eng{background:var(--mum-yellow)}
 .ss-dot-kor{background:var(--folio-indigo)}
 .ss-dot-unpaid{background:var(--am)}
 .ss-lbl{font-size:12px;font-weight:600;color:var(--t3)}
-.ss-num{font-size:17px;font-weight:900;color:var(--t1);letter-spacing:-.02em}
+.ss-num{font-size:16px;font-weight:900;color:var(--t1);letter-spacing:-.02em}
 .ss-item:nth-child(3) .ss-num{color:var(--mum-yellow-dk)}
 .ss-item:nth-child(5) .ss-num{color:var(--folio-indigo-dk)}
 .ss-unit{font-size:11px;font-weight:500;color:var(--t4);margin-left:1px}
-.ss-sep{width:1px;height:16px;background:var(--bd);margin:0 4px}
+.ss-sep{display:none}
 @media(max-width:680px){
-  .stat-strip{padding:10px 12px;gap:3px 2px;justify-content:space-between}
-  .ss-sep{display:none}
+  .stat-strip{gap:6px}
+  .ss-item{padding:8px 12px}
   .ss-num{font-size:15px}
 }
 
@@ -437,11 +425,11 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 }
 .s-card{
   background:#FFFFFF;
-  border:1px solid var(--bd);
-  border-radius:18px;overflow:hidden;box-shadow:var(--sh-sm);
-  transition:box-shadow .22s,transform .22s,border-color .22s;cursor:pointer;
+  border:0.5px solid #E8E8E6;
+  border-radius:12px;overflow:hidden;box-shadow:var(--sh-sm);
+  transition:box-shadow .2s,transform .2s,border-color .2s;cursor:pointer;
   position:relative}
-.s-card:hover{box-shadow:var(--sh-md);transform:translateY(-3px);
+.s-card:hover{box-shadow:var(--sh-md);transform:translateY(-2px);
   border-color:var(--bdm)}
 .s-card.unpaid{border-color:#F0C4C4}
 /* 영어/국어 카드 — hover 시 카테고리 컬러 보더 */
@@ -451,29 +439,32 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   box-shadow:0 10px 24px rgba(61,79,124,.20)}
 .s-card.card-both:hover{border-color:rgba(120,120,80,.55);
   box-shadow:0 10px 24px rgba(120,120,80,.18)}
-/* 상단 4px 컬러 바 — 카테고리 식별 핵심 */
-.card-stripe{height:4px}
+/* 상단 3px 컬러 바 — 카테고리 식별 핵심 */
+.card-stripe{height:3px}
 .cs-e{background:var(--mum-yellow)}
 .cs-k{background:var(--folio-indigo)}
 .cs-b{background:linear-gradient(90deg,var(--mum-yellow) 0%,var(--mum-yellow) 50%,var(--folio-indigo) 50%,var(--folio-indigo) 100%)}
-.card-head{padding:16px 18px 11px;display:flex;align-items:flex-start;gap:11px}
-.card-av{width:44px;height:44px;border-radius:12px;flex-shrink:0;
+.card-head{padding:14px 16px;display:flex;align-items:center;gap:11px}
+.card-av{width:36px;height:36px;border-radius:50%;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
-  font-size:17px;font-weight:800}
-.av-e{background:var(--mum-yellow-lt);color:var(--mum-yellow-dk)}
-.av-k{background:var(--blue-lt);color:var(--blue-dk)}
+  font-size:15px;font-weight:800}
+.av-e{background:#FFFCE0;color:#A08B00}
+.av-k{background:#ECEEF5;color:#2A3557}
 .av-b{background:var(--sand);color:var(--t2)}
-.card-name{font-size:15.5px;font-weight:800;color:var(--t1);
-  letter-spacing:-.025em;margin-bottom:2px}
-.card-meta{display:flex;align-items:center;gap:4px;font-size:10.5px;
-  color:var(--t3);margin-bottom:6px;flex-wrap:wrap;font-weight:400}
+.card-head-info{min-width:0;flex:1}
+.card-name{font-size:14px;font-weight:800;color:var(--t1);
+  letter-spacing:-.02em;margin-bottom:2px}
+.card-unpaid{font-size:10px;font-weight:700;padding:1.5px 7px;border-radius:20px;
+  background:var(--am-lt);color:var(--am);border:1px solid #F0D8A8;margin-left:4px}
+.card-meta{display:flex;align-items:center;gap:4px;font-size:11px;
+  color:var(--t4);margin-bottom:7px;flex-wrap:wrap;font-weight:400}
 .msep{color:var(--bdm);font-size:10px}
 .sbadges{display:flex;gap:4px;flex-wrap:wrap}
 .sbadge{display:inline-flex;align-items:center;gap:3px;
-  padding:2.5px 8px;border-radius:20px;font-size:9.5px;font-weight:700}
-.sbe{background:rgba(255,214,0,.12);color:#A08B00;border:1px solid rgba(255,214,0,.35)}
-.sbk{background:rgba(61,79,124,.10);color:var(--blue-dk);
-  border:1px solid rgba(61,79,124,.30)}
+  padding:2.5px 9px;border-radius:6px;font-size:10px;font-weight:700}
+.sbe{background:#FFFCE0;color:#A08B00;border:1px solid #FFD600}
+.sbk{background:#ECEEF5;color:#2A3557;border:1px solid #3D4F7C}
+.sbc{background:var(--sf);color:var(--t4);border:1px solid var(--bd)}
 .sbadge svg{width:9px;height:9px;stroke-width:2.5}
 /* 카드 우측 상단 상태 배지 (리뷰/과제/생일) */
 .card-status{position:absolute;top:11px;right:12px;display:flex;gap:5px;align-items:center;z-index:3}
@@ -3768,18 +3759,18 @@ function buildCard(s) {
   const ac = (s.eng && s.kor) ? 'av-b' : s.eng ? 'av-e' : 'av-k';
   const cardCls = (s.eng && s.kor) ? 'card-both' : s.eng ? 'card-eng' : 'card-kor';
   const bday = isBirthday(s);
-  const grp = s.grade.startsWith('유치') ? '유치부' : s.grade.startsWith('초') ? '초등' : '중등';
   const tel = s.pT ? s.pT.replace(/(\d{3})-(\d{4})-(\d{4})/, '$1-****-$3') : '—';
+  // 과목 + 반 뱃지
   const badges = [
-    s.eng ? `<span class="sbadge sbe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>영어</span>` : '',
-    s.kor ? `<span class="sbadge sbk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>국어</span>` : '',
+    s.eng ? `<span class="sbadge sbe">영어</span>` : '',
+    s.kor ? `<span class="sbadge sbk">국어</span>` : '',
+    s.cls ? `<span class="sbadge sbc">${s.cls}</span>` : '',
   ].filter(Boolean).join('');
+  // 리스트 행용 레벨 뱃지
   const lvls = [
     (s.eng && s.eLv) ? `<span class="lp lp-e" data-lv="${s.eLv}">${s.eLv}</span>` : '',
     (s.kor && s.kLv) ? `<span class="lp lp-k" data-lv="${s.kLv}">${s.kLv}</span>` : '',
   ].filter(Boolean).join('');
-  const schoolStr = s.school ? `<span>${s.school}</span><span class="msep">·</span>` : '';
-  const memo = s.note ? `<div class="card-memo">${s.note}</div>` : '';
   // 우측 상단 상태 배지 (리뷰/과제/생일)
   const checkSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff"><polyline points="20 6 9 17 4 12"/></svg>';
   const rvDone = rvDoneToday(s);
@@ -3792,17 +3783,17 @@ function buildCard(s) {
       : hwDone ? `<span class="cs-dot cs-hw-done" title="과제 완료">${checkSvg}</span>`
                : `<span class="cs-dot cs-hw-none" title="과제 미체크"></span>`,
   ].filter(Boolean).join('');
+  const schoolStr = s.school ? `${s.school} · ` : '';
   return `
 <div class="s-card ${cardCls}${up ? ' unpaid' : ''}${bday ? ' birthday' : ''}" onclick="openEditModal(${s.id})">
   <div class="card-stripe ${sc}"></div>
   <div class="card-status">${statusBadges}</div>
   <div class="card-head">
     <div class="card-av ${ac}">${s.name.charAt(0)}</div>
-    <div>
-      <div class="card-name">${s.name}${up ? ' <span style="font-size:10px;font-weight:700;padding:1.5px 7px;border-radius:20px;background:var(--am-lt);color:var(--am);border:1px solid #F0D8A8">미납</span>' : ''}</div>
-      <div class="card-meta">${schoolStr}<span>${s.grade}</span><span class="msep">·</span><span>${grp}</span>${s.cls ? `<span class="msep">·</span><span>${s.cls}</span>` : ''}</div>
+    <div class="card-head-info">
+      <div class="card-name">${s.name}${up ? ' <span class="card-unpaid">미납</span>' : ''}</div>
+      <div class="card-meta">${schoolStr}${s.grade}</div>
       <div class="sbadges">${badges}</div>
-      ${lvls ? `<div class="lvl-strip">${lvls}</div>` : ''}
     </div>
   </div>
   <div class="s-list-row">
@@ -3812,33 +3803,6 @@ function buildCard(s) {
     ${lvls || '<span class="slr-meta">레벨 미정</span>'}
     <span class="slr-meta">${s.grade}</span>
     <span class="slr-tel">${s.pN || '—'} · ${tel}</span>
-  </div>
-  ${s.eng && s.kor ? `
-  <div class="card-tabs">
-    <button class="ct-btn ct-e on" onclick="event.stopPropagation();switchCardTab(${s.id},'eng',this)">
-      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg> 영어
-    </button>
-    <button class="ct-btn ct-k" onclick="event.stopPropagation();switchCardTab(${s.id},'kor',this)">
-      <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> 국어
-    </button>
-  </div>
-  <div class="card-tab-content" id="ctc-${s.id}-eng">
-    ${s.eLv ? `<div class="lvl-pill lp-e" style="margin:4px 0 6px">${s.eLv} ${s.eSub ? `<span style="font-weight:400;opacity:.6">· ${s.eSub}</span>` : ''}</div>` : ''}
-  </div>
-  <div class="card-tab-content" id="ctc-${s.id}-kor" style="display:none">
-    ${s.kLv ? `<div class="lvl-pill lp-k" style="margin:4px 0 6px">${s.kLv} ${s.kSub ? `<span style="font-weight:400;opacity:.6">· ${s.kSub}</span>` : ''}</div>` : ''}
-  </div>` : ''}
-  <div class="card-body">
-    <div class="info-row"><span class="ikey">학부모</span><span class="ival em">${s.pN || '—'}</span><span style="color:var(--t5);margin:0 5px">·</span><span class="ival">${tel}</span></div>
-    <div class="info-row"><span class="ikey">수강료</span><span class="ival em">${fmtMoney(s.tuition?.monthly)}</span></div>
-  </div>
-  ${memo}
-  <div class="card-foot">
-    <div class="foot-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>클릭하여 수정</div>
-    <div class="foot-btns">
-      <button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();openEditModal(${s.id})">수정</button>
-      <button class="btn btn-danger btn-xs" onclick="event.stopPropagation();openDelModal(${s.id})">삭제</button>
-    </div>
   </div>
 </div>`;
 }
@@ -3967,6 +3931,8 @@ function resetParentPin() {
   if (!s) return;
   if (!confirm('휴대폰 뒷 4자리로 초기화하시겠습니까?')) return;
   delete s.parentPin;
+  const idx = db.students.findIndex(x => x.id === editingId);
+  if (idx >= 0 && _fdb) _fdb.ref('db/students/' + idx + '/parentPin').remove();
   saveDB();
   showToast('학부모 PIN을 휴대폰 뒷 4자리로 초기화했어요');
 }
