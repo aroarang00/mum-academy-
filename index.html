@@ -224,16 +224,15 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   opacity:.55;transition:opacity .18s}
 .sb-item:hover .sb-ico,.sb-item.on .sb-ico{opacity:1}
 .sb-ico svg{width:15px;height:15px;stroke-width:1.5}
-/* 학생 명단 하위 영어/국어 선택 탭 */
-.sb-subtabs{display:flex;gap:5px;padding:0 10px 0 40px;margin:-1px 0 6px}
-.sb-subtab{flex:1;text-align:center;padding:5px 6px;border-radius:9px;
-  font-size:11px;font-weight:700;color:var(--t4);cursor:pointer;
-  border:1.5px solid var(--bd);background:var(--sf);
-  transition:background .15s,color .15s,border-color .15s;
-  user-select:none}
-.sb-subtab:not(.on):hover{border-color:var(--blue)}
-#sst-eng.on{background:var(--mum-yellow);border-color:var(--mum-yellow);color:#3a3000}
-#sst-kor.on{background:var(--folio-indigo);border-color:var(--folio-indigo);color:#fff}
+/* 학생 명단 하위 영어/국어 선택 (텍스트 목록) */
+.sb-subtabs{display:flex;flex-direction:column;padding:2px 10px 4px 40px;margin-top:-2px}
+.sb-subtab{padding:5px 4px;font-size:12px;font-weight:600;
+  color:var(--t4);cursor:pointer;user-select:none;
+  transition:color .15s}
+.sb-subtab:not(.on):hover{color:var(--t2)}
+.sb-subtab.on{font-weight:800}
+#sst-eng.on{color:var(--mum-yellow-dk)}
+#sst-kor.on{color:var(--folio-indigo)}
 
 /* 하단 프로필 */
 .sb-foot{padding:10px 10px 14px;border-top:1px solid var(--sand-bd)}
