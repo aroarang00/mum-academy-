@@ -533,6 +533,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .att-date-main{font-size:22px;font-weight:800;color:var(--blue-dk);
   letter-spacing:-.02em;line-height:1}
 .att-date-sub{font-size:11.5px;color:var(--t3);margin-top:3px;font-weight:400}
+.att-date-oneline{display:none}
 .att-date-right{display:flex;align-items:center;gap:9px}
 .att-date-inp{padding:6px 11px;border:1.5px solid var(--gold-md);
   border-radius:10px;font-size:12.5px;font-weight:600;
@@ -582,9 +583,11 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .att-card.st-abs{border-color:#FFCFCF;background:#FFF5F5}
 /* 상단 3px 컬러 바 — 과목 기준 (영어=노랑, 국어=인디고, 둘다=반반) */
 .att-card-bar{height:3px;flex-shrink:0;background:var(--bd)}
-.att-card.acard-eng  .att-card-bar{background:var(--mum-yellow)}
-.att-card.acard-kor  .att-card-bar{background:var(--folio-indigo)}
-.att-card.acard-both .att-card-bar{background:linear-gradient(90deg,var(--mum-yellow) 50%,var(--folio-indigo) 50%)}
+/* 상태별 헤더 바 — 미등원 노랑 / 학습중 인디고 / 하원 회색 / 결석 빨강 */
+.att-card.st-none .att-card-bar{background:#FFD600}
+.att-card.st-in   .att-card-bar{background:#3D4F7C}
+.att-card.st-out  .att-card-bar{background:#C8C8C4}
+.att-card.st-abs  .att-card-bar{background:#E53935}
 
 .att-card-body{padding:12px 13px;flex:1;display:flex;flex-direction:column}
 .att-card-top{display:flex;align-items:center;gap:9px;margin-bottom:10px}
@@ -624,7 +627,6 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .att-qt.on{background:var(--folio-indigo);border-color:var(--folio-indigo);color:#fff}
 /* 생일 출결 카드 */
 .att-card.att-birthday{border-color:#F0BFD0;background:#FFF4F8}
-.att-card.att-birthday .att-card-bar{background:linear-gradient(90deg,#F49AC0,#E56B98)}
 /* 부가 정보 — 얇게 */
 .att-card-meta{font-size:9.5px;color:var(--t4);
   margin-bottom:7px;line-height:1.4;font-weight:400}
@@ -1927,6 +1929,24 @@ canvas#pGrowthChart{width:100%!important}
 @media(max-width:680px){
   .att-toprow{flex-direction:column}
   .att-heatmap{width:auto}
+  /* ── 출석부 상단 컴팩트 레이아웃 ── */
+  .att-hero{flex-wrap:wrap;padding:12px 14px;gap:9px 8px;align-items:center}
+  .att-hero-left{display:contents}
+  .att-hero-date{flex:1;min-width:0}
+  /* 날짜 한 줄만 표시 */
+  .att-date-day,.att-date-main,.att-date-sub{display:none}
+  .att-date-oneline{display:block;font-size:14.5px;font-weight:800;
+    color:var(--blue-dk);white-space:nowrap;letter-spacing:-.01em}
+  /* 날짜·버튼 한 줄 */
+  .att-date-right{display:flex;gap:5px;align-items:center}
+  .att-date-right .btn{padding:6px 9px;font-size:11px}
+  .att-date-inp{padding:5px 7px;font-size:11px}
+  /* 통계 가로 한 줄 균등 */
+  .att-hero-stats{order:3;width:100%;display:flex;gap:5px}
+  .ahs-item{flex:1;min-width:0;padding:6px 2px;
+    background:#F8F8F6;border-radius:8px}
+  .ahs-item b{font-size:17px}
+  .ahs-item span{font-size:9px}
 }
 
 
@@ -2552,7 +2572,7 @@ canvas#pGrowthChart{width:100%!important}
       <!-- 출석부 -->
       <div class="sec" id="attendance">
         <!-- 모바일 공지 배너 (공지 있을 때만 표시) -->
-        <div id="mobileNoticeBanner" style="display:none;background:linear-gradient(135deg,var(--blue),#5A8FD4);border-radius:12px;padding:12px 14px;margin-bottom:14px;color:#fff">
+        <div id="mobileNoticeBanner" style="display:none;background:#FFFCE0;border-left:4px solid #FFD600;border-radius:8px;padding:12px 14px;margin-bottom:14px;color:#3C3024">
           <div style="font-size:10px;font-weight:700;opacity:.7;letter-spacing:.08em;margin-bottom:4px">📢 공지사항</div>
           <div id="mobileNoticeTitle" style="font-size:13px;font-weight:800;margin-bottom:3px"></div>
           <div id="mobileNoticeBody" style="font-size:12px;opacity:.85;line-height:1.5;white-space:pre-wrap"></div>
@@ -2568,6 +2588,7 @@ canvas#pGrowthChart{width:100%!important}
               <div class="att-date-day" id="attDow"></div>
               <div class="att-date-main" id="attMain"></div>
               <div class="att-date-sub" id="attSub"></div>
+              <div class="att-date-oneline" id="attOneLine"></div>
             </div>
             <div class="att-hero-stats">
               <span class="ahs-item"><b id="sumAll">0</b><span>전체</span></span>
@@ -4076,6 +4097,8 @@ function renderAtt() {
   document.getElementById('attDow').textContent  = days[d.getDay()] + '요일';
   document.getElementById('attMain').textContent = `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일`;
   document.getElementById('attSub').textContent  = attDate === todayISO() ? '오늘 수업' : attDate;
+  const _ol = document.getElementById('attOneLine');
+  if (_ol) _ol.textContent = `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()} (${days[d.getDay()]})`;
   document.getElementById('attPicker').value     = attDate;
   renderAttList();
   renderAttMsgBanner();
