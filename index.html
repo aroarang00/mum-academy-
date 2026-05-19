@@ -1368,17 +1368,17 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .p-hint{font-size:11px;color:var(--t4);text-align:center;line-height:1.7;margin-top:24px}
 .p-dash{max-width:480px;margin:0 auto;padding:0 0 80px;min-height:100vh;background:var(--bg)}
 .p-dash-top{background:#3C3024;padding:28px 22px 26px;position:relative}
-/* 학부모 모드 상단 탑바 — 다크브라운 통일 */
-body.parent-mode .topbar{background:#3C3024;border-bottom:none;box-shadow:0 2px 12px rgba(0,0,0,.14)}
-body.parent-mode #logoZone span{color:#fff !important}
-body.parent-mode .tb-acad-main{color:#fff}
-body.parent-mode .tb-acad-sub{color:rgba(255,255,255,.55)}
-body.parent-mode .tb-date{color:rgba(255,255,255,.65)}
+/* 학부모 모드 상단 탑바 — 흰색 배경 */
+body.parent-mode .topbar{background:#fff}
+body.parent-mode #logoZone span{color:#3D4F7C !important}
+body.parent-mode .tb-acad-main{color:#555}
+body.parent-mode .tb-acad-sub{color:#aaa}
+body.parent-mode .tb-date{background:#F0EDD8}
 .p-logout{position:absolute;top:18px;right:18px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .18s}
 .p-logout:hover{background:rgba(255,255,255,.25)}.p-logout svg{width:15px;height:15px;stroke:rgba(255,255,255,.8);stroke-width:1.75}
 .p-dash-eyebrow{font-size:11px;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.85);margin-bottom:2px}
-.p-dash-name{font-size:19px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.2}
-.p-dash-sub{font-size:12px;color:rgba(255,255,255,.4);margin-top:4px;letter-spacing:.02em}
+.p-dash-name{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.2}
+.p-dash-sub{display:inline-block;font-size:12px;color:rgba(255,255,255,.85);background:rgba(255,255,255,.15);padding:4px 11px;border-radius:20px;margin-top:9px;letter-spacing:.02em}
 .p-dash-body{padding:18px 16px 0;display:flex;flex-direction:column;gap:10px}
 .p-sec-lbl{font-size:13px;font-weight:700;color:var(--t1);margin:20px 0 10px;border-left:4px solid #3D4F7C;padding-left:10px;line-height:1.35}
 /* 학부모 생일 카드 */
@@ -1449,8 +1449,8 @@ body.parent-mode .tb-date{color:rgba(255,255,255,.65)}
 
 /* 학부모 페이지 2탭 구조 */
 .p-tab-bar{display:flex;background:#fff;border-bottom:0.5px solid #eee;position:sticky;top:0;z-index:10}
-.p-tab-btn{flex:1;padding:13px 8px;border:none;background:transparent;font-size:13px;font-weight:700;color:#3C3024;opacity:.4;cursor:pointer;font-family:inherit;border-bottom:3px solid transparent;transition:all .2s}
-.p-tab-btn.on{color:#3C3024;opacity:1;border-bottom-color:#FFD600}
+.p-tab-btn{flex:1;padding:13px 8px;border:none;background:transparent;font-size:13px;font-weight:700;color:#bbb;cursor:pointer;font-family:inherit;border-bottom:3px solid transparent;transition:all .2s}
+.p-tab-btn.on{color:#3C3024;border-bottom-color:#FFD600}
 #pDash.p-acad-eng .p-tab-btn.on,
 #pDash.p-acad-kor .p-tab-btn.on{color:#3C3024;border-bottom-color:#FFD600}
 .p-tab-content{display:none;padding:16px 16px 80px;flex-direction:column;gap:12px}
@@ -3289,7 +3289,6 @@ canvas#pGrowthChart{width:100%!important}
               <polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line>
             </svg>
           </button>
-          <div class="p-dash-eyebrow" id="pGreet">안녕하세요</div>
           <div class="p-dash-name" id="pChildName"></div>
           <div class="p-dash-sub" id="pDate"></div>
         </div>
@@ -5687,7 +5686,6 @@ function pLogout() {
 function renderParentDash(s) {
   const now = new Date(), days = ['일','월','화','수','목','금','토'];
   const el = id => document.getElementById(id);
-  el('pGreet').textContent = '글을 읽는 눈을 뜨고, 세상을 담는 문장을 쓰다';
   el('pChildName').textContent = s.name + ' 학생';
   el('pDate').textContent = `${now.getFullYear()}년 ${now.getMonth()+1}월 ${now.getDate()}일 (${days[now.getDay()]})`;
   // 과목별 탭 색상 (영어=옐로우, 국어=인디고, 둘 다=기본 인디고)
@@ -6110,7 +6108,7 @@ function drawPGrowthChart(canvas, data) {
     },
     options: {
       responsive: true,
-      layout: { padding: { left: 6, right: 10, top: 6, bottom: 2 } },
+      layout: { padding: { left: 8, right: 10, top: 6, bottom: 2 } },
       plugins: {
         legend: { display: false },
         tooltip: { mode: 'index', intersect: false }
