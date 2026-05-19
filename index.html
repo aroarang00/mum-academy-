@@ -1244,19 +1244,22 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
    수업 리뷰 — Premium Minimal
 ════════════════════════════════ */
 .rv-stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:18px}
-.rv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:15px}
+.rv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));
+  gap:14px;align-items:start}
 .rv-card{
-  background:linear-gradient(160deg,#FFFFFF 0%,#FEFCF8 100%);
-  border:1.5px solid rgba(200,151,58,.12);
-  border-radius:20px;overflow:hidden;
-  box-shadow:var(--sh-sm);transition:box-shadow .22s,transform .18s,border-color .2s}
-.rv-card:hover{box-shadow:var(--sh-md);transform:translateY(-3px);
-  border-color:rgba(200,151,58,.22)}
-.rv-card.rv-done{border-color:var(--blue-md);background:linear-gradient(160deg,#EAF3FB 0%,#fff 55%)}
-.rv-card-bar{height:3px}
-.rv-card.rv-done .rv-card-bar{background:linear-gradient(90deg,var(--blue),var(--blue-dk))}
-.rv-card-inner{padding:15px 17px}
-.rv-card-name{font-size:14.5px;font-weight:800;color:var(--t1);margin-bottom:2px}
+  background:#FFFFFF;
+  border:0.5px solid #E8E8E6;
+  border-radius:12px;overflow:hidden;
+  box-shadow:var(--sh-sm);transition:box-shadow .2s,transform .15s}
+.rv-card:hover{box-shadow:var(--sh-md);transform:translateY(-2px)}
+.rv-card-bar{height:3px;background:#3D4F7C}
+.rv-card-inner{padding:13px 15px}
+.rv-card-head{display:flex;align-items:center;justify-content:space-between;
+  gap:8px;margin-bottom:3px}
+.rv-card-name{font-size:14px;font-weight:800;color:var(--t1)}
+.rv-badge{font-size:10px;font-weight:800;padding:2.5px 9px;border-radius:20px;flex-shrink:0}
+.rv-badge-todo{color:var(--t4);background:transparent}
+.rv-badge-done{color:#fff;background:#3D4F7C}
 .rv-card-stage{font-size:10px;font-weight:400;color:var(--t4);margin-bottom:9px;letter-spacing:.01em}
 .rv-score-box{display:flex;align-items:baseline;gap:5px;
   background:var(--bg);border-radius:11px;padding:9px 13px;margin-bottom:9px}
@@ -5108,15 +5111,10 @@ function buildRVCard(s, rec, acad) {
   const stage = acad === 'eng'
     ? [s.eLv, s.eSub].filter(Boolean).join(' · ')
     : [s.kLv, s.kSub].filter(Boolean).join(' · ');
-  // 영어: 뮤엠 노랑, 국어: 파란색
-  const barColor = acad === 'eng'
-    ? 'linear-gradient(90deg,#FFD600,#FFE54D)'
-    : 'linear-gradient(90deg,#3D4F7C,#5168A0)';
-  const cardStyle = acad === 'eng'
-    ? 'background:#FFFFFF;border-color:rgba(255,214,0,.30)'
-    : 'background:#FFFFFF;border-color:rgba(61,79,124,.30)';
   const acadLabel = acad === 'eng' ? '영어 리뷰' : '국어 리뷰';
-  const acadColor = acad === 'eng' ? '#A08B00' : '#3D4F7C';
+  const badgeHtml = done
+    ? `<span class="rv-badge rv-badge-done">${acadLabel} ✓</span>`
+    : `<span class="rv-badge rv-badge-todo">${acadLabel}</span>`;
   let scoreHtml = '';
   if (done && rec?.score !== undefined) {
     const pct  = Math.round(rec.score / (rec.total || 100) * 100);
@@ -5156,12 +5154,12 @@ function buildRVCard(s, rec, acad) {
   const kakaoBtn = done
     ? `<button class="rv-btn-kakao" onclick="sendRVReport(${s.id},'${acad}',event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>카톡</button>` : '';
   return `
-<div class="rv-card${done ? ' rv-done' : ''}" id="rvCard_${s.id}" style="${cardStyle}">
-  <div class="rv-card-bar" style="background:${barColor}"></div>
+<div class="rv-card${done ? ' rv-done' : ' rv-todo'}" id="rvCard_${s.id}">
+  ${done ? '<div class="rv-card-bar"></div>' : ''}
   <div class="rv-card-inner">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
+    <div class="rv-card-head">
       <div class="rv-card-name">${s.name}</div>
-      <span style="font-size:10px;font-weight:800;color:${acadColor};background:${acad==='eng'?'rgba(255,214,0,.12)':'rgba(61,79,124,.1)'};padding:2px 8px;border-radius:20px">${acadLabel}</span>
+      ${badgeHtml}
     </div>
     <div class="rv-card-stage">${stage || '교재 정보 없음'}</div>
     ${scoreHtml}
