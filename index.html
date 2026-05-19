@@ -2177,39 +2177,58 @@ canvas#pGrowthChart{width:100%!important}
 }
 
 /* ── 메시지 알림 팝업 ── */
-.msg-alert-popup{
-  position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
-  width:calc(100% - 32px);max-width:400px;
-  background:#fff;border-radius:20px;
-  box-shadow:0 8px 32px rgba(26,26,26,.18);
-  z-index:1000;display:none;
-  border:1.5px solid rgba(255,214,0,.25);
-  overflow:hidden;
-}
-.msg-alert-popup.show{display:block;animation:slideUp .3s ease}
-@keyframes slideUp{from{transform:translateX(-50%) translateY(20px);opacity:0} to{transform:translateX(-50%) translateY(0);opacity:1}}
-.msg-alert-hd{
-  /* 메시지 팝업 헤더 — 골드 계열로 공지(파란색)와 구분 */
-  background:linear-gradient(135deg,#A08B00,#FFD600);
-  padding:14px 18px;display:flex;align-items:center;justify-content:space-between;
-}
-.msg-alert-title{font-size:13px;font-weight:700;color:#fff}
-.msg-alert-close{background:rgba(255,255,255,.2);border:none;border-radius:50%;
-  width:26px;height:26px;color:#fff;cursor:pointer;font-size:14px;
-  display:flex;align-items:center;justify-content:center;}
-.msg-alert-list{max-height:300px;overflow-y:auto;padding:8px}
-.msg-alert-item{
-  padding:12px 14px;border-radius:12px;margin-bottom:6px;
-  /* 미읽음 = 연한 크림색, 구분 명확 */
-  background:var(--mum-yellow-lt);border:1px solid rgba(255,214,0,.35);cursor:pointer;
-  transition:background .15s;
-}
-.msg-alert-item:hover{background:#FFF8B0}
-.msg-alert-item.read{opacity:.55;background:var(--sf);border-color:var(--bd)}
-.msg-alert-sender{font-size:12px;font-weight:700;color:var(--t1)}
-.msg-alert-text{font-size:11px;color:var(--t3);margin-top:3px;line-height:1.4}
-.msg-alert-time{font-size:10px;color:var(--t5);margin-top:4px}
-.msg-alert-empty{text-align:center;padding:20px;font-size:13px;color:var(--t4)}
+/* 학부모 메시지 — 우측 슬라이드 패널 */
+.msg-panel-ov{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:9990;
+  opacity:0;pointer-events:none;transition:opacity .25s}
+.msg-panel-ov.show{opacity:1;pointer-events:auto}
+.msg-alert-popup{position:fixed;top:0;right:0;width:380px;max-width:100vw;height:100vh;
+  background:var(--bg);z-index:9991;display:flex;flex-direction:column;
+  transform:translateX(100%);transition:transform .25s ease;
+  box-shadow:-8px 0 32px rgba(0,0,0,.15)}
+.msg-alert-popup.show{transform:translateX(0)}
+.msg-panel-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px;border-bottom:1px solid var(--bd);flex-shrink:0}
+.msg-panel-title{font-size:16px;font-weight:800;color:var(--t1);
+  display:flex;align-items:center;gap:8px}
+.msg-panel-badge{background:#E53935;color:#fff;font-size:11px;font-weight:800;
+  min-width:20px;height:20px;border-radius:20px;display:flex;
+  align-items:center;justify-content:center;padding:0 6px}
+.msg-panel-badge.zero{display:none}
+.msg-panel-x{background:none;border:none;font-size:24px;color:var(--t4);
+  cursor:pointer;line-height:1;padding:0 4px}
+.msg-panel-body{flex:1;overflow-y:auto;padding:16px}
+.msg-panel-foot{flex-shrink:0;display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--bd)}
+.msg-panel-foot button{flex:1;padding:9px;border-radius:8px;border:1px solid var(--bd);
+  background:#fff;font-size:12px;cursor:pointer;font-family:inherit;color:var(--t2)}
+.msg-sec-lbl{font-size:11px;font-weight:800;color:var(--t4);letter-spacing:.05em;
+  margin:0 0 10px;text-transform:uppercase}
+.msg-new-card{background:#FFFCE0;border-left:4px solid #FFD600;border-radius:8px;
+  padding:12px 14px;margin-bottom:10px}
+.msg-new-top{display:flex;align-items:baseline;gap:7px;margin-bottom:5px}
+.msg-new-name{font-size:13px;font-weight:800;color:#3C3024}
+.msg-new-time{font-size:10.5px;color:#8B7000}
+.msg-new-text{font-size:12.5px;color:#3C3024;line-height:1.55;margin-bottom:9px;white-space:pre-wrap}
+.msg-new-btns{display:flex;gap:6px}
+.msg-new-btns button{flex:1;padding:7px;border-radius:7px;font-size:11.5px;
+  font-weight:700;cursor:pointer;font-family:inherit;border:none}
+.msg-btn-reply{background:#3D4F7C;color:#fff}
+.msg-btn-read{background:#fff;border:1px solid #D8C98A;color:#8B7000}
+.msg-old-item{border:0.5px solid #E8E8E6;border-radius:8px;padding:10px 12px;
+  margin-bottom:8px;background:#fff;cursor:pointer;opacity:.72;transition:opacity .15s}
+.msg-old-item:hover,.msg-old-item.expanded{opacity:1}
+.msg-old-top{display:flex;align-items:baseline;gap:6px}
+.msg-old-name{font-size:12.5px;font-weight:700;color:var(--t2)}
+.msg-old-time{font-size:10px;color:var(--t4)}
+.msg-old-check{margin-left:auto;font-size:10px;color:#2E7D32;font-weight:700}
+.msg-old-preview{font-size:11.5px;color:var(--t4);margin-top:3px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.msg-old-item.expanded .msg-old-preview{display:none}
+.msg-old-full{font-size:12px;color:var(--t2);line-height:1.6;margin-top:7px;
+  padding-top:7px;border-top:1px solid var(--bd);display:none;white-space:pre-wrap}
+.msg-old-item.expanded .msg-old-full{display:block}
+.msg-old-reply{margin-top:6px;color:var(--blue-dk)}
+.msg-date-sep{font-size:10.5px;font-weight:700;color:var(--t4);text-align:center;margin:6px 0 8px}
+.msg-alert-empty{text-align:center;padding:30px 20px;font-size:13px;color:var(--t4)}
 /* 보낸 답장 표시 */
 .msg-reply-shown{margin-top:7px;font-size:11px;color:var(--folio-indigo-dk);
   background:var(--folio-indigo-lt);border-radius:8px;padding:6px 9px;line-height:1.5}
@@ -5354,18 +5373,18 @@ const _rvModalsHtmlPlaceholder = `
 
 
 <!-- 관리자 메시지 알림 팝업 -->
+<div class="msg-panel-ov" id="msgPanelOv" onclick="closeMsgAlert()"></div>
 <div class="msg-alert-popup" id="msgAlertPopup">
-  <div class="msg-alert-hd">
-    <div class="msg-alert-title">💬 학부모 메시지</div>
-    <button class="msg-alert-close" onclick="closeMsgAlert()">×</button>
+  <div class="msg-panel-hd">
+    <div class="msg-panel-title">학부모 메시지<span class="msg-panel-badge zero" id="msgPanelBadge">0</span></div>
+    <button class="msg-panel-x" onclick="closeMsgAlert()">×</button>
   </div>
-  <div class="msg-alert-list" id="msgAlertList">
+  <div class="msg-panel-body" id="msgAlertList">
     <div class="msg-alert-empty">메시지가 없습니다</div>
   </div>
-  <div style="padding:10px 14px;border-top:1px solid var(--bd);display:flex;gap:8px">
-    <button onclick="markAllMsgRead()" style="flex:1;padding:8px;border-radius:10px;border:1px solid var(--bd);background:var(--sf);font-size:12px;cursor:pointer;font-family:inherit">모두 읽음</button>
-    <button onclick="deleteReadMsgs()" style="flex:1;padding:8px;border-radius:10px;border:1px solid var(--rd-lt);background:var(--rd-lt);color:var(--rd);font-size:12px;cursor:pointer;font-family:inherit;font-weight:600">읽은것 삭제</button>
-    <button onclick="closeMsgAlert()" style="flex:1;padding:8px;border-radius:10px;border:none;background:var(--blue);color:#fff;font-size:12px;cursor:pointer;font-family:inherit;font-weight:700">닫기</button>
+  <div class="msg-panel-foot">
+    <button onclick="markAllMsgRead()">모두 읽음</button>
+    <button onclick="deleteReadMsgs()">읽은 메시지 삭제</button>
   </div>
 </div>
 `;
@@ -6877,6 +6896,11 @@ function updateMsgBadge() {
     badgeSb.textContent = unread;
     badgeSb.style.display = unread > 0 ? 'flex' : 'none';
   }
+  const badgeP = document.getElementById('msgPanelBadge');
+  if (badgeP) {
+    badgeP.textContent = unread;
+    badgeP.classList.toggle('zero', unread === 0);
+  }
   // 출석부 상단 메시지 배너도 동기화
   try { renderAttMsgBanner(); } catch(e) {}
 }
@@ -6893,43 +6917,71 @@ function toggleMsgAlert() {
 
 function openMsgAlert() {
   const popup = document.getElementById('msgAlertPopup');
+  const ov    = document.getElementById('msgPanelOv');
   const list  = document.getElementById('msgAlertList');
   if (!popup || !list) return;
+  const esc = t => String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  const fmtT = ts => { const d = new Date(tsNum(ts)); return `${d.getMonth()+1}.${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; };
 
   const msgs = Object.entries(_msgData).sort((a,b) => tsNum(b[1].ts) - tsNum(a[1].ts));
+  const unread = msgs.filter(([k,m]) => !m.read);
+  const readMsgs = msgs.filter(([k,m]) => m.read);
+
   if (!msgs.length) {
     list.innerHTML = '<div class="msg-alert-empty">메시지가 없습니다</div>';
   } else {
-    list.innerHTML = msgs.map(([key, m]) => {
-      const time = new Date(m.ts).toLocaleString('ko-KR', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
-      const readStyle = m.read ? 'opacity:.55' : '';
-      const replyHtml = m.reply
-        ? `<div class="msg-reply-shown">↩ 보낸 답장: ${m.reply}</div>` : '';
-      return `<div class="msg-alert-item ${m.read?'read':''}" style="${readStyle}">
-        <div style="display:flex;align-items:flex-start;gap:8px">
-          <div style="flex:1" onclick="readMsg('${key}')">
-            <div class="msg-alert-sender">${m.from} 학부모 ${!m.read ? '🔴' : '✅'}</div>
-            <div class="msg-alert-text">${m.msg}</div>
-            <div class="msg-alert-time">${time} · ${m.pT||''}</div>
-            ${m.read ? '<div style="font-size:10px;color:var(--blue);margin-top:3px">✅ 확인했습니다</div>' : '<div style="font-size:10px;color:var(--t4);margin-top:3px">탭하면 읽음 처리됩니다</div>'}
+    let html = '';
+    // 새 메시지 (미확인)
+    if (unread.length) {
+      html += `<div class="msg-sec-lbl">새 메시지 ${unread.length}건</div>`;
+      html += unread.map(([key, m]) => `
+        <div class="msg-new-card">
+          <div class="msg-new-top">
+            <span class="msg-new-name">${esc(m.from)} 학부모</span>
+            <span class="msg-new-time">${fmtT(m.ts)}</span>
           </div>
-          <div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0">
-            <button onclick="openReplyPicker('${key}')" style="padding:4px 8px;border-radius:8px;border:1px solid var(--folio-indigo);background:var(--folio-indigo-lt);color:var(--folio-indigo-dk);font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">빠른 답장</button>
-            <button onclick="deleteSingleMsg('${key}')" style="padding:4px 8px;border-radius:8px;border:1px solid var(--rd-lt);background:var(--rd-lt);color:var(--rd);font-size:10px;cursor:pointer;font-family:inherit;white-space:nowrap">삭제</button>
+          <div class="msg-new-text">${esc(m.msg)}</div>
+          <div class="msg-new-btns">
+            <button class="msg-btn-reply" onclick="openReplyPicker('${key}')">답장</button>
+            <button class="msg-btn-read" onclick="readMsg('${key}')">확인</button>
           </div>
-        </div>
-        ${replyHtml}
-      </div>`;
-    }).join('');
+        </div>`).join('');
+    }
+    // 지난 메시지 (읽음) — 날짜별 구분 + accordion
+    if (readMsgs.length) {
+      html += `<div class="msg-sec-lbl" style="margin-top:18px">지난 메시지</div>`;
+      let lastDate = '';
+      readMsgs.forEach(([key, m]) => {
+        const d = new Date(tsNum(m.ts));
+        const dateStr = `${d.getMonth()+1}월 ${d.getDate()}일`;
+        if (dateStr !== lastDate) { html += `<div class="msg-date-sep">${dateStr}</div>`; lastDate = dateStr; }
+        const replyChk = m.reply ? '<span class="msg-old-check">✓ 답장완료</span>' : '';
+        const replyFull = m.reply ? `<div class="msg-old-reply">↩ ${esc(m.reply)}</div>` : '';
+        html += `
+        <div class="msg-old-item" onclick="this.classList.toggle('expanded')">
+          <div class="msg-old-top">
+            <span class="msg-old-name">${esc(m.from)}</span>
+            <span class="msg-old-time">${fmtT(m.ts)}</span>
+            ${replyChk}
+          </div>
+          <div class="msg-old-preview">${esc(m.msg)}</div>
+          <div class="msg-old-full">${esc(m.msg)}${replyFull}</div>
+        </div>`;
+      });
+    }
+    list.innerHTML = html;
   }
 
   popup.classList.add('show');
+  if (ov) ov.classList.add('show');
   _msgPopupOpen = true;
 }
 
 function closeMsgAlert() {
   const popup = document.getElementById('msgAlertPopup');
+  const ov    = document.getElementById('msgPanelOv');
   if (popup) popup.classList.remove('show');
+  if (ov) ov.classList.remove('show');
   _msgPopupOpen = false;
 }
 
@@ -6951,7 +7003,7 @@ function openReplyPicker(key) {
   const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/'/g,'&#39;');
   const overlay = document.createElement('div');
   overlay.id = 'replyPickerOverlay';
-  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9500;display:flex;align-items:center;justify-content:center;padding:20px';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px';
   const tplRows = replyTemplates.map((t, i) => `
     <div class="rtpl-row">
       <button class="rtpl-pick" onclick="sendReply('${key}',replyTemplates[${i}])">${esc(t)}</button>
