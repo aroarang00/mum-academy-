@@ -5163,7 +5163,6 @@ function buildRVCard(s, rec, acad) {
     </div>
     <div class="rv-card-stage">${stage || '교재 정보 없음'}</div>
     ${scoreHtml}
-    ${thumbHtml}
     ${tagsHtml ? `<div class="rv-card-tags">${tagsHtml}</div>` : ''}
     ${commentHtml}
     ${reactHtml}
@@ -5172,7 +5171,6 @@ function buildRVCard(s, rec, acad) {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">${done ? '<polyline points="20 6 9 17 4 12"/>' : '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>'}</svg>
         ${done ? '수정' : '리뷰 작성'}
       </button>
-      ${kakaoBtn}
     </div>
   </div>
 </div>`;
