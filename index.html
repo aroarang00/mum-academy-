@@ -1260,6 +1260,13 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .rv-badge{font-size:10px;font-weight:800;padding:2.5px 9px;border-radius:20px;flex-shrink:0}
 .rv-badge-todo{color:var(--t4);background:transparent}
 .rv-badge-done{color:#fff;background:#3D4F7C}
+/* 완료 카드 아코디언 */
+.rv-toggle-hd{cursor:pointer}
+.rv-hd-main{flex:1;min-width:0}
+.rv-card-head-top{display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.rv-toggle-ico{font-size:11px;color:var(--t4);flex-shrink:0;margin-left:6px}
+.rv-card-body{max-height:0;overflow:hidden;transition:max-height .25s ease}
+.rv-card-body.open{max-height:640px}
 .rv-card-stage{font-size:10px;font-weight:400;color:var(--t4);margin-bottom:9px;letter-spacing:.01em}
 .rv-score-box{display:flex;align-items:baseline;gap:5px;
   background:var(--bg);border-radius:11px;padding:9px 13px;margin-bottom:9px}
@@ -5151,29 +5158,64 @@ function buildRVCard(s, rec, acad) {
       </div>`;
     }
   }
-  const kakaoBtn = done
-    ? `<button class="rv-btn-kakao" onclick="sendRVReport(${s.id},'${acad}',event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>카톡</button>` : '';
-  return `
-<div class="rv-card${done ? ' rv-done' : ' rv-todo'}" id="rvCard_${s.id}">
-  ${done ? '<div class="rv-card-bar"></div>' : ''}
+  // ── 미작성 카드 — 컴팩트 고정 ──
+  if (!done) {
+    return `
+<div class="rv-card rv-todo" id="rvCard_${s.id}">
   <div class="rv-card-inner">
     <div class="rv-card-head">
       <div class="rv-card-name">${s.name}</div>
       ${badgeHtml}
     </div>
     <div class="rv-card-stage">${stage || '교재 정보 없음'}</div>
-    ${scoreHtml}
-    ${tagsHtml ? `<div class="rv-card-tags">${tagsHtml}</div>` : ''}
-    ${commentHtml}
-    ${reactHtml}
     <div class="rv-card-btns">
       <button class="rv-btn-write" onclick="openRVModal(${s.id},'${acad}',event)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">${done ? '<polyline points="20 6 9 17 4 12"/>' : '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>'}</svg>
-        ${done ? '수정' : '리뷰 작성'}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        리뷰 작성
       </button>
     </div>
   </div>
 </div>`;
+  }
+  // ── 완료 카드 — 아코디언 ──
+  const scoreSummary = (rec?.score !== undefined) ? ` · <b style="color:var(--blue)">${rec.score}점</b>` : '';
+  return `
+<div class="rv-card rv-done" id="rvCard_${s.id}">
+  <div class="rv-card-bar"></div>
+  <div class="rv-card-inner">
+    <div class="rv-card-head rv-toggle-hd" onclick="toggleRVCard(this)">
+      <div class="rv-hd-main">
+        <div class="rv-card-head-top">
+          <span class="rv-card-name">${s.name}</span>
+          ${badgeHtml}
+        </div>
+        <div class="rv-card-stage">${stage || '교재 정보 없음'}${scoreSummary}</div>
+      </div>
+      <span class="rv-toggle-ico">▽</span>
+    </div>
+    <div class="rv-card-body">
+      ${scoreHtml}
+      ${tagsHtml ? `<div class="rv-card-tags">${tagsHtml}</div>` : ''}
+      ${commentHtml}
+      ${reactHtml}
+      <div class="rv-card-btns">
+        <button class="rv-btn-write" onclick="openRVModal(${s.id},'${acad}',event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+          수정
+        </button>
+      </div>
+    </div>
+  </div>
+</div>`;
+}
+
+/* 리뷰 완료 카드 아코디언 토글 */
+function toggleRVCard(hd) {
+  const body = hd.nextElementSibling;
+  if (!body) return;
+  const open = body.classList.toggle('open');
+  const ico = hd.querySelector('.rv-toggle-ico');
+  if (ico) ico.textContent = open ? '△' : '▽';
 }
 
 /* 리뷰 모달 */
