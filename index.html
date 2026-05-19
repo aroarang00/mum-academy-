@@ -625,9 +625,11 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   cursor:pointer;font-family:inherit;transition:background .12s,color .12s}
 .att-qt:hover{background:#ECECEC}
 .att-qt.on{background:#3D4F7C;color:#fff}
-/* 시간 직접 입력 — 내부 텍스트 중앙 정렬 */
-#attTimeEditInp{display:block;text-align:center}
-#attTimeEditInp::-webkit-datetime-edit{margin:0 auto}
+/* 시간 직접 입력 — 내부 텍스트 중앙 정렬 (iOS Safari 포함) */
+#attTimeEditInp{display:block;text-align:center;
+  -webkit-appearance:none;appearance:none}
+#attTimeEditInp::-webkit-datetime-edit{margin:0 auto;text-align:center}
+#attTimeEditInp::-webkit-date-and-time-value{text-align:center;margin:0}
 /* 생일 출결 카드 */
 .att-card.att-birthday{border-color:#F0BFD0;background:#FFF4F8}
 /* 부가 정보 — 얇게 */
