@@ -1247,6 +1247,14 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
    수업 리뷰 — Premium Minimal
 ════════════════════════════════ */
 .rv-stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:18px}
+/* 리뷰 영어/국어 전환 — 모바일 전용 */
+.rv-acad-toggle{display:none;gap:6px;margin-bottom:12px}
+@media(max-width:680px){.rv-acad-toggle{display:flex}}
+.rvat-btn{flex:1;padding:9px;border-radius:8px;border:1.5px solid var(--bd);
+  background:#fff;font-size:13px;font-weight:700;color:var(--t4);
+  cursor:pointer;font-family:inherit;transition:background .15s,color .15s,border-color .15s}
+.rvat-eng.on{background:#FFD600;border-color:#FFD600;color:#3C3024}
+.rvat-kor.on{background:#3D4F7C;border-color:#3D4F7C;color:#fff}
 .rv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));
   gap:14px;align-items:start}
 .rv-card{
@@ -2720,6 +2728,11 @@ canvas#pGrowthChart{width:100%!important}
         <div style="display:none">
           <button id="rvTabEng" onclick="switchRVTab('eng')">영어 리뷰</button>
           <button id="rvTabKor" onclick="switchRVTab('kor')">국어 리뷰</button>
+        </div>
+        <!-- 영어/국어 전환 (모바일 전용 — PC는 사이드바 사용) -->
+        <div class="rv-acad-toggle">
+          <button class="rvat-btn rvat-eng on" id="rvatEng" onclick="switchRVTab('eng')">영어 리뷰</button>
+          <button class="rvat-btn rvat-kor" id="rvatKor" onclick="switchRVTab('kor')">국어 리뷰</button>
         </div>
         <div class="rv-stat-strip" id="rvStatStrip"></div>
         <div class="att-frow">
@@ -5045,6 +5058,9 @@ function switchRVTab(acad) {
   // 모바일 탭바 카테고리 동기화
   const mnRv = document.getElementById('mnRv');
   if (mnRv) mnRv.setAttribute('data-cat', acad);
+  // 모바일 영어/국어 전환 버튼 활성 표시
+  document.getElementById('rvatEng')?.classList.toggle('on', acad === 'eng');
+  document.getElementById('rvatKor')?.classList.toggle('on', acad === 'kor');
   renderRV(acad);
 }
 
