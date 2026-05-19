@@ -203,7 +203,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   margin-right:7px;vertical-align:middle;
   box-shadow:0 0 0 2px rgba(255,255,255,.8)}
 /* 사이드바 영어/국어 그룹 라벨 강조 */
-#engGrp .sb-grp-lbl{color:var(--mum-yellow-dk) !important;
+#engGrp .sb-grp-lbl{color:#3D4F7C !important;
   font-weight:900;letter-spacing:.08em;padding:6px 10px}
 #korGrp .sb-grp-lbl{color:var(--folio-indigo-dk) !important;
   font-weight:900;letter-spacing:.05em;padding:6px 10px}
@@ -578,7 +578,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 /* 상태별 배경 */
 .att-card.st-none{border-color:#FFD600;background:#FFFCE0}
 .att-card.st-in {border-color:#E8E8E6;background:#FFFFFF}
-.att-card.st-out{border-color:#E8E8E6;background:#FFFFFF;opacity:.68}
+.att-card.st-out{border-color:#E8E8E6;background:#FFFFFF;opacity:.6}
 .att-card.st-out:hover{opacity:1}
 .att-card.st-abs{border-color:#FFCFCF;background:#FFF5F5}
 /* 상단 3px 컬러 바 — 과목 기준 (영어=노랑, 국어=인디고, 둘다=반반) */
@@ -645,21 +645,22 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .att-tb-out {background:var(--gold-lt);color:var(--br3)}
 .att-tb-abs {background:var(--rd-lt);color:var(--rd)}
 .att-tb-none{background:var(--bg);color:var(--t4);font-weight:500}
-/* 액션 버튼 */
-.att-card-btns{display:flex;gap:5px;margin-top:auto;flex-wrap:wrap}
-.ac-btn{flex:1;min-width:44px;padding:6.5px 3px;border-radius:9px;
-  font-size:10.5px;font-weight:700;cursor:pointer;border:1.5px solid;
-  transition:all .18s;font-family:'Pretendard',sans-serif;
-  text-align:center;line-height:1}
-.ac-btn.b-in {border-color:var(--blue-md);color:var(--blue);background:var(--blue-lt)}
-.ac-btn.b-in:hover,.ac-btn.b-in.active{background:var(--blue);color:#fff;border-color:var(--blue)}
-.ac-btn.b-out{border-color:#DDD9C8;color:var(--br3);background:var(--gold-lt)}
-.ac-btn.b-out:hover,.ac-btn.b-out.active{background:var(--br3);color:#fff;border-color:var(--br3)}
-.ac-btn.b-abs{border-color:#F0C4C4;color:var(--rd);background:var(--rd-lt)}
-.ac-btn.b-abs:hover,.ac-btn.b-abs.active{background:var(--rd);color:#fff;border-color:var(--rd)}
-.ac-btn.b-cancel{border-color:#E0E0E0;color:var(--t3);background:var(--sf);font-size:10px}
-.ac-btn.b-cancel:hover{background:var(--t3);color:#fff;border-color:var(--t3)}
-.ac-btn.disabled{opacity:0.35;cursor:not-allowed;pointer-events:none}
+/* 액션 버튼 — 상태별 구성 */
+.att-card-btns{display:flex;gap:6px;margin-top:auto}
+.acb{border:none;border-radius:8px;font-size:12px;font-weight:700;
+  cursor:pointer;font-family:inherit;padding:9px 6px;line-height:1.1;
+  transition:opacity .15s,background .15s}
+.acb:active{opacity:.82}
+.acb-wide{flex:1}
+.acb-sm{flex-shrink:0;padding:9px 13px}
+.acb-in{background:#3D4F7C;color:#fff}
+.acb-out{background:#FFD600;color:#3C3024}
+.acb-abs,.acb-cancelabs{background:#fff;border:1px solid #E89A9A;color:#D32F2F}
+.acb-timeinfo{flex:1;display:flex;align-items:center;justify-content:center;
+  gap:6px;font-size:12px;font-weight:700;color:var(--t3);padding:7px 0}
+.acb-tedit{cursor:pointer;color:var(--blue-dk);text-decoration:underline;
+  text-underline-offset:2px}
+.acb-arrow{color:var(--t5)}
 /* 관리자 표시 */
 .att-admin-bar{font-size:9px;font-weight:700;color:var(--gold);
   text-align:center;margin-top:5px;letter-spacing:.04em;opacity:.7}
@@ -1144,15 +1145,15 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 /* ════════════════════════════════
    과제 관리 — Premium Minimal
 ════════════════════════════════ */
-.hw-stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:18px}
-.hw-sc{background:var(--sf);border-radius:14px;padding:13px 15px;text-align:center;border:1px solid var(--bd);box-shadow:var(--sh-sm);transition:transform .2s}
-.hw-sc:hover{transform:translateY(-2px)}
-.hw-sc-n{font-size:21px;font-weight:800;line-height:1;letter-spacing:-.02em}
-.hw-sc-l{font-size:9.5px;font-weight:600;color:var(--t4);margin-top:3px}
+.hw-stat-strip{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.hw-sc{flex:1;min-width:0;background:#FFFFFF;border-radius:12px;padding:10px 12px;
+  text-align:center;border:0.5px solid #E8E8E6;box-shadow:var(--sh-sm)}
+.hw-sc-n{font-size:18px;font-weight:900;line-height:1;letter-spacing:-.02em}
+.hw-sc-l{font-size:10px;font-weight:600;color:var(--t4);margin-top:3px}
 .hw-sc.sc-tot .hw-sc-n{color:var(--t2)}
-.hw-sc.sc-done .hw-sc-n{color:var(--sage-dk)}
-.hw-sc.sc-none .hw-sc-n{color:var(--t3)}
-.hw-sc.sc-hi .hw-sc-n{color:var(--am)}
+.hw-sc.sc-done .hw-sc-n{color:#2E7D32}
+.hw-sc.sc-none .hw-sc-n{color:#A08B00}
+.hw-sc.sc-hi .hw-sc-n{color:#3D4F7C}
 
 /* 과제 날짜 컨트롤 */
 .hw-date-row{display:flex;align-items:center;gap:9px;margin-bottom:16px;flex-wrap:wrap}
@@ -1180,52 +1181,37 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 
 /* 과제 카드 — 상태별 배경/테두리 */
 .hw-card{
-  background:linear-gradient(160deg,#FFFFFF 0%,#FEFCF8 100%);
-  border:1.5px solid rgba(200,151,58,.12);
-  border-radius:20px;overflow:hidden;
-  box-shadow:var(--sh-sm);transition:box-shadow .22s,border-color .2s,transform .18s;
-  display:flex;flex-direction:column;min-height:186px}
-.hw-card:hover{box-shadow:var(--sh-lg);transform:translateY(-4px);
-  border-color:rgba(200,151,58,.24)}
-.hw-card.hw-done{border-color:var(--blue-md);background:linear-gradient(160deg,#EAF3FB 0%,#fff 55%)}
-.hw-card.hw-mid {border-color:#DDD9C8;background:linear-gradient(160deg,#F7F5EE 0%,#fff 55%)}
-.hw-card.hw-none{border-color:#E0C0C0;background:linear-gradient(160deg,#FBF5F5 0%,#fff 55%)}
-/* 상단 컬러 바 — 두껍게 */
-.hw-card-bar{height:6px;flex-shrink:0}
-.hw-card.hw-done .hw-card-bar{background:linear-gradient(90deg,var(--blue),var(--blue2))}
-.hw-card.hw-mid  .hw-card-bar{background:linear-gradient(90deg,var(--br3),#C8A880)}
-.hw-card.hw-none .hw-card-bar{background:linear-gradient(90deg,#D08080,var(--rd))}
-.hw-card-inner{padding:13px 13px 11px;flex:1;display:flex;flex-direction:column}
-/* 학생 이름 Bold / 부가정보 얇게 */
-.hw-card-name{font-size:14.5px;font-weight:800;color:var(--t1);letter-spacing:-.015em;margin-bottom:2px}
-.hw-card-book{font-size:10px;font-weight:400;color:var(--t4);letter-spacing:.01em;margin-bottom:9px;line-height:1.4}
-/* SVG 별 (이모지 없음) */
-.hw-stars-row{display:flex;gap:3px;margin-bottom:7px;min-height:19px;align-items:center}
+  background:#FFFFFF;
+  border:0.5px solid #E8E8E6;
+  border-radius:12px;overflow:hidden;
+  box-shadow:var(--sh-sm);transition:box-shadow .2s,transform .15s;
+  display:flex;flex-direction:column}
+.hw-card:hover{box-shadow:var(--sh-md);transform:translateY(-2px)}
+/* 상단 3px 바 — 미체크 옐로우 / 완료 인디고 (색은 인라인) */
+.hw-card-bar{height:3px;flex-shrink:0}
+.hw-card-inner{padding:12px 13px;flex:1;display:flex;flex-direction:column;gap:9px}
+/* 이름 + 반 한 줄 */
+.hw-card-head{display:flex;align-items:baseline;gap:7px}
+.hw-card-name{font-size:14px;font-weight:800;color:var(--t1);letter-spacing:-.015em}
+.hw-card-cls{font-size:11px;font-weight:500;color:var(--t4)}
+/* SVG 별 한 줄 */
+.hw-stars-row{display:flex;gap:3px;align-items:center}
 .hw-star{width:15px;height:15px;flex-shrink:0}
 .hw-star.on  path{fill:#FFD600;stroke:none}
 .hw-star.off path{fill:none;stroke:var(--bdm);stroke-width:1.5}
-/* 이행도 배지 — 파스텔 */
-.hw-lv-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;
-  font-size:10.5px;font-weight:700;width:fit-content;margin-bottom:8px}
-.hw-lv-badge svg{width:11px;height:11px;flex-shrink:0}
-.lv-high{background:var(--blue-lt);color:var(--blue-dk);border:1px solid var(--blue-md)}
-.lv-mid {background:rgba(179,149,106,.12);color:var(--br3);border:1px solid #DDD9C8}
-.lv-low {background:var(--am-lt);color:var(--am);border:1px solid #F0D8A8}
-.lv-none{background:var(--bg);color:var(--t3);border:1px solid var(--bd)}
-.hw-note-txt{font-size:10.5px;color:var(--t3);background:var(--sand);border-radius:7px;
-  padding:6px 8px;line-height:1.5;margin-bottom:9px;font-weight:400}
-.hw-card-btns{display:flex;gap:5px;margin-top:auto}
-.hw-btn-check{flex:1;padding:7px 0;border-radius:10px;font-size:10.5px;font-weight:700;
-  cursor:pointer;border:1.5px solid var(--bd);background:var(--bg);color:var(--t3);
-  transition:all .18s;font-family:inherit;
-  display:flex;align-items:center;justify-content:center;gap:4px}
-.hw-btn-check svg{width:12px;height:12px;stroke-width:2}
-.hw-btn-check:hover{background:var(--br);color:#fff;border-color:var(--br)}
-.hw-btn-report{flex:1;padding:7px 0;border-radius:10px;font-size:10.5px;font-weight:700;
-  cursor:pointer;border:1.5px solid var(--blue-md);background:var(--blue-lt);color:var(--blue-dk);
-  transition:all .18s;font-family:inherit;
-  display:flex;align-items:center;justify-content:center;gap:4px}
-.hw-btn-report svg{width:12px;height:12px;stroke-width:2}
+/* 버튼 */
+.hw-card-btns{display:flex;gap:6px;margin-top:auto}
+.hw-btn-check{flex:1;padding:9px 0;border-radius:8px;font-size:12px;font-weight:700;
+  cursor:pointer;border:none;background:#FFD600;color:#3C3024;
+  transition:opacity .15s;font-family:inherit}
+.hw-btn-check:active{opacity:.82}
+.hw-btn-edit{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;
+  cursor:pointer;border:1px solid var(--bd);background:#fff;color:var(--t3);
+  transition:background .15s;font-family:inherit}
+.hw-btn-edit:hover{background:#F8F8F6}
+.hw-btn-report{flex:1;padding:8px 0;border-radius:8px;font-size:12px;font-weight:700;
+  cursor:pointer;border:1px solid var(--blue-md);background:var(--blue-lt);color:var(--blue-dk);
+  transition:background .15s;font-family:inherit}
 .hw-btn-report:hover{background:var(--blue);border-color:var(--blue);color:#fff}
 
 /* 과제 모달 내 이행도/별 */
@@ -1234,12 +1220,12 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   padding:13px 5px;border-radius:13px;border:1.5px solid var(--bd);
   background:var(--bg);cursor:pointer;transition:all .2s;font-family:inherit;color:var(--t3)}
 .hw-lv-btn svg{width:20px;height:20px}
-.hw-lv-btn.sel-high{border-color:var(--blue-md);background:var(--blue-lt);color:var(--blue-dk)}
-.hw-lv-btn.sel-mid {border-color:#DDD9C8;background:var(--gold-lt);color:var(--br3)}
-.hw-lv-btn.sel-low {border-color:#F0D8A8;background:var(--am-lt);color:var(--am)}
-.hw-lv-btn.sel-none{border-color:#E0C0C0;background:var(--rd-lt);color:var(--rd)}
-.hw-modal-stars{display:flex;gap:9px;justify-content:center;padding:5px 0}
-.hw-modal-star{width:34px;height:34px;cursor:pointer;transition:transform .15s,filter .2s;
+.hw-lv-btn.sel-high{border:2px solid #3D4F7C;background:#3D4F7C;color:#fff}
+.hw-lv-btn.sel-mid {border:2px solid #3D4F7C;background:#3D4F7C;color:#fff}
+.hw-lv-btn.sel-low {border:2px solid #FFD600;background:#FFD600;color:#3C3024}
+.hw-lv-btn.sel-none{border:2px solid #E24B4A;background:#E24B4A;color:#fff}
+.hw-modal-stars{display:flex;gap:10px;justify-content:center;padding:5px 0}
+.hw-modal-star{width:44px;height:44px;cursor:pointer;transition:transform .15s,filter .2s;
   opacity:.4}
 .hw-modal-star.on{opacity:1;
   filter:drop-shadow(0 2px 4px rgba(255,160,0,.5)) drop-shadow(0 0 1px rgba(180,90,0,.4))}
@@ -3042,7 +3028,7 @@ canvas#pGrowthChart{width:100%!important}
           <svg class="hw-modal-star" id="hwMs4" onclick="pickHWStar(4)" viewBox="0 0 24 24"><path id="hwMsP4" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#D8D8D8" stroke="#A8A8A8" stroke-width="0.6"></path></svg>
           <svg class="hw-modal-star" id="hwMs5" onclick="pickHWStar(5)" viewBox="0 0 24 24"><path id="hwMsP5" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#D8D8D8" stroke="#A8A8A8" stroke-width="0.6"></path></svg>
         </div>
-        <div style="text-align:center;font-size:11.5px;color:var(--t4);margin-top:4px" id="hwStarLbl">스티커 개수를 선택하세요</div>
+        <div style="text-align:center;font-size:12.5px;color:#3D4F7C;font-weight:700;margin-top:6px" id="hwStarLbl">스티커 개수를 선택하세요</div>
       </div>
       <div class="f-block">
         <div class="f-blbl"><span class="f-blbl-dot" style="background:var(--t4)"></span>메모 (선택)</div>
@@ -4174,11 +4160,28 @@ function buildAttCard(s, rec) {
   else if (hasIn)  statusBadge = '<span class="ast-badge ast-in">학습중</span>';
   else             statusBadge = '<span class="ast-badge ast-none">미등원</span>';
 
-  // 등하원 시간 — 기록이 있을 때만 표시
+  // 학습중일 때만 등원 시간 뱃지 표시 (하원완료는 버튼 영역에서 시간 표시)
   let timeBadges = '';
-  if (!isAbs) {
-    if (hasIn)  timeBadges += `<span class="att-time-badge att-tb-in" onclick="editAttTime(${s.id},'in')" title="클릭하여 시간 수정" style="cursor:pointer">등원 ${inTime} ✏️</span>`;
-    if (hasOut) timeBadges += `<span class="att-time-badge att-tb-out" onclick="editAttTime(${s.id},'out')" title="클릭하여 시간 수정" style="cursor:pointer">하원 ${outTime} ✏️</span>`;
+  if (hasIn && !hasOut && !isAbs) {
+    timeBadges = `<span class="att-time-badge att-tb-in" onclick="editAttTime(${s.id},'in')" title="클릭하여 시간 수정" style="cursor:pointer">등원 ${inTime} ✏️</span>`;
+  }
+
+  // 상태별 버튼 구성
+  let btnsHtml;
+  if (isAbs) {
+    btnsHtml = `<button class="acb acb-wide acb-cancelabs" onclick="adminMark(${s.id},'abs',event)">결석 취소</button>`;
+  } else if (hasOut) {
+    btnsHtml = `<div class="acb-timeinfo">
+      <span class="acb-tedit" onclick="editAttTime(${s.id},'in')">등원 ${inTime}</span>
+      <span class="acb-arrow">→</span>
+      <span class="acb-tedit" onclick="editAttTime(${s.id},'out')">하원 ${outTime}</span>
+    </div>`;
+  } else if (hasIn) {
+    btnsHtml = `<button class="acb acb-wide acb-out" onclick="adminMark(${s.id},'out',event)">하원 체크</button>
+      <button class="acb acb-sm acb-abs" onclick="adminMark(${s.id},'abs',event)">결석</button>`;
+  } else {
+    btnsHtml = `<button class="acb acb-wide acb-in" onclick="adminMark(${s.id},'in',event)">등원 체크</button>
+      <button class="acb acb-sm acb-abs" onclick="adminMark(${s.id},'abs',event)">결석</button>`;
   }
 
   const bday = isBirthday(s);
@@ -4196,12 +4199,7 @@ function buildAttCard(s, rec) {
       ${statusBadge}
     </div>
     ${timeBadges ? `<div class="att-card-times">${timeBadges}</div>` : ''}
-    <div class="att-card-btns">
-      <button class="ac-btn b-in${hasIn ? ' active' : ''}${isAbs ? ' disabled' : ''}" onclick="adminMark(${s.id},'in',event)" ${isAbs ? 'disabled' : ''}>등원</button>
-      <button class="ac-btn b-out${hasOut ? ' active' : ''}${!hasIn || isAbs ? ' disabled' : ''}" onclick="adminMark(${s.id},'out',event)" ${!hasIn || isAbs ? 'disabled' : ''}>하원</button>
-      <button class="ac-btn b-abs${isAbs ? ' active' : ''}" onclick="adminMark(${s.id},'abs',event)">결석</button>
-      ${hasIn && !hasOut && !isAbs ? `<button class="ac-btn b-cancel" onclick="adminMark(${s.id},'cancel',event)" title="등원 취소">↩ 취소</button>` : ''}
-    </div>
+    <div class="att-card-btns">${btnsHtml}</div>
   </div>
 </div>`;
 }
@@ -4848,50 +4846,27 @@ function starSVG(on) {
   return `<svg class="hw-star ${on ? 'on' : 'off'}" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="${col}" stroke="${strk}" stroke-width="1.5"/></svg>`;
 }
 
-/* 카드 빌드 */
+/* 카드 빌드 — 컴팩트 */
 function buildHWCard(s, rec, acad, accent) {
   const done  = !!rec?.comp;
-  const lv    = rec?.level || '';
   const stars = rec?.stars || 0;
-  const note  = rec?.note  || '';
-  const cardCls = done ? (lv === 'none' ? 'hw-none' : lv === 'low' ? 'hw-mid' : 'hw-done') : '';
-  const books = acad === 'eng'
-    ? [s.eLv, s.eSub, s.eSpec ? '특강: '+s.eSpec : ''].filter(Boolean)
-    : [s.kLv, s.kSub, s.kSpec ? '특강: '+s.kSpec : ''].filter(Boolean);
+  const cls   = s.cls || s.grade || '';
   const starsHtml = Array.from({length:5}, (_,i) => starSVG(i < stars)).join('');
-  const lvMap = {high:'상',mid:'중',low:'하',none:'미제출'};
-  const lvIco = {
-    high:'<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>',
-    mid:'<polyline points="20 6 9 17 4 12"/>',
-    low:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>',
-    none:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>'
-  };
-  const lvBadge = done && lv
-    ? `<div class="hw-lv-badge lv-${lv}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${lvIco[lv]||''}</svg>${lvMap[lv]||lv}</div>` : '';
-  const reportBtn = done
-    ? `<button class="hw-btn-report" onclick="sendHWReport(${s.id},'${acad}',event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>카톡</button>` : '';
-  // 영어: 노란 배경+바, 국어: 파란 배경+바
-  const barColor = acad === 'eng'
-    ? 'linear-gradient(90deg,#FFD600,#FFE54D)'
-    : 'linear-gradient(90deg,#3D4F7C,#5168A0)';
-  const cardStyle = acad === 'eng'
-    ? 'style="background:#FFFFFF;border-color:rgba(255,214,0,.30)"'
-    : 'style="background:#FFFFFF;border-color:rgba(61,79,124,.30)"';
+  const barColor = done ? '#3D4F7C' : '#FFD600';
   return `
-<div class="hw-card ${cardCls}" id="hwCard_${s.id}" ${cardStyle}>
+<div class="hw-card ${done?'hwc-done':'hwc-todo'}" id="hwCard_${s.id}">
   <div class="hw-card-bar" style="background:${barColor}"></div>
   <div class="hw-card-inner">
-    <div class="hw-card-name">${s.name}</div>
-    <div class="hw-card-book">${books.join(' · ') || '교재 정보 없음'}</div>
+    <div class="hw-card-head">
+      <span class="hw-card-name">${s.name}</span>
+      <span class="hw-card-cls">${cls}</span>
+    </div>
     <div class="hw-stars-row">${starsHtml}</div>
-    ${lvBadge}
-    ${note ? `<div class="hw-note-txt">${note}</div>` : ''}
     <div class="hw-card-btns">
-      <button class="hw-btn-check" onclick="openHWModal(${s.id},'${acad}',event)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">${done ? '<polyline points="20 6 9 17 4 12"/>' : '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>'}</svg>
-        ${done ? '수정' : '과제 체크'}
-      </button>
-      ${reportBtn}
+      ${done
+        ? `<button class="hw-btn-edit" onclick="openHWModal(${s.id},'${acad}',event)">수정</button>
+      <button class="hw-btn-report" onclick="sendHWReport(${s.id},'${acad}',event)">카톡 리포트</button>`
+        : `<button class="hw-btn-check" onclick="openHWModal(${s.id},'${acad}',event)">과제 체크</button>`}
     </div>
   </div>
 </div>`;
@@ -4930,7 +4905,7 @@ function pickHWLv(lv) {
 }
 function pickHWStar(n) { _hwStars = n; updateHWStarUI(n); }
 function updateHWStarUI(n) {
-  const labels = ['','열심히!','잘했어요!','훌륭해요!','최고예요!','완벽해요!'];
+  const labels = ['','잘했어요','노력했어요','훌륭해요','아주 잘했어요','완벽해요!'];
   for (let i = 1; i <= 5; i++) {
     const el = document.getElementById('hwMs'+i);
     if (!el) continue;
@@ -4939,8 +4914,8 @@ function updateHWStarUI(n) {
     const path = el.querySelector('path');
     if (path) {
       if (filled) {
-        path.setAttribute('fill', '#FFA000');
-        path.setAttribute('stroke', '#C77F00');
+        path.setAttribute('fill', '#FFD600');
+        path.setAttribute('stroke', '#FFD600');
         path.setAttribute('stroke-width', '0.5');
       } else {
         path.setAttribute('fill', '#D8D8D8');
