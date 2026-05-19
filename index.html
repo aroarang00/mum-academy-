@@ -1367,7 +1367,13 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .p-key-ok{background:linear-gradient(135deg,var(--blue-dk),var(--blue));color:#fff}.p-key-ok:hover{background:linear-gradient(135deg,#0A4E80,var(--blue-dk))}
 .p-hint{font-size:11px;color:var(--t4);text-align:center;line-height:1.7;margin-top:24px}
 .p-dash{max-width:480px;margin:0 auto;padding:0 0 80px;min-height:100vh;background:var(--bg)}
-.p-dash-top{background:var(--blue);padding:28px 22px 26px;position:relative}
+.p-dash-top{background:#3C3024;padding:28px 22px 26px;position:relative}
+/* 학부모 모드 상단 탑바 — 다크브라운 통일 */
+body.parent-mode .topbar{background:#3C3024;border-bottom:none;box-shadow:0 2px 12px rgba(0,0,0,.14)}
+body.parent-mode #logoZone span{color:#fff !important}
+body.parent-mode .tb-acad-main{color:#fff}
+body.parent-mode .tb-acad-sub{color:rgba(255,255,255,.55)}
+body.parent-mode .tb-date{color:rgba(255,255,255,.65)}
 .p-logout{position:absolute;top:18px;right:18px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .18s}
 .p-logout:hover{background:rgba(255,255,255,.25)}.p-logout svg{width:15px;height:15px;stroke:rgba(255,255,255,.8);stroke-width:1.75}
 .p-dash-eyebrow{font-size:11px;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.85);margin-bottom:2px}
@@ -1403,13 +1409,29 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .p-sticker-row{display:flex;align-items:center;justify-content:space-between;padding-top:13px;margin-top:13px;border-top:1px solid var(--bd)}
 .p-sticker-lbl{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--t4)}
 .p-stars{display:flex;gap:4px}.p-star{width:20px;height:20px}
-.p-rv-card{background:var(--sf);border-radius:16px;padding:16px 18px;border:1px solid var(--bd);box-shadow:var(--sh-sm)}
+.p-rv-card{background:var(--sf);border-radius:16px;padding:0;border:1px solid var(--bd);box-shadow:0 2px 12px rgba(0,0,0,.06);overflow:hidden}
+.p-rv-head{display:flex;align-items:center;gap:8px;padding:14px 16px;cursor:pointer;user-select:none}
+.p-rv-head-left{display:flex;align-items:center;gap:8px;flex:1;min-width:0;flex-wrap:wrap}
+.p-rv-chevron{flex-shrink:0;width:18px;height:18px;stroke:var(--t4);stroke-width:2.5;fill:none;transition:transform .25s ease}
+.p-rv-card.open .p-rv-chevron{transform:rotate(180deg)}
+.p-rv-body{box-sizing:border-box;max-height:0;overflow:hidden;padding:0 16px;transition:max-height .25s ease}
+.p-rv-card.open .p-rv-body{max-height:1600px;padding-bottom:14px}
+.p-rv-acad-badge{font-size:10px;font-weight:700;display:inline-flex;align-items:center;gap:3px}
 .p-rv-date{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t4)}
-.p-rv-score-pill{background:var(--blue);border-radius:20px;padding:4px 11px;display:inline-flex;align-items:baseline;gap:2px}
+.p-rv-score-pill{background:#3C3024;border-radius:20px;padding:4px 11px;display:inline-flex;align-items:baseline;gap:2px}
 .p-rv-score-big{font-size:15px;font-weight:900;color:#fff}.p-rv-score-of{font-size:10px;color:rgba(255,255,255,.5);font-weight:400}
 .p-rv-tags{display:flex;flex-wrap:wrap;gap:5px;margin:9px 0}
-.p-rv-tag{font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--sand);color:var(--t2)}
+.p-rv-tag{font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--sand);color:var(--t2);border:none}
 .p-rv-comment{font-size:13px;line-height:1.7;color:rgba(26,26,26,.65);padding-top:9px;border-top:1px solid var(--bd)}
+/* 월별 필터 */
+.p-rv-month-row{display:flex;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:2px 0 4px;margin-bottom:4px;scrollbar-width:none}
+.p-rv-month-row::-webkit-scrollbar{display:none}
+.p-rv-month-chip{flex-shrink:0;padding:6px 14px;border-radius:20px;border:1px solid #D6D3CC;background:#fff;color:#9A968E;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .18s}
+.p-rv-month-chip.on{background:#3C3024;border-color:#3C3024;color:#fff}
+/* 성장 그래프 범례 */
+.p-graph-legend{display:flex;justify-content:center;gap:14px;margin-top:10px;font-size:11px;font-weight:600;color:var(--t3)}
+.p-graph-legend span{display:inline-flex;align-items:center;gap:5px}
+.p-graph-legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
 .p-fb-row{display:flex;gap:6px;margin-top:12px;padding-top:12px;border-top:1px solid var(--bd)}
 .p-fb{flex:1;padding:8px 3px;border-radius:11px;border:1px solid var(--bd);background:transparent;color:var(--t4);font-size:11px;font-weight:600;cursor:pointer;transition:all .18s;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:4px}
 .p-fb svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}.p-fb:hover{border-color:var(--blue);color:var(--blue)}.p-fb.on{background:var(--blue);border-color:var(--blue);color:#fff}
@@ -1426,11 +1448,11 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .p-empty{padding:36px 0;text-align:center;font-size:13px;color:var(--t4);line-height:2;font-weight:400}
 
 /* 학부모 페이지 2탭 구조 */
-.p-tab-bar{display:flex;background:var(--sf);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:10}
-.p-tab-btn{flex:1;padding:13px 8px;border:none;background:transparent;font-size:13px;font-weight:700;color:#BFBFBF;cursor:pointer;font-family:inherit;border-bottom:2.5px solid transparent;transition:all .2s}
-.p-tab-btn.on{color:var(--blue);border-bottom-color:var(--blue)}
-#pDash.p-acad-eng .p-tab-btn.on{color:#A08B00;border-bottom-color:#FFD600}
-#pDash.p-acad-kor .p-tab-btn.on{color:#3D4F7C;border-bottom-color:#3D4F7C}
+.p-tab-bar{display:flex;background:#fff;border-bottom:0.5px solid #eee;position:sticky;top:0;z-index:10}
+.p-tab-btn{flex:1;padding:13px 8px;border:none;background:transparent;font-size:13px;font-weight:700;color:#3C3024;opacity:.4;cursor:pointer;font-family:inherit;border-bottom:3px solid transparent;transition:all .2s}
+.p-tab-btn.on{color:#3C3024;opacity:1;border-bottom-color:#FFD600}
+#pDash.p-acad-eng .p-tab-btn.on,
+#pDash.p-acad-kor .p-tab-btn.on{color:#3C3024;border-bottom-color:#FFD600}
 .p-tab-content{display:none;padding:16px 16px 80px;flex-direction:column;gap:12px}
 .p-tab-content.on{display:flex}
 
@@ -5897,52 +5919,22 @@ function renderPTabReview(s, rvDays, thisMonth) {
     allReviews.sort((a, b) => b.date.localeCompare(a.date));
   }
 
-  // 이번 달 리뷰
-  const thisMonthReviews = allReviews.filter(r => r.date.startsWith(thisMonth));
+  // 리뷰가 있는 월 목록 + 현재 월
+  const monthsWithReviews = [...new Set(allReviews.map(r => r.date.slice(0, 7)))].sort();
+  const monthList = monthsWithReviews.slice();
+  if (!monthList.includes(thisMonth)) monthList.push(thisMonth);
+  monthList.sort();
+  // 기본 선택 월: 현재 월에 리뷰가 있으면 현재 월, 없으면 가장 최근 리뷰가 있는 월
+  const selMonth = monthsWithReviews.includes(thisMonth)
+    ? thisMonth
+    : (monthsWithReviews.length ? monthsWithReviews[monthsWithReviews.length - 1] : thisMonth);
+  // 월별 필터링용 전역 상태 저장
+  window._pRvState = { reviews: allReviews, sid: s.id };
 
-  const rvCards = allReviews.length ? allReviews.map(r => {
-    const [,mo,dd] = r.date.split('-');
-    const acad = r.acad || 'eng';
-    const fbKey = r.date + '_' + s.id + '_' + acad;
-    const fb = getReactions(r.date, s.id, acad);
-    const acadColor = acad === 'eng' ? 'var(--mum-yellow)' : 'var(--blue)';
-    const acadLabel = acad === 'eng' ? '🔵 영어 리뷰' : '📖 국어 리뷰';
-    const scoreHtml = r.score !== undefined && r.score !== null
-      ? `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">
-           <div class="p-rv-date">${parseInt(mo)}월 ${parseInt(dd)}일</div>
-           <span class="p-rv-score-pill"><span class="p-rv-score-big">${r.score}</span><span class="p-rv-score-of">/ ${r.total||100}</span></span>
-         </div>`
-      : `<div class="p-rv-date" style="margin-bottom:9px">${parseInt(mo)}월 ${parseInt(dd)}일</div>`;
-    const tagsHtml = (r.tags||[]).map(t=>`<span class="p-rv-tag">${t}</span>`).join('');
-    const RV_KEY_LS = 'muem_rv_v1';
-    const storedRV = JSON.parse(localStorage.getItem(RV_KEY_LS)||'{}');
-    const localSidRec = (storedRV[r.date]||{})[s.id] || {};
-    const localRec = localSidRec[acad] || (localSidRec.eng === undefined ? localSidRec : {});
-    let firstImg = '';
-    if (Array.isArray(r.images) && r.images.length && r.images[0].data) { firstImg = r.images[0].data; }
-    else if (Array.isArray(localRec.images) && localRec.images.length) { firstImg = localRec.images[0].data; }
-    else if (r.imgData) { firstImg = r.imgData; }
-    const imgHtml = firstImg ? `<div style="margin-top:10px">
-      <img src="${firstImg}" style="width:100%;max-height:240px;object-fit:contain;border-radius:10px;border:1px solid var(--bd);cursor:pointer;background:#FAFAFA" onclick="openParentRvImg(this.src)">
-      <div style="text-align:center;font-size:10.5px;color:var(--t4);margin-top:4px">사진을 클릭하면 크게 볼 수 있습니다</div>
-    </div>` : '';
-    const fbBtns = [
-      {k:'like',lbl:'좋아요',ico:'👍'},
-      {k:'thanks',lbl:'감사해요',ico:'❤️'},
-      {k:'great',lbl:'최고예요',ico:'😊'},
-    ].map(rx=>`<button class="p-fb${fb[rx.k]?' on':''}" onclick="togglePFB('${fbKey}','${rx.k}',this)">${rx.ico} ${rx.lbl}</button>`).join('');
-    return `<div class="p-rv-card" style="border-left:3px solid ${acadColor}">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-        <span class="p-rv-date">${parseInt(mo)}월 ${parseInt(dd)}일</span>
-        <span style="font-size:10px;font-weight:700;color:${acadColor}">${acadLabel}</span>
-      </div>
-      ${r.score !== undefined && r.score !== null ? `<span class="p-rv-score-pill" style="margin-bottom:8px;display:inline-flex"><span class="p-rv-score-big">${r.score}</span><span class="p-rv-score-of">/ ${r.total||100}</span></span>` : ''}
-      ${tagsHtml?`<div class="p-rv-tags">${tagsHtml}</div>`:''}
-      ${r.comment?`<div class="p-rv-comment">${r.comment}</div>`:''}
-      ${imgHtml}
-      <div class="p-fb-row">${fbBtns}</div>
-    </div>`;
-  }).join('') : '<div class="p-empty">작성된 수업 리뷰가 없습니다.</div>';
+  const monthChips = monthList.map(m => {
+    const mm = parseInt(m.slice(5), 10);
+    return `<button class="p-rv-month-chip${m === selMonth ? ' on' : ''}" onclick="filterPRvMonth('${m}',this)">${mm}월</button>`;
+  }).join('');
 
   // 성장 코멘트 자동 생성
   let growthComment = '';
@@ -5964,13 +5956,20 @@ function renderPTabReview(s, rvDays, thisMonth) {
       <div class="p-graph-title">📊 성장 그래프</div>
       <div class="p-graph-sub">전체 수업 리뷰 점수 기록</div>
       <canvas id="pGrowthChart" height="160"></canvas>
+      <div class="p-graph-legend">
+        <span><i style="background:#3D4F7C"></i> 리뷰 점수</span>
+        <span><i style="background:none;width:auto;height:auto;border-radius:0;color:#FFD600;font-size:13px;line-height:1">★</i> 별점 (×20)</span>
+      </div>
       ${growthComment ? `<div class="p-graph-comment">${growthComment}</div>` : ''}
     </div>
 
     <!-- 수업 리뷰 목록 -->
     <div class="p-sec-lbl">수업 리뷰 전체 기록</div>
-    ${rvCards}
+    <div class="p-rv-month-row">${monthChips}</div>
+    <div id="pRvCardList"></div>
   `;
+
+  renderPRvCardList(selMonth);
 
   // 그래프 데이터 저장
   window._pGrowthData = allReviews.filter(r => r.score !== undefined).map(r => ({
@@ -5978,6 +5977,81 @@ function renderPTabReview(s, rvDays, thisMonth) {
     score: r.score,
     stars: r.stars || 0,
   })).reverse();
+}
+
+/* 리뷰 카드 1장 HTML 생성 */
+function buildPRvCard(r, sid) {
+  const [,mo,dd] = r.date.split('-');
+  const acad = r.acad || 'eng';
+  const isEng = acad === 'eng';
+  const fbKey = r.date + '_' + sid + '_' + acad;
+  const fb = getReactions(r.date, sid, acad);
+  const barColor   = isEng ? '#FFD600' : '#3D4F7C';
+  const labelColor = isEng ? '#A08B00' : '#3D4F7C';
+  const acadLabel  = isEng
+    ? '<span style="color:#FFD600;font-size:11px;line-height:1">●</span> 영어 리뷰'
+    : '📖 국어 리뷰';
+  const tagsHtml = (r.tags||[]).map(t=>`<span class="p-rv-tag">${t}</span>`).join('');
+  const RV_KEY_LS = 'muem_rv_v1';
+  const storedRV = JSON.parse(localStorage.getItem(RV_KEY_LS)||'{}');
+  const localSidRec = (storedRV[r.date]||{})[sid] || {};
+  const localRec = localSidRec[acad] || (localSidRec.eng === undefined ? localSidRec : {});
+  let firstImg = '';
+  if (Array.isArray(r.images) && r.images.length && r.images[0].data) { firstImg = r.images[0].data; }
+  else if (Array.isArray(localRec.images) && localRec.images.length) { firstImg = localRec.images[0].data; }
+  else if (r.imgData) { firstImg = r.imgData; }
+  const imgHtml = firstImg ? `<div style="margin-top:10px">
+    <img src="${firstImg}" style="width:100%;max-height:240px;object-fit:contain;border-radius:10px;border:1px solid var(--bd);cursor:pointer;background:#FAFAFA" onclick="openParentRvImg(this.src)">
+    <div style="text-align:center;font-size:10.5px;color:var(--t4);margin-top:4px">사진을 클릭하면 크게 볼 수 있습니다</div>
+  </div>` : '';
+  const fbBtns = [
+    {k:'like',lbl:'좋아요',ico:'👍'},
+    {k:'thanks',lbl:'감사해요',ico:'❤️'},
+    {k:'great',lbl:'최고예요',ico:'😊'},
+  ].map(rx=>`<button class="p-fb${fb[rx.k]?' on':''}" onclick="event.stopPropagation();togglePFB('${fbKey}','${rx.k}',this)">${rx.ico} ${rx.lbl}</button>`).join('');
+  const scorePill = (r.score !== undefined && r.score !== null)
+    ? `<span class="p-rv-score-pill"><span class="p-rv-score-big">${r.score}</span><span class="p-rv-score-of">/ ${r.total||100}</span></span>`
+    : '';
+  return `<div class="p-rv-card" style="border-left:4px solid ${barColor};margin-bottom:11px">
+    <div class="p-rv-head" onclick="togglePRvCard(this)">
+      <div class="p-rv-head-left">
+        <span class="p-rv-date">${parseInt(mo)}월 ${parseInt(dd)}일</span>
+        ${scorePill}
+        <span class="p-rv-acad-badge" style="color:${labelColor}">${acadLabel}</span>
+      </div>
+      <svg class="p-rv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="p-rv-body">
+      ${tagsHtml?`<div class="p-rv-tags">${tagsHtml}</div>`:''}
+      ${r.comment?`<div class="p-rv-comment">${r.comment}</div>`:''}
+      ${imgHtml}
+      <div class="p-fb-row">${fbBtns}</div>
+    </div>
+  </div>`;
+}
+
+/* 리뷰 카드 접기/펼치기 */
+function togglePRvCard(headEl) {
+  const card = headEl.closest('.p-rv-card');
+  if (card) card.classList.toggle('open');
+}
+
+/* 선택한 월의 리뷰 카드 목록 렌더링 */
+function renderPRvCardList(month) {
+  const st = window._pRvState;
+  const box = document.getElementById('pRvCardList');
+  if (!st || !box) return;
+  const list = st.reviews.filter(r => r.date.startsWith(month));
+  box.innerHTML = list.length
+    ? list.map(r => buildPRvCard(r, st.sid)).join('')
+    : '<div class="p-empty">이 달에 작성된 수업 리뷰가 없습니다.</div>';
+}
+
+/* 월별 필터 칩 선택 */
+function filterPRvMonth(month, el) {
+  document.querySelectorAll('.p-rv-month-chip').forEach(c => c.classList.remove('on'));
+  if (el) el.classList.add('on');
+  renderPRvCardList(month);
 }
 
 /* 성장 그래프 렌더링 (Chart.js) */
@@ -6036,15 +6110,17 @@ function drawPGrowthChart(canvas, data) {
     },
     options: {
       responsive: true,
+      layout: { padding: { left: 6, right: 10, top: 6, bottom: 2 } },
       plugins: {
-        legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } },
+        legend: { display: false },
         tooltip: { mode: 'index', intersect: false }
       },
       scales: {
         y: {
           min: 0, max: 100,
-          ticks: { font: { size: 10 }, stepSize: 20 },
-          grid: { color: 'rgba(0,0,0,0.06)' }
+          ticks: { font: { size: 10 }, stepSize: 20, padding: 6 },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          afterFit: (sc) => { sc.width = Math.max(sc.width, 28); }
         },
         x: { ticks: { font: { size: 10 } }, grid: { display: false } }
       }
