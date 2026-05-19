@@ -469,15 +469,11 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .sbc{background:var(--sf);color:var(--t4);border:1px solid var(--bd)}
 .sbadge svg{width:9px;height:9px;stroke-width:2.5}
 /* 카드 우측 상단 상태 배지 (리뷰/과제/생일) */
-.card-status{position:absolute;top:11px;right:12px;display:flex;gap:5px;align-items:center;z-index:3}
-.cs-dot{width:16px;height:16px;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.18)}
-.cs-rv-none{background:#E53935}
-.cs-hw-none{background:#F57C00}
-.cs-rv-done,.cs-hw-done{background:var(--sage)}
-.cs-dot svg{width:9px;height:9px;stroke-width:3.5;fill:none}
-.cs-rv-none::after{content:'R';font-size:8px;font-weight:900;color:#fff}
-.cs-hw-none::after{content:'H';font-size:8px;font-weight:900;color:#fff}
+.card-status{position:absolute;top:11px;right:12px;display:flex;gap:4px;align-items:center;z-index:3}
+.cstat{font-size:10px;font-weight:700;padding:2px 6px;border-radius:6px;white-space:nowrap}
+.cstat-todo{background:#EFEFEF;color:#999}
+.cstat-done.cstat-eng{background:#FFD600;color:#3C3024}
+.cstat-done.cstat-kor{background:#3D4F7C;color:#fff}
 .cs-cake{font-size:15px;line-height:1}
 /* 생일 학생 카드 */
 .s-card.birthday{background:linear-gradient(160deg,#FFF0F5 0%,#FFFFFF 78%);border-color:#F0BFD0}
@@ -3834,17 +3830,17 @@ function buildCard(s) {
     (s.eng && s.eLv) ? `<span class="lp lp-e" data-lv="${s.eLv}">${s.eLv}</span>` : '',
     (s.kor && s.kLv) ? `<span class="lp lp-k" data-lv="${s.kLv}">${s.kLv}</span>` : '',
   ].filter(Boolean).join('');
-  // 우측 상단 상태 배지 (리뷰/과제/생일)
-  const checkSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff"><polyline points="20 6 9 17 4 12"/></svg>';
+  // 우측 상단 상태 배지 (리뷰/과제/생일) — 텍스트 뱃지
   const rvDone = rvDoneToday(s);
   const hwDone = hwDoneToday(s);
+  const doneCls = s.kor ? 'cstat-kor' : 'cstat-eng'; // 리뷰 완료 색: 국어=인디고, 영어=옐로우
   const statusBadges = [
     bday ? '<span class="cs-cake" title="오늘 생일">🎂</span>' : '',
-    rvDone ? `<span class="cs-dot cs-rv-done" title="리뷰 완료">${checkSvg}</span>`
-           : `<span class="cs-dot cs-rv-none" title="리뷰 미작성"></span>`,
+    rvDone ? `<span class="cstat cstat-done ${doneCls}" title="리뷰 완료">리뷰 ✓</span>`
+           : `<span class="cstat cstat-todo" title="리뷰 미작성">리뷰</span>`,
     hwDone === null ? ''
-      : hwDone ? `<span class="cs-dot cs-hw-done" title="과제 완료">${checkSvg}</span>`
-               : `<span class="cs-dot cs-hw-none" title="과제 미체크"></span>`,
+      : hwDone ? `<span class="cstat cstat-done cstat-eng" title="과제 완료">과제 ✓</span>`
+               : `<span class="cstat cstat-todo" title="과제 미체크">과제</span>`,
   ].filter(Boolean).join('');
   const schoolStr = s.school ? `${s.school} · ` : '';
   return `
