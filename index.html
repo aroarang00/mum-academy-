@@ -192,20 +192,22 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   user-select:none;position:relative;margin-bottom:2px}
 .sb-item:hover,
 .sb-item.e-nav:hover{background:#F8F8F6;color:var(--t1)}
-/* 활성 메뉴 — 인디고 솔리드 */
+/* 활성 메뉴 — 관리·국어=인디고, 영어=옐로우 */
 .sb-item.on,
-.sb-item.e-nav.on,
 .sb-item.k-nav.on{
   background:#3D4F7C;color:#fff;font-weight:700;
+}
+.sb-item.e-nav.on{
+  background:#FFD600;color:#3C3024;font-weight:700;
 }
 /* 사이드바 그룹 도트 */
 .sb-grp-dot{display:inline-block;width:7px;height:7px;border-radius:50%;
   margin-right:7px;vertical-align:middle;
   box-shadow:0 0 0 2px rgba(255,255,255,.8)}
 /* 사이드바 영어/국어 그룹 라벨 강조 */
-#engGrp .sb-grp-lbl{color:#3D4F7C !important;
+#engGrp .sb-grp-lbl{color:#A08B00 !important;
   font-weight:900;letter-spacing:.08em;padding:6px 10px}
-#korGrp .sb-grp-lbl{color:var(--folio-indigo-dk) !important;
+#korGrp .sb-grp-lbl{color:#3D4F7C !important;
   font-weight:900;letter-spacing:.05em;padding:6px 10px}
 .sb-ico{width:20px;height:20px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
@@ -1156,9 +1158,9 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .hw-sc-n{font-size:18px;font-weight:900;line-height:1;letter-spacing:-.02em}
 .hw-sc-l{font-size:10px;font-weight:600;color:var(--t4);margin-top:3px}
 .hw-sc.sc-tot .hw-sc-n{color:var(--t2)}
-.hw-sc.sc-done .hw-sc-n{color:#2E7D32}
+.hw-sc.sc-done .hw-sc-n{color:#3D4F7C}
 .hw-sc.sc-none .hw-sc-n{color:#A08B00}
-.hw-sc.sc-hi .hw-sc-n{color:#3D4F7C}
+.hw-sc.sc-hi .hw-sc-n{color:#FFD600}
 
 /* 과제 날짜 컨트롤 */
 .hw-date-row{display:flex;align-items:center;gap:9px;margin-bottom:16px;flex-wrap:wrap}
@@ -1208,16 +1210,17 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .hw-card-btns{display:flex;gap:6px;margin-top:auto}
 .hw-btn-check{flex:1;padding:9px 0;border-radius:8px;font-size:12px;font-weight:700;
   cursor:pointer;border:none;background:#FFD600;color:#3C3024;
-  transition:opacity .15s;font-family:inherit}
+  transition:background .15s,color .15s;font-family:inherit}
+.hw-btn-check:hover{background:#A08B00;color:#fff}
 .hw-btn-check:active{opacity:.82}
 .hw-btn-edit{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;
   cursor:pointer;border:1px solid var(--bd);background:#fff;color:var(--t3);
   transition:background .15s;font-family:inherit}
 .hw-btn-edit:hover{background:#F8F8F6}
 .hw-btn-report{flex:1;padding:8px 0;border-radius:8px;font-size:12px;font-weight:700;
-  cursor:pointer;border:1px solid var(--blue-md);background:var(--blue-lt);color:var(--blue-dk);
-  transition:background .15s;font-family:inherit}
-.hw-btn-report:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+  cursor:pointer;border:none;background:#3D4F7C;color:#fff;
+  transition:opacity .15s;font-family:inherit}
+.hw-btn-report:hover{opacity:.88}
 
 /* 과제 모달 내 이행도/별 */
 .hw-lv-btns{display:flex;gap:9px}
@@ -1299,6 +1302,13 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   display:flex;align-items:center;justify-content:center;gap:4px}
 .rv-btn-write svg{width:12px;height:12px;stroke-width:2}
 .rv-btn-write:hover{background:var(--br);color:#fff;border-color:var(--br)}
+/* 리뷰 카드 과목별 색상 — 영어 옐로우 / 국어 인디고 */
+.rv-btn-write.rvw-eng{border:1.5px solid #FFD600;color:#A08B00;background:#fff}
+.rv-btn-write.rvw-eng:hover{background:#FFFCE0;color:#A08B00;border-color:#FFD600}
+.rv-btn-write.rvw-kor{border:1.5px solid #3D4F7C;color:#3D4F7C;background:#fff}
+.rv-btn-write.rvw-kor:hover{background:#ECEEF5;color:#3D4F7C;border-color:#3D4F7C}
+.rv-badge-done.rvb-eng{background:#FFD600;color:#3C3024}
+.rv-badge-done.rvb-kor{background:#3D4F7C;color:#fff}
 .rv-btn-kakao{flex:1;padding:7px 0;border-radius:10px;font-size:10.5px;font-weight:700;
   cursor:pointer;border:1.5px solid var(--blue-md);background:var(--blue-lt);color:var(--blue-dk);
   transition:all .18s;font-family:inherit;
@@ -5118,9 +5128,10 @@ function buildRVCard(s, rec, acad) {
   const stage = acad === 'eng'
     ? [s.eLv, s.eSub].filter(Boolean).join(' · ')
     : [s.kLv, s.kSub].filter(Boolean).join(' · ');
-  const acadLabel = acad === 'eng' ? '영어 리뷰' : '국어 리뷰';
+  const isEng = acad === 'eng';
+  const acadLabel = isEng ? '영어 리뷰' : '국어 리뷰';
   const badgeHtml = done
-    ? `<span class="rv-badge rv-badge-done">${acadLabel} ✓</span>`
+    ? `<span class="rv-badge rv-badge-done ${isEng?'rvb-eng':'rvb-kor'}">${acadLabel} ✓</span>`
     : `<span class="rv-badge rv-badge-todo">${acadLabel}</span>`;
   let scoreHtml = '';
   if (done && rec?.score !== undefined) {
@@ -5162,6 +5173,7 @@ function buildRVCard(s, rec, acad) {
   if (!done) {
     return `
 <div class="rv-card rv-todo" id="rvCard_${s.id}">
+  <div class="rv-card-bar" style="background:#E0E0E0"></div>
   <div class="rv-card-inner">
     <div class="rv-card-head">
       <div class="rv-card-name">${s.name}</div>
@@ -5169,7 +5181,7 @@ function buildRVCard(s, rec, acad) {
     </div>
     <div class="rv-card-stage">${stage || '교재 정보 없음'}</div>
     <div class="rv-card-btns">
-      <button class="rv-btn-write" onclick="openRVModal(${s.id},'${acad}',event)">
+      <button class="rv-btn-write ${isEng?'rvw-eng':'rvw-kor'}" onclick="openRVModal(${s.id},'${acad}',event)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
         리뷰 작성
       </button>
@@ -5181,7 +5193,7 @@ function buildRVCard(s, rec, acad) {
   const scoreSummary = (rec?.score !== undefined) ? ` · <b style="color:var(--blue)">${rec.score}점</b>` : '';
   return `
 <div class="rv-card rv-done" id="rvCard_${s.id}">
-  <div class="rv-card-bar"></div>
+  <div class="rv-card-bar" style="background:${isEng?'#FFD600':'#3D4F7C'}"></div>
   <div class="rv-card-inner">
     <div class="rv-card-head rv-toggle-hd" onclick="toggleRVCard(this)">
       <div class="rv-hd-main">
