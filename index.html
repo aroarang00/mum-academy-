@@ -1894,6 +1894,10 @@ canvas#pGrowthChart{width:100%!important}
 .tl-bar.over{background:linear-gradient(to top,#EF4444,#F87171)}
 .tl-bar.active{background:linear-gradient(to top,var(--blue-dk),var(--blue))}
 .tl-label{font-size:9px;color:var(--t4);font-weight:600;white-space:nowrap}
+/* 모바일 — 시간 라벨 격간 표시(겹침 방지) */
+@media(max-width:680px){
+  .tl-col:nth-child(even) .tl-label{visibility:hidden}
+}
 .tl-count{font-size:10px;font-weight:700;color:var(--t3)}
 .tl-bar.peak{background:linear-gradient(to top,var(--mum-yellow-dk),var(--mum-yellow))}
 
@@ -6459,9 +6463,19 @@ function renderTodaySchedule() {
   const peakLabel = document.getElementById('peakLabel');
   if (peakLabel) {
     const peakHours = hours.filter(h => counts[h] === maxCount && counts[h] > 0);
-    peakLabel.textContent = peakHours.length
-      ? `🔥 ${peakHours.map(h => h + '시').join(', ')} 피크`
-      : '';
+    let peakTxt = '';
+    if (peakHours.length) {
+      const first = peakHours[0], last = peakHours[peakHours.length - 1];
+      const consecutive = (last - first === peakHours.length - 1);
+      if (peakHours.length >= 3 && consecutive) {
+        peakTxt = `🔥 ${first}~${last}시 피크`;
+      } else if (peakHours.length >= 3) {
+        peakTxt = `🔥 ${peakHours.slice(0, 2).map(h => h + '시').join(', ')} 피크`;
+      } else {
+        peakTxt = `🔥 ${peakHours.map(h => h + '시').join(', ')} 피크`;
+      }
+    }
+    peakLabel.textContent = peakTxt;
   }
 }
 
