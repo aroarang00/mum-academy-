@@ -4487,6 +4487,7 @@ async function kConfirm() {
   const results = [];
 
   matched.forEach(s => {
+    const rec0 = (attDB[date] || {})[s.id] || {};
     const type = kAutoDetect(s);
 
     // 30분 쿨다운 체크 (같은 타입 재입력 방지)
@@ -4494,6 +4495,18 @@ async function kConfirm() {
       const left = cdLeft(s.id, type);
       kShowError(`${s.name} — ${left}분 후 다시 시도하세요`);
       return;
+    }
+
+    // 등원 후 30분 이내 하원 방지 (키오스크 전용 — 관리자 출석부는 제한 없음)
+    if (type === 'out' && rec0.inTime) {
+      const [ih, im] = rec0.inTime.split(':').map(Number);
+      const inMs = new Date().setHours(ih, im, 0, 0);
+      const elapsed = Date.now() - inMs;
+      if (elapsed >= 0 && elapsed < KIOSK_CD) {
+        const left = Math.ceil((KIOSK_CD - elapsed) / 60000);
+        kShowError(`${s.name} — 등원 후 ${left}분 뒤 하원할 수 있어요`);
+        return;
+      }
     }
 
     // 기록
