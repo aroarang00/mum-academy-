@@ -5018,11 +5018,11 @@ function sendHWReport(sid, acad, e) {
 /* 리뷰 탭 전환 — 영어=뮤엠노랑, 국어=파란색, 기본값 미작성 */
 function switchRVTab(acad) {
   _rvAcad = acad;
-  _rvFilter = 'none';
-  // 필터 버튼 미작성으로 초기화 (탭 진입점이 사이드바로 단일화됨)
+  _rvFilter = 'all';
+  // 필터 버튼 전체로 초기화 — 작성 완료/미작성 모두 표시
   document.querySelectorAll('#rv .att-frow .afc').forEach(c => c.classList.remove('on'));
-  const noneBtn = document.querySelector('#rv .att-frow .afc:last-child');
-  if (noneBtn) noneBtn.classList.add('on');
+  const allBtn = document.querySelector('#rv .att-frow .afc');
+  if (allBtn) allBtn.classList.add('on');
   // 모바일 탭바 카테고리 동기화
   const mnRv = document.getElementById('mnRv');
   if (mnRv) mnRv.setAttribute('data-cat', acad);
