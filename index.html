@@ -614,17 +614,17 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .att-kakao-btn svg{width:13px;height:13px;fill:#fff}
 .att-kakao-btn svg{width:13px;height:13px;fill:var(--br)}
 /* 출석 시간 수정 팝업 — 빠른 선택 */
-.att-now-btn{width:100%;padding:9px;border-radius:10px;
-  border:1.5px solid var(--folio-indigo);background:var(--folio-indigo-lt);
-  color:var(--folio-indigo-dk);font-size:12.5px;font-weight:700;
-  cursor:pointer;font-family:inherit;margin-bottom:11px}
-.att-now-btn:hover{background:var(--folio-indigo);color:#fff}
-.att-qt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:13px}
-.att-qt{padding:8px 3px;border-radius:9px;border:1px solid var(--bd);
-  background:var(--sf);font-size:12px;font-weight:700;color:var(--t2);
-  cursor:pointer;font-family:inherit;transition:all .12s}
-.att-qt:hover{border-color:var(--folio-indigo);color:var(--folio-indigo)}
-.att-qt.on{background:var(--folio-indigo);border-color:var(--folio-indigo);color:#fff}
+.att-now-btn{width:100%;padding:8px;border-radius:8px;
+  border:1px solid #3D4F7C;background:#F8F8F6;
+  color:#3D4F7C;font-size:12.5px;font-weight:700;
+  cursor:pointer;font-family:inherit;margin-bottom:10px}
+.att-now-btn:hover{background:#EFEFEF}
+.att-qt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:13px}
+.att-qt{padding:7px 2px;border-radius:7px;border:none;
+  background:#F8F8F6;font-size:12px;font-weight:700;color:#555;
+  cursor:pointer;font-family:inherit;transition:background .12s,color .12s}
+.att-qt:hover{background:#ECECEC}
+.att-qt.on{background:#3D4F7C;color:#fff}
 /* 생일 출결 카드 */
 .att-card.att-birthday{border-color:#F0BFD0;background:#FFF4F8}
 /* 부가 정보 — 얇게 */
@@ -4219,18 +4219,18 @@ function editAttTime(sid, type) {
   overlay.id = 'attTimeOverlay';
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px';
   overlay.innerHTML = `
-    <div style="background:#fff;border-radius:18px;padding:22px;width:320px;max-width:100%;box-shadow:0 20px 60px rgba(0,0,0,.28)">
-      <div style="font-size:15px;font-weight:800;color:var(--t1);margin-bottom:14px">⏰ ${label} 시간 수정</div>
+    <div style="background:#fff;border-radius:16px;padding:20px;width:320px;max-width:100%;box-shadow:0 20px 60px rgba(0,0,0,.28)">
+      <div style="font-size:16px;font-weight:800;color:var(--t1);margin-bottom:14px">${label} 시간 수정</div>
       <button class="att-now-btn" onclick="pickAttNow()">⌚ 지금 (현재 시각)</button>
       <div class="att-qt-grid">${quickBtns}</div>
-      <label style="font-size:11px;font-weight:700;color:var(--t4)">직접 입력</label>
+      <label style="display:block;text-align:center;font-size:11px;font-weight:700;color:var(--t4);margin-bottom:5px">직접 입력</label>
       <input type="time" id="attTimeEditInp" value="${current||''}" step="1800"
-        style="width:100%;padding:10px;margin-top:4px;border:2px solid var(--folio-indigo);border-radius:12px;font-size:18px;font-family:inherit;text-align:center;box-sizing:border-box;outline:none">
+        style="width:100%;padding:8px;border:1.5px solid #3D4F7C;border-radius:8px;font-size:14px;font-family:inherit;text-align:center;box-sizing:border-box;outline:none">
       <div style="display:flex;gap:10px;margin-top:14px">
         <button onclick="closeAttTimeEdit()"
-          style="flex:1;padding:11px;border-radius:12px;border:1px solid var(--bd);background:var(--sf);font-size:14px;cursor:pointer;font-family:inherit">취소</button>
+          style="flex:1;padding:10px;border-radius:8px;border:none;background:transparent;color:#888;font-size:14px;cursor:pointer;font-family:inherit">취소</button>
         <button onclick="applyAttTime(${sid},'${type}',document.getElementById('attTimeEditInp').value)"
-          style="flex:1;padding:11px;border-radius:12px;border:none;background:var(--folio-indigo);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">저장</button>
+          style="flex:1;padding:10px;border-radius:8px;border:none;background:#3D4F7C;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">저장</button>
       </div>
     </div>`;
   document.body.appendChild(overlay);
